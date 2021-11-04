@@ -33,4 +33,10 @@ Route::group([
     $router->resource('form-procedure-detail-inputs', FormProcedureDetailInputController::class);
     $router->resource('ponds', PondController::class);
     $router->resource('pond-details', PondDetailController::class);
+    $router->resource('incomes', IncomeController::class);
+    $router->resource('income-details', IncomeDetailController::class);
+    $router->resource('outcomes', OutcomeController::class);
+    $router->resource('outcome-categories', OutcomeCategoryController::class);
+    $router->resource('outcome-settings', OutcomeSettingController::class);
+    $router->resource('settings', SettingController::class);
 });
