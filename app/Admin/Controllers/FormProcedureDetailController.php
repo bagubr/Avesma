@@ -2,20 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Procedure;
+use App\Models\FormProcedureDetail;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class ProcedureController extends AdminController
+class FormProcedureDetailController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'Procedure';
+    protected $title = 'FormProcedureDetail';
 
     /**
      * Make a grid builder.
@@ -24,13 +24,13 @@ class ProcedureController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Procedure());
+        $grid = new Grid(new FormProcedureDetail());
 
         $grid->column('id', __('Id'));
-        $grid->column('title', __('Title'));
+        $grid->column('form_procedure_id', __('Form procedure id'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
-        $grid->column('image', __('Image'));
+        $grid->column('name', __('Name'));
 
         return $grid;
     }
@@ -43,13 +43,13 @@ class ProcedureController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Procedure::findOrFail($id));
+        $show = new Show(FormProcedureDetail::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('title', __('Title'));
+        $show->field('form_procedure_id', __('Form procedure id'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->field('image', __('Image'));
+        $show->field('name', __('Name'));
 
         return $show;
     }
@@ -61,10 +61,10 @@ class ProcedureController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Procedure());
+        $form = new Form(new FormProcedureDetail());
 
-        $form->text('title', __('Title'));
-        $form->image('image', __('Image'));
+        $form->number('form_procedure_id', __('Form procedure id'));
+        $form->text('name', __('Name'));
 
         return $form;
     }

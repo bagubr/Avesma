@@ -2,20 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Procedure;
+use App\Models\FormProcedure;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class ProcedureController extends AdminController
+class FormProcedureController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'Procedure';
+    protected $title = 'FormProcedure';
 
     /**
      * Make a grid builder.
@@ -24,13 +24,13 @@ class ProcedureController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Procedure());
+        $grid = new Grid(new FormProcedure());
 
         $grid->column('id', __('Id'));
-        $grid->column('title', __('Title'));
+        $grid->column('procedure_id', __('Procedure id'));
+        $grid->column('fish_species_id', __('Fish species id'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
-        $grid->column('image', __('Image'));
 
         return $grid;
     }
@@ -43,13 +43,13 @@ class ProcedureController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Procedure::findOrFail($id));
+        $show = new Show(FormProcedure::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('title', __('Title'));
+        $show->field('procedure_id', __('Procedure id'));
+        $show->field('fish_species_id', __('Fish species id'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->field('image', __('Image'));
 
         return $show;
     }
@@ -61,10 +61,10 @@ class ProcedureController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Procedure());
+        $form = new Form(new FormProcedure());
 
-        $form->text('title', __('Title'));
-        $form->image('image', __('Image'));
+        $form->number('procedure_id', __('Procedure id'));
+        $form->number('fish_species_id', __('Fish species id'));
 
         return $form;
     }

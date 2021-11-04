@@ -26,4 +26,8 @@ Route::group([
     $router->resource('article-procedures', ArticleProcedureController::class);
     $router->resource('article-recipes', ArticleRecipeController::class);
     $router->resource('procedures', ProcedureController::class);
+    $router->resource('form-procedures', FormProcedureController::class);
+    $router->resource('form-procedure-formulas', FormProcedureFormulaController::class);
+    $router->resource('form-procedure-details', FormProcedureDetailController::class);
+    $router->resource('form-procedure-detail-formulas', FormProcedureDetailFormulaController::class);
 });

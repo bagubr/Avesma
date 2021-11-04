@@ -2,20 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Procedure;
+use App\Models\FormProcedureDetailFormula;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class ProcedureController extends AdminController
+class FormProcedureDetailFormulaController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'Procedure';
+    protected $title = 'FormProcedureDetailFormula';
 
     /**
      * Make a grid builder.
@@ -24,13 +24,14 @@ class ProcedureController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Procedure());
+        $grid = new Grid(new FormProcedureDetailFormula());
 
         $grid->column('id', __('Id'));
-        $grid->column('title', __('Title'));
+        $grid->column('form_procedure_detail_id', __('Form procedure detail id'));
+        $grid->column('parameter', __('Parameter'));
+        $grid->column('score', __('Score'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
-        $grid->column('image', __('Image'));
 
         return $grid;
     }
@@ -43,13 +44,14 @@ class ProcedureController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Procedure::findOrFail($id));
+        $show = new Show(FormProcedureDetailFormula::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('title', __('Title'));
+        $show->field('form_procedure_detail_id', __('Form procedure detail id'));
+        $show->field('parameter', __('Parameter'));
+        $show->field('score', __('Score'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->field('image', __('Image'));
 
         return $show;
     }
@@ -61,10 +63,11 @@ class ProcedureController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Procedure());
+        $form = new Form(new FormProcedureDetailFormula());
 
-        $form->text('title', __('Title'));
-        $form->image('image', __('Image'));
+        $form->number('form_procedure_detail_id', __('Form procedure detail id'));
+        $form->text('parameter', __('Parameter'));
+        $form->decimal('score', __('Score'));
 
         return $form;
     }
