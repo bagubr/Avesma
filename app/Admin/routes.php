@@ -30,4 +30,6 @@ Route::group([
     $router->resource('form-procedure-formulas', FormProcedureFormulaController::class);
     $router->resource('form-procedure-details', FormProcedureDetailController::class);
     $router->resource('form-procedure-detail-formulas', FormProcedureDetailFormulaController::class);
+    $router->resource('form-procedure-detail-inputs', FormProcedureDetailInputController::class);
+    
 });
