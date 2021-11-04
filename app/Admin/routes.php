@@ -31,5 +31,6 @@ Route::group([
     $router->resource('form-procedure-details', FormProcedureDetailController::class);
     $router->resource('form-procedure-detail-formulas', FormProcedureDetailFormulaController::class);
     $router->resource('form-procedure-detail-inputs', FormProcedureDetailInputController::class);
-    
+    $router->resource('ponds', PondController::class);
+    $router->resource('pond-details', PondDetailController::class);
 });
