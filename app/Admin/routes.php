@@ -21,4 +21,9 @@ Route::group([
     $router->resource('fish-species', FishSpeciesController::class);
     $router->resource('fish-categories', FishCategoryController::class);
     $router->resource('sliders', SliderController::class);
+    $router->resource('articles', ArticleController::class);
+    $router->resource('article-categories', ArticleCategoryController::class);
+    $router->resource('article-procedures', ArticleProcedureController::class);
+    $router->resource('article-recipes', ArticleRecipeController::class);
+    $router->resource('procedures', ProcedureController::class);
 });
