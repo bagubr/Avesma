@@ -18,11 +18,12 @@ class CreatePondDetails extends Migration
             $table->unsignedInteger('pond_id');
             $table->foreign('pond_id')->references('id')->on('ponds');
             $table->unsignedInteger('fish_species_id');
-            $table->foreign('fish_species_id')->references('id')->on('fish_species_id');
+            $table->foreign('fish_species_id')->references('id')->on('fish_specieses');
             $table->integer('seed_count');
             $table->float('seed_size');
-            $table->unsignedInteger('feed_type_id');
-            $table->foreign('feed_type_id')->references('id')->on('feed_types');
+            $table->string('feed_type');
+            // $table->unsignedInteger('feed_type_id');
+            // $table->foreign('feed_type_id')->references('id')->on('feed_types');
             $table->timestamps();
         });
     }
