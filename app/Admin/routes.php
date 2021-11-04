@@ -1,6 +1,8 @@
 <?php
 
+use Encore\Admin\Facades\Admin;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 
 Admin::routes();
 
@@ -12,5 +14,11 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('home');
-
+    $router->resource('users', UserController::class);
+    $router->resource('pokdakans', PokdakanController::class);
+    $router->resource('regions', RegionController::class);
+    $router->resource('user-informations', UserInformationController::class);
+    $router->resource('fish-species', FishSpeciesController::class);
+    $router->resource('fish-categories', FishCategoryController::class);
+    $router->resource('sliders', SliderController::class);
 });
