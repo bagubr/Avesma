@@ -26,7 +26,7 @@ class FishCategoryController extends AdminController
     {
         $grid = new Grid(new FishCategory());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('name', __('Name'));
         $grid->column('image', __('Image'));
         $grid->column('created_at', __('Created at'));

@@ -26,7 +26,7 @@ class OutcomeSettingController extends AdminController
     {
         $grid = new Grid(new OutcomeSetting());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('outcome_category_id', __('Outcome category id'));
         $grid->column('name', __('Name'));
         $grid->column('created_at', __('Created at'));

@@ -26,7 +26,7 @@ class PokdakanController extends AdminController
     {
         $grid = new Grid(new Pokdakan());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('name', __('Name'));
         $grid->column('address', __('Address'));
         $grid->column('latitude', __('Latitude'));

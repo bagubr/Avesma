@@ -26,7 +26,7 @@ class OutcomeController extends AdminController
     {
         $grid = new Grid(new Outcome());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('pond_detail_id', __('Pond detail id'));
         $grid->column('outcome_setting_id', __('Outcome setting id'));
         $grid->column('name', __('Name'));

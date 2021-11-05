@@ -26,7 +26,7 @@ class IncomeDetailController extends AdminController
     {
         $grid = new Grid(new IncomeDetail());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('income_id', __('Income id'));
         $grid->column('name', __('Name'));
         $grid->column('weight', __('Weight'));

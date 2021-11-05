@@ -26,7 +26,7 @@ class SettingController extends AdminController
     {
         $grid = new Grid(new Setting());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('name', __('Name'));
         $grid->column('value', __('Value'));
         $grid->column('file', __('File'));

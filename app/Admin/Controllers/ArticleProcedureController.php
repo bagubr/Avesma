@@ -26,7 +26,7 @@ class ArticleProcedureController extends AdminController
     {
         $grid = new Grid(new ArticleProcedure());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('procedure_id', __('Procedure id'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));

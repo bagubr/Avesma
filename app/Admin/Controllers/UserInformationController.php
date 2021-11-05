@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\User;
 use App\Models\UserInformation;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -26,7 +27,7 @@ class UserInformationController extends AdminController
     {
         $grid = new Grid(new UserInformation());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('user_id', __('User id'));
         $grid->column('nik', __('Nik'));
         $grid->column('ktp_photo', __('Ktp photo'));
@@ -69,7 +70,8 @@ class UserInformationController extends AdminController
     {
         $form = new Form(new UserInformation());
 
-        $form->number('user_id', __('User id'));
+        // $form->number('user_id', __('User id'));
+        $form->select('user_id', __('Pembudidaya'))->options(User::all()->pluck('name','id'));
         $form->text('nik', __('Nik'));
         $form->text('ktp_photo', __('Ktp photo'));
         $form->text('ktp_selfie_photo', __('Ktp selfie photo'));

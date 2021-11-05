@@ -26,7 +26,6 @@ class ArticleController extends AdminController
     {
         $grid = new Grid(new Article());
 
-        $grid->column('id', __('Id'));
         $grid->column('article_category_id', __('Article category id'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
