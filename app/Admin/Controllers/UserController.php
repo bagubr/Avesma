@@ -34,7 +34,7 @@ class UserController extends AdminController
         $grid->column('birth_date', __('Birth date'));
         $grid->column('address', __('Address'));
         $grid->column('is_verified', __('Is verified'));
-        // $grid->column('deleted_at', __('Deleted at'));
+        // 
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
