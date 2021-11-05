@@ -69,8 +69,7 @@ class PokdakanController extends AdminController
 
         $form->text('name', __('Name'));
         $form->text('address', __('Address'));
-        $form->decimal('latitude', __('Latitude'));
-        $form->decimal('longitude', __('Longitude'));
+        $form->latlong('latitude', 'longitude', 'Lokasi')->default(['lat' => -6.974309, 'lng' => 110.426674])->zoom(11);
 
         return $form;
     }
