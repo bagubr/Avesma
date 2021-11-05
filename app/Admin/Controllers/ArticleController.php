@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleCategory;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -26,7 +27,7 @@ class ArticleController extends AdminController
     {
         $grid = new Grid(new Article());
 
-        $grid->column('article_category_id', __('Article category id'));
+        $grid->column('article_category_id', __('Kategori Artikel'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
         $grid->column('created_at', __('Created at'));
@@ -66,10 +67,12 @@ class ArticleController extends AdminController
     {
         $form = new Form(new Article());
 
-        $form->number('article_category_id', __('Article category id'));
-        $form->text('title', __('Title'));
-        $form->textarea('description', __('Description'));
-        $form->image('image', __('Image'));
+        // $form->number('article_category_id', __('Kategori Artkel'))->required();
+        $form->select('article_category_id', 'Kategori')->options(ArticleCategory::all()->pluck('name', 'id'))->required();
+
+        $form->text('title', __('Judul'))->required();
+        $form->textarea('description', __('Description'))->required();
+        $form->image('image', __('Image'))->required();
 
         return $form;
     }
