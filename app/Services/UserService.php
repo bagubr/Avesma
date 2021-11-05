@@ -10,5 +10,15 @@ class UserService {
             ? User::create($user)
             : $user->save();
     }
+
+    public static function updateFcmToken(User|int $user, string|null $token) {
+        if(is_int($user)) $user = User::find($user);
+        if(empty($token)) return $user;
+        $user->update([
+            'fcm_token'=>$token
+        ]);
+        $user->refresh();
+        return $user;
+    }
 }
         
