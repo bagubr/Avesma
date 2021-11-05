@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +19,7 @@ Route::get('login', function() {
     return "Login";
 });
 
+Route::post('register', [AuthController::class, 'register']);
 Route::post('login/phone', [AuthController::class, 'loginPhone']);
+Route::post('login/email', [AuthController::class, 'loginEmail']);
+Route::post('imei', [AuthController::class, 'imeiCheck']);
