@@ -15,7 +15,7 @@ class ArticleCategoryController extends AdminController
      *
      * @var string
      */
-    protected $title = 'ArticleCategory';
+    protected $title = 'Kategori Artikel';
 
     /**
      * Make a grid builder.
@@ -26,10 +26,13 @@ class ArticleCategoryController extends AdminController
     {
         $grid = new Grid(new ArticleCategory());
 
-        $grid->column('id', __('Id'));
-        $grid->column('name', __('Name'));
+        $grid->filter(function($filter){
+            $filter->disableIdFilter();
+            $filter->like('nama', 'Nama');
+        });
+
+        $grid->column('name', __('Nama'));
         $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }
@@ -44,10 +47,8 @@ class ArticleCategoryController extends AdminController
     {
         $show = new Show(ArticleCategory::findOrFail($id));
 
-        $show->field('id', __('Id'));
-        $show->field('name', __('Name'));
+        $show->field('name', __('Nama'));
         $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
 
         return $show;
     }
@@ -61,7 +62,7 @@ class ArticleCategoryController extends AdminController
     {
         $form = new Form(new ArticleCategory());
 
-        $form->text('name', __('Name'));
+        $form->text('name', __('Nama'));
 
         return $form;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\User;
 use App\Models\UserInformation;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -15,7 +16,7 @@ class UserInformationController extends AdminController
      *
      * @var string
      */
-    protected $title = 'UserInformation';
+    protected $title = 'Informasi Pembudidaya';
 
     /**
      * Make a grid builder.
@@ -26,12 +27,19 @@ class UserInformationController extends AdminController
     {
         $grid = new Grid(new UserInformation());
 
-        $grid->column('id', __('Id'));
-        $grid->column('user_id', __('User id'));
-        $grid->column('nik', __('Nik'));
-        $grid->column('ktp_photo', __('Ktp photo'));
-        $grid->column('ktp_selfie_photo', __('Ktp selfie photo'));
-        $grid->column('deleted_at', __('Deleted at'));
+        $grid->filter(function($filter){
+
+            // Remove the default id filter
+            $filter->disableIdFilter();
+        
+            // Add a column filter
+            $filter->like('nik', 'NIK');
+        
+        });
+        $grid->column('user.name', __('Nama Pembudidaya'));
+        $grid->column('nik', __('NIK'));
+        $grid->column('ktp_photo', __('Ktp photo'))->image();
+        $grid->column('ktp_selfie_photo', __('Ktp selfie photo'))->image();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -69,10 +77,11 @@ class UserInformationController extends AdminController
     {
         $form = new Form(new UserInformation());
 
-        $form->number('user_id', __('User id'));
-        $form->text('nik', __('Nik'));
-        $form->text('ktp_photo', __('Ktp photo'));
-        $form->text('ktp_selfie_photo', __('Ktp selfie photo'));
+        // $form->number('user_id', __('User id'));
+        $form->select('user_id', __('Pembudidaya'))->options(User::all()->pluck('name','id'));
+        $form->text('nik', __('NIK'));
+        $form->image('ktp_photo', __('KTP photo'));
+        $form->image('ktp_selfie_photo', __('KTP selfie photo'));
 
         return $form;
     }

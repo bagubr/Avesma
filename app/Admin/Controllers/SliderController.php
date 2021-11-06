@@ -26,7 +26,7 @@ class SliderController extends AdminController
     {
         $grid = new Grid(new Slider());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
         $grid->column('image', __('Image'));

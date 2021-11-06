@@ -11,9 +11,13 @@ class UserInformation extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'user_informations';
     protected $fillable = [
-        'user_id', 
-        'nik', 
-        'ktp_photo', 
+        'user_id',
+        'nik',
+        'ktp_photo',
         'ktp_selfie_photo'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

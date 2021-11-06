@@ -26,7 +26,7 @@ class IncomeController extends AdminController
     {
         $grid = new Grid(new Income());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('pond_detail_id', __('Pond detail id'));
         $grid->column('reported_at', __('Reported at'));
         $grid->column('created_at', __('Created at'));

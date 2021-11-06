@@ -26,7 +26,7 @@ class FormProcedureDetailFormulaController extends AdminController
     {
         $grid = new Grid(new FormProcedureDetailFormula());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('form_procedure_detail_id', __('Form procedure detail id'));
         $grid->column('parameter', __('Parameter'));
         $grid->column('score', __('Score'));

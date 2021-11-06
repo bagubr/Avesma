@@ -27,6 +27,7 @@ class User extends Authenticatable
         'address',
         'is_verified',
         'password',
+        'imei'
     ];
 
     /**
@@ -47,4 +48,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function ponds() {
+        return $this->hasMany(Pond::class);
+    }
 }

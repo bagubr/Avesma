@@ -15,7 +15,7 @@ class UserController extends AdminController
      *
      * @var string
      */
-    protected $title = 'User';
+    protected $title = 'Pembudidaya';
 
     /**
      * Make a grid builder.
@@ -26,7 +26,7 @@ class UserController extends AdminController
     {
         $grid = new Grid(new User());
 
-        $grid->column('id', __('Id'));
+        // 
         $grid->column('name', __('Name'));
         $grid->column('email', __('Email'));
         $grid->column('phone', __('Phone'));
@@ -34,7 +34,7 @@ class UserController extends AdminController
         $grid->column('birth_date', __('Birth date'));
         $grid->column('address', __('Address'));
         $grid->column('is_verified', __('Is verified'));
-        $grid->column('deleted_at', __('Deleted at'));
+        // 
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -51,7 +51,7 @@ class UserController extends AdminController
     {
         $show = new Show(User::findOrFail($id));
 
-        $show->field('id', __('Id'));
+        // $show->field('id', __('Id'));
         $show->field('name', __('Name'));
         $show->field('email', __('Email'));
         $show->field('phone', __('Phone'));
@@ -59,7 +59,7 @@ class UserController extends AdminController
         $show->field('birth_date', __('Birth date'));
         $show->field('address', __('Address'));
         $show->field('is_verified', __('Is verified'));
-        $show->field('deleted_at', __('Deleted at'));
+        // $show->field('deleted_at', __('Deleted at'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -75,12 +75,13 @@ class UserController extends AdminController
     {
         $form = new Form(new User());
 
-        $form->text('name', __('Name'));
-        $form->email('email', __('Email'));
-        $form->mobile('phone', __('Phone'));
-        $form->text('gender', __('Gender'));
-        $form->date('birth_date', __('Birth date'))->default(date('Y-m-d'));
-        $form->text('address', __('Address'));
+        $form->text('name', __('Name'))->required();
+        $form->email('email', __('Email'))->required();
+        $form->mobile('phone', __('Phone'))->options(['mask' => '999999999999'])->required();
+        // $form->text('gender', __('Gender'))->required();
+        $form->select('gender', __('Jenis Kelamin'))->options(['', 'Pria' => 'Pria', 'Wanita' => 'Wanita'])->required();
+        $form->date('birth_date', __('Ulang Tahun'))->default(date('Y-m-d'))->required();
+        $form->text('address', __('Address'))->required();
         $form->switch('is_verified', __('Is verified'));
 
         return $form;

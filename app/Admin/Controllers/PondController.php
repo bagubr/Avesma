@@ -26,7 +26,7 @@ class PondController extends AdminController
     {
         $grid = new Grid(new Pond());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('name', __('Name'));
         $grid->column('area', __('Area'));
         $grid->column('latitude', __('Latitude'));

@@ -26,7 +26,7 @@ class FormProcedureDetailController extends AdminController
     {
         $grid = new Grid(new FormProcedureDetail());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('form_procedure_id', __('Form procedure id'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));

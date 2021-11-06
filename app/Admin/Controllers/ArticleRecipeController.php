@@ -26,7 +26,7 @@ class ArticleRecipeController extends AdminController
     {
         $grid = new Grid(new ArticleRecipe());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
         $grid->column('image', __('Image'));

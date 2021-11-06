@@ -26,7 +26,7 @@ class ProcedureController extends AdminController
     {
         $grid = new Grid(new Procedure());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('title', __('Title'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));

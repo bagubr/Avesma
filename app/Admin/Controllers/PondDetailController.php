@@ -26,7 +26,7 @@ class PondDetailController extends AdminController
     {
         $grid = new Grid(new PondDetail());
 
-        $grid->column('id', __('Id'));
+        
         $grid->column('pond_id', __('Pond id'));
         $grid->column('fish_species_id', __('Fish species id'));
         $grid->column('seed_count', __('Seed count'));
