@@ -13,8 +13,7 @@ use Illuminate\Http\Request;
 class AuthController extends Controller {
     public function loginPhone(Request $request) {
         $user = UserRepository::findByPhone($request->phone);
-        if(empty($user)) $this->sendFailedResponse([], 'Pengguna dengan nomer '.$request->phone.' tidak dapat ditemukan');
-        $token = $user->createToken($user->email);
+        [$user, $token] = UserService::authenticate($user);
         return $this->sendSuccessResponse([
             'token'=>$token->plainTextToken,
             'user'=>$user
@@ -23,17 +22,16 @@ class AuthController extends Controller {
 
     public function loginEmail(Request $request) {
         $user = UserRepository::findByEmail($request->email);
-        if(empty($user)) $this->sendFailedResponse([], 'Pengguna dengan nomer '.$request->phone.' tidak dapat ditemukan');
-        $token = $user->createToken($user->email);
+        [$user, $token] = UserService::authenticate($user);
         return $this->sendSuccessResponse([
             'token'=>$token->plainTextToken,
             'user'=>$user
         ]);
     }
-
+    
     public function register(UserCreateRegisterFormRequest $request) {
         $user = UserService::create($request->toArray());        
-        $token = $user->createToken($user->email);
+        $token = $user->createToken($this->generateToken($user));
         $this->sendSuccessResponse([
             'token'=>$token->plainTextToken,
             'user'=>$user,
@@ -47,7 +45,7 @@ class AuthController extends Controller {
             $user->update(['imei'=>$request->imei]);
             $this->sendFailedResponse([], 'IMEI tidak cocok');
         }
-        $token = $user->createToken($user->email);
+        $token = $user->createToken($this->generateToken($user));
         $this->sendSuccessResponse([
             'token'=>$token->plainTextToken,
             'user'=>$user,
