@@ -13,6 +13,7 @@ class Pond extends Model
         'user_id',
         'name',
         'area',
+        'status',
         'latitude',
         'longitude',
         'address',

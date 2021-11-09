@@ -21,14 +21,15 @@ class PondRepository {
         ->get();
     }
 
-    public static function createModel($user_id=null,$name=null,$area=null,$latitude=null,$longitude=null,$address=null) : Pond {
+    public static function createModel($user_id=null,$name=null,$area=null,$latitude=null,$longitude=null,$address=null,$status='TEST') : Pond {
         return new Pond([
             'user_id'=>$user_id,
             'name'=>$name,
             'area'=>$area,
             'latitude'=>$latitude,
             'longitude'=>$longitude,
-            'address'=>$address
+            'address'=>$address,
+            'status'=>$status
         ]);
     }
 }

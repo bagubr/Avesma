@@ -37,6 +37,20 @@ class UserController extends Controller {
         ]);
     }
 
+    public function updateAvatar(Request $request) {
+        $user = $request->user();
+        $avatar = $request->file('file')->move('storage/avatar', $request->user()->id.'-'.time().'.'.$request->file('file')->getClientOriginalExtension());
+        $user->update([
+            'avatar'=>$avatar
+        ]);
+        $user->refresh();
+
+        return $this->sendSuccessResponse([
+            'avatar'=>$user->avatar_url,
+            'user'=>$user
+        ]);
+    }
+
     public function show() {
 
     }

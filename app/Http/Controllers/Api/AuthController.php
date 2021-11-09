@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ImeiCheckRequest;
 use App\Http\Requests\UserCreateRegisterFormRequest;
 use App\Models\User;
+use App\Models\UserPokdakan;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller {
     public function loginPhone(Request $request) {
@@ -30,8 +32,12 @@ class AuthController extends Controller {
     }
     
     public function register(UserCreateRegisterFormRequest $request) {
+        DB::beginTransaction();
         $user = UserService::create($request->toArray());        
-        $token = $user->createToken($this->generateToken($user));
+        if($request->pokdakan_id)
+            $user_pokdakan = UserPokdakan::create(['user_id'=>$user->id,'pokdakan_id'=>$request->pokdakan_id]);
+        [$user, $token] = UserService::authenticate($user);
+        DB::commit();
         $this->sendSuccessResponse([
             'token'=>$token->plainTextToken,
             'user'=>$user,

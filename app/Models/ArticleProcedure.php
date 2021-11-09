@@ -22,18 +22,19 @@ class ArticleProcedure extends Model
     ];
 
     protected $appends = [
+        'type_name',
         'file_url',
         'image_url'
     ];
 
     public function getFileUrlAttribute()
     {
-        return env('APP_URL').$this->file;
+        return env('STORAGE_URL').$this->file;
     }
 
     public function getImageUrlAttribute()
     {
-        return env('APP_URL').$this->image;
+        return env('STORAGE_URL').$this->image;
     }
 
     public function getListType()

@@ -30,7 +30,8 @@ class UserCreateRegisterFormRequest extends ApiRequest
             'phone'=>['required','string', Rule::unique('users', 'phone')->ignore(request()->user()->id)],
             'gender'=>'required|string',
             'birth_date'=>'sometimes|nullable|date',
-            'address'=>'sometimes|nullable|max:40'
+            'address'=>'sometimes|nullable|max:40',
+            'pokdakan_id'=>'sometimes|nullable|numeric|exists:pokdakans,id'
         ];
     }
 }
