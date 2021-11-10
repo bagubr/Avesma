@@ -27,12 +27,10 @@ class ArticleController extends AdminController
     {
         $grid = new Grid(new Article());
 
-        $grid->column('article_category_id', __('Kategori Artikel'));
+        $grid->column('article_category.name', __('Kategori Artikel'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
-        $grid->column('image', __('Image'));
+        $grid->column('image', __('Image'))->image();
 
         return $grid;
     }
@@ -67,7 +65,6 @@ class ArticleController extends AdminController
     {
         $form = new Form(new Article());
 
-        // $form->number('article_category_id', __('Kategori Artkel'))->required();
         $form->select('article_category_id', 'Kategori')->options(ArticleCategory::all()->pluck('name', 'id'))->required();
 
         $form->text('title', __('Judul'))->required();

@@ -15,7 +15,7 @@ class ArticleProcedureController extends AdminController
      *
      * @var string
      */
-    protected $title = 'ArticleProcedure';
+    protected $title = 'Artikel SOP';
 
     /**
      * Make a grid builder.

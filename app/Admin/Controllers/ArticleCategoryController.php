@@ -32,7 +32,6 @@ class ArticleCategoryController extends AdminController
         });
 
         $grid->column('name', __('Nama'));
-        $grid->column('created_at', __('Created at'));
 
         return $grid;
     }
@@ -48,7 +47,6 @@ class ArticleCategoryController extends AdminController
         $show = new Show(ArticleCategory::findOrFail($id));
 
         $show->field('name', __('Nama'));
-        $show->field('created_at', __('Created at'));
 
         return $show;
     }

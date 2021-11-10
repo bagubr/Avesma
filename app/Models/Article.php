@@ -19,7 +19,8 @@ class Article extends Model
     ];
     
     protected $appends = [
-        'image_url'
+        'image_url',
+        'category_name'
     ];
 
     public function getImageUrlAttribute()
