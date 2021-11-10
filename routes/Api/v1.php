@@ -47,6 +47,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('profile', [UserController::class, 'index']);
     Route::post('profile', [UserController::class, 'update']);
     Route::post('profile/avatar', [UserController::class, 'updateAvatar']);
+    Route::post('profile/verification', [UserController::class, 'uploadInformation']);
 
     Route::get('fish_specieses', [FishSpeciesController::class, 'index']);
 

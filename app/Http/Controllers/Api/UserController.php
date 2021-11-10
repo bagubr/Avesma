@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\UploadUserInformationRequest;
 use App\Http\Requests\UserCreateRegisterFormRequest;
 use App\Models\User;
+use App\Models\UserInformation;
 use Illuminate\Http\Request;
 
 class UserController extends Controller {
@@ -51,7 +53,19 @@ class UserController extends Controller {
         ]);
     }
 
-    public function show() {
+    public function uploadInformation(UploadUserInformationRequest $request) {
+        $user_id = $request->user()->id;
+        $ktp_photo = $request->file('ktp_photo')->store('storage/ktp_photo'); 
+        $ktp_selfie_photo = $request->file('ktp_selfie_photo')->store('storage/ktp_selfie_photo');
+        UserInformation::updateOrCreate([
+            'user_id'=>$user_id,
+        ],[
+            'user_id'=>$user_id,
+            'nik'=>$request->nik,
+            'ktp_photo'=>$ktp_photo,
+            'ktp_selfie_photo'=>$ktp_selfie_photo
+        ]); 
 
+        return $this->sendSuccessResponse([], 'Berhasil mengupload data verifikasi');
     }
 }
