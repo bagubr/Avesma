@@ -1,4 +1,12 @@
 @extends('layouts.app')
+@push('css')
+<style>
+    .carousel-cell {
+        width: 100%;
+        margin-right: 16px;
+    }
+</style>
+@endpush
 @section('content')
 <section class="hero">
     <div class="container-fluid">
@@ -18,16 +26,12 @@
                 </div>
             </div>
             <div class="col-md-6 order-1 order-md-2 px-0">
-                <div class="main-carousel">
-                    <div class="carousel-cell">
-                        <img src="{{asset('asset/image-2.jpg')}}" class="img-fluid" />
+                <div class="main-carousel" data-flickity='{ "contain": true }'>
+                    @foreach ($sliders as $slider)
+                    <div class="carousel-cell text-center">
+                        <img src="{{$slider->image_url}}" />
                     </div>
-                    <div class="carousel-cell">
-                        <img src="{{asset('asset/image-2.jpg')}}" class="img-fluid" />
-                    </div>
-                    <div class="carousel-cell">
-                        <img src="{{asset('asset/image-2.jpg')}}" class="img-fluid" />
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -44,18 +48,34 @@
             </div>
             <div class="col-md-6">
                 <h2 class="font-weight-bold">Tentang Kita</h2>
-                <p class="text-justify">
-                    AVESMA merupakan aplikasi handphone yang dibuat bagi pembudidaya
-                    ikan untuk memberikan informasi cara budidaya ikan yang baik
-                    berdasarkan aturan SNI. Aplikasi ini diwujudkan untuk membantu
-                    pernyuluh yang jumlahnya masih sangat kurang di Indonesia sehingga
-                    tidak dapat secara maksimal membantu pembudidaya di lapangan. Kami
-                    ucapkan terima kasih kepada NWO-WOTRO, Belanda yang sudah
-                    memberikan dana project ini sehingga project ini dapat terlaksana
-                    dengan baik. Semoga dengan aplikasi ini, pembudidaya Indonesia
-                    menjadi semakin berkembang pengetahuan dan kesejahteraannya. Jaya
-                    Pembudidaya Kita…Jaya Akuakultur Indonesia!
-                </p>
+                <div class="main-carousel" data-flickity='{ "prevNextButtons": false }'>
+
+                    <p class="text-justify carousel-cell">
+                        AVESMA merupakan aplikasi handphone yang dibuat bagi pembudidaya
+                        ikan untuk memberikan informasi cara budidaya ikan yang baik
+                        berdasarkan aturan SNI. Aplikasi ini diwujudkan untuk membantu
+                        pernyuluh yang jumlahnya masih sangat kurang di Indonesia sehingga
+                        tidak dapat secara maksimal membantu pembudidaya di lapangan. Kami
+                        ucapkan terima kasih kepada NWO-WOTRO, Belanda yang sudah
+                        memberikan dana project ini sehingga project ini dapat terlaksana
+                        dengan baik. Semoga dengan aplikasi ini, pembudidaya Indonesia
+                        menjadi semakin berkembang pengetahuan dan kesejahteraannya. Jaya
+                        Pembudidaya Kita…Jaya Akuakultur Indonesia!
+                    </p>
+                    <p class="text-justify carousel-cell">
+                        AVESMA merupakan aplikasi handphone yang dibuat bagi pembudidaya
+                        ikan untuk memberikan informasi cara budidaya ikan yang baik
+                        berdasarkan aturan SNI. Aplikasi ini diwujudkan untuk membantu
+                        pernyuluh yang jumlahnya masih sangat kurang di Indonesia sehingga
+                        tidak dapat secara maksimal membantu pembudidaya di lapangan. Kami
+                        ucapkan terima kasih kepada NWO-WOTRO, Belanda yang sudah
+                        memberikan dana project ini sehingga project ini dapat terlaksana
+                        dengan baik. Semoga dengan aplikasi ini, pembudidaya Indonesia
+                        menjadi semakin berkembang pengetahuan dan kesejahteraannya. Jaya
+                        Pembudidaya Kita…Jaya Akuakultur Indonesia!
+                    </p>
+                </div>
+
                 <div class="text-right">
                     <button class="btn btn-outline-default">Pasar Virtual</button>
                 </div>

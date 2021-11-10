@@ -9,11 +9,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto text-center">
-                <li class="nav-item mx-3 active">
-                    <a class="nav-link" href="#">Beranda</a>
+                <li class="nav-item mx-3 {{Request::routeIs('home') ? 'active' : ''}}">
+                    <a class="nav-link" href="{{route('home')}}">Beranda</a>
                 </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link" href="#">Pasar Virtual</a>
+                <li class="nav-item mx-3 {{Request::routeIs('pasar_virtual') ? 'active' : ''}}">
+                    <a class="nav-link" href="{{route('pasar_virtual')}}">Pasar Virtual</a>
                 </li>
                 <li class="nav-item mx-3">
                     <a class="nav-link" href="#">Kontak</a>
