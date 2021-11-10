@@ -11,7 +11,7 @@ class IncomeDetail extends Model
     protected $table = 'income_details';
     protected $fillable = [
         'income_id',
-        'name',
+        'pond_detail_product_id',
         'weight',
         'price',
         'total_price',

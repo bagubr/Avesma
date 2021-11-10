@@ -6,13 +6,16 @@ use App\Models\Income;
 use App\Models\IncomeDetail;
 
 class IncomeService {
-    public static function create(Income $income, IncomeDetail $income_detail) {
+    public static function create(Income $income, array $income_details) {
         $income->save();
         $income->refresh();
-        $income_detail->income_id = $income->id;
-        $income_detail->save();
+        foreach($income_details as $i) {
+            IncomeDetail::create(array_merge([
+                'income_id'=>$income->id
+            ], $i));
+        }
 
-        return [$income, $income_detail];
+        return $income;
     }
 }
         

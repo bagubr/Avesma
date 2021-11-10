@@ -16,12 +16,12 @@ class CreateIncomeRequest extends ApiRequest
     {
         return [
             'pond_detail_id'=>'required|numeric|exists:pond_details,id',
-            'reported_at'=>'required|date',
+            'reported_at'=>'required|date', 
 
-            'name'=>'required|string',
-            'weight'=>'required|numeric',
-            'price'=>'required|numeric',
-            'total_price'=>'required|numeric',
+            'data.*.pond_detail_product_id'=>'required|numeric',
+            'data.*.weight'=>'required|numeric',
+            'data.*.price'=>'required|numeric',
+            'data.*.total_price'=>'required|numeric',
         ];
     }
 }

@@ -13,7 +13,8 @@ class FishSpecies extends Model
 
     protected $fillable = [
         'name',
-        'image'
+        'image',
+        'fish_category_id'
     ];
 
     protected $appends = [
@@ -23,5 +24,13 @@ class FishSpecies extends Model
     public function getImageUrlAttribute()
     {
         return env('STORAGE_URL').$this->image;
+    }
+
+    public function fish_category() {
+        return $this->belongsTo(FishCategory::class);
+    }
+
+    public function pond_details() {
+        return $this->hasMany(PondDetail::class);
     }
 }

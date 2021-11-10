@@ -12,7 +12,9 @@ use App\Http\Controllers\Api\OutcomeController;
 use App\Http\Controllers\Api\OutcomeSettingController;
 use App\Http\Controllers\Api\PokdakanController;
 use App\Http\Controllers\Api\PondController;
+use App\Http\Controllers\Api\PondDetailProductController;
 use App\Http\Controllers\Api\ProcedureController;
+use App\Http\Controllers\Api\RegionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +40,8 @@ Route::post('imei', [AuthController::class, 'imeiCheck']);
 Route::get('pokdakans', [PokdakanController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function() {
+    Route::get('regions', [RegionController::class, 'index']);
+
     Route::get('article_categories', [ArticleCategoryController::class, 'index']);
 
     Route::get('procedures', [ProcedureController::class, 'index']);
@@ -46,6 +50,8 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::get('ponds', [PondController::class, 'index']);
     Route::post('ponds/store', [PondController::class, 'store']);
+    Route::get('ponds/products', [PondDetailProductController::class, 'index']);
+    Route::post('ponds/products', [PondDetailProductController::class, 'store']);
 
     Route::get('profile', [UserController::class, 'index']);
     Route::post('profile', [UserController::class, 'update']);
