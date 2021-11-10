@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\OutcomeController;
 use App\Http\Controllers\Api\OutcomeSettingController;
 use App\Http\Controllers\Api\PokdakanController;
 use App\Http\Controllers\Api\PondController;
+use App\Http\Controllers\Api\PondDetailProductController;
 use App\Http\Controllers\Api\ProcedureController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,8 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::get('ponds', [PondController::class, 'index']);
     Route::post('ponds/store', [PondController::class, 'store']);
+    Route::get('ponds/products', [PondDetailProductController::class, 'index']);
+    Route::post('ponds/products', [PondDetailProductController::class, 'store']);
 
     Route::get('profile', [UserController::class, 'index']);
     Route::post('profile', [UserController::class, 'update']);

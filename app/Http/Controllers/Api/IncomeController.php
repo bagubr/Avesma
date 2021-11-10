@@ -9,6 +9,7 @@ use App\Repositories\IncomeDetailRepository;
 use App\Repositories\IncomeRepository;
 use App\Services\IncomeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IncomeController extends Controller
 {
@@ -21,19 +22,21 @@ class IncomeController extends Controller
             })->when($request->month, function($query) use ($request) {
                 $query->whereMonth('reported_at', $request->month);
             })
-            ->when($request->name, function($q) use ($request) {
+            ->when($request->pond_detail_product_id, function($q) use ($request) {
                 $q->whereHas('income_detail', function($query) use ($request) {
-                    $query->where('name', 'ilike', '%'.$request->name.'%');
+                    $query->where('pond_detail_product_id', $request->pond_detail_product_id);
                 });
             })
             ->simplePaginate(20)
         ]);
     }
     public function store(CreateIncomeRequest $request) {
-        $income = IncomeRepository::createModel($request->pond_detail_id, $request->reported_at);        
-        $income_detail = IncomeDetailRepository::createModel(null, $request->name, $request->weight, $request->price, $request->total_price);
-        [$income, $income_detail] = IncomeService::create($income, $income_detail);
-
-        return $this->sendSuccessResponse([]);
+        DB::beginTransaction();
+        $income = IncomeRepository::createModel($request->pond_detail_id, $request->reported_at);
+        $income = IncomeService::create($income, $request->data);
+        DB::commit();
+        return $this->sendSuccessResponse([
+            'income'=>$income->load('income_detail')
+        ]);
     }
 }
