@@ -46,13 +46,6 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <script>
-        $(".main-carousel").flickity({
-        // options
-        cellAlign: "left",
-        contain: true,
-      });
-    </script>
 </body>
 
 </html>

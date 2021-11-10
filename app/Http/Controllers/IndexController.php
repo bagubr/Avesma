@@ -12,4 +12,8 @@ class IndexController extends Controller
         $sliders = Slider::all();
         return view('index', compact('sliders'));
     }
+    public function pasar_virtual()
+    {
+        return view('pasar_virtual');
+    }
 }

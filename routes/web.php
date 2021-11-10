@@ -17,3 +17,4 @@ use Symfony\Component\HttpFoundation\Response;
 */
 
 Route::get('/', [IndexController::class, 'home'])->name('home');
+Route::get('/pasar_virtual', [IndexController::class, 'pasar_virtual'])->name('pasar_virtual');

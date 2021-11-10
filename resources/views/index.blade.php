@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="col-md-6 order-1 order-md-2 px-0">
-                <div class="main-carousel">
+                <div class="main-carousel" data-flickity='{ "contain": true }'>
                     @foreach ($sliders as $slider)
                     <div class="carousel-cell text-center">
                         <img src="{{$slider->image_url}}" />
@@ -48,7 +48,7 @@
             </div>
             <div class="col-md-6">
                 <h2 class="font-weight-bold">Tentang Kita</h2>
-                <div class="main-carousel">
+                <div class="main-carousel" data-flickity='{ "prevNextButtons": false }'>
 
                     <p class="text-justify carousel-cell">
                         AVESMA merupakan aplikasi handphone yang dibuat bagi pembudidaya
