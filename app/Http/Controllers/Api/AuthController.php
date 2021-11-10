@@ -14,8 +14,12 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller {
     public function loginPhone(Request $request) {
-        $user = UserRepository::findByPhone($request->phone);
+        $user = UserRepository::findByPhone($request->phone)
+            ?? $this->sendFailedResponse([], 'Maaf akun anda belum terdafar');
         [$user, $token] = UserService::authenticate($user);
+        if($request->imei) {
+            $user->update(['imei'=>$request->imei]);
+        }
         return $this->sendSuccessResponse([
             'token'=>$token->plainTextToken,
             'user'=>$user
@@ -23,7 +27,8 @@ class AuthController extends Controller {
     }
 
     public function loginEmail(Request $request) {
-        $user = UserRepository::findByEmail($request->email);
+        $user = UserRepository::findByEmail($request->email)
+            ?? $this->sendFailedResponse([], 'Maaf akun anda belum terdafar');
         [$user, $token] = UserService::authenticate($user);
         return $this->sendSuccessResponse([
             'token'=>$token->plainTextToken,
@@ -35,7 +40,7 @@ class AuthController extends Controller {
         DB::beginTransaction();
         $user = UserService::create($request->toArray());        
         if($request->pokdakan_id)
-            $user_pokdakan = UserPokdakan::create(['user_id'=>$user->id,'pokdakan_id'=>$request->pokdakan_id]);
+            UserPokdakan::create(['user_id'=>$user->id,'pokdakan_id'=>$request->pokdakan_id]);
         [$user, $token] = UserService::authenticate($user);
         DB::commit();
         $this->sendSuccessResponse([
@@ -45,7 +50,8 @@ class AuthController extends Controller {
     }
 
     public function imeiCheck(ImeiCheckRequest $request) {
-        $user = UserRepository::findByPhone($request->phone);
+        $user = UserRepository::findByPhone($request->phone)
+            ?? $this->sendFailedResponse([], 'Maaf akun anda belum terdafar');
         if(empty($user)) $this->sendFailedResponse([], 'Pengguna dengan nomer '.$request->phone.' tidak dapat ditemukan');
         if($user->imei != $request->imei) {
             $user->update(['imei'=>$request->imei]);
