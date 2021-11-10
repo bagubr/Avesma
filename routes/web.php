@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Octane\Facades\Octane;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,12 +16,4 @@ use Symfony\Component\HttpFoundation\Response;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get("/test", function() use (&$values) {
-    return "Hello world";    
-});
-
-
+Route::get('/', [IndexController::class, 'home'])->name('home');

@@ -1,0 +1,59 @@
+* {
+  font-family: Poppins;
+}
+.btn-outline-default {
+  color: #2689da;
+  border-color: #2689da;
+  box-shadow: 0px 4px 4px #2689da;
+}
+.btn-outline-default:hover,
+.btn-outline-default:focus,
+.btn-outline-default:active,
+.btn-outline-default.active,
+.open .dropdown-toggle.btn-outline-default {
+  background-color: #2689da;
+  color: white;
+  border-color: white;
+}
+.bg-white {
+  background-color: white;
+  color: #2689da;
+}
+.bg-white-black {
+  background-color: white;
+  color: black;
+}
+.bg-blue {
+  background-color: #2689da;
+  color: white;
+}
+.bg-blue-sky {
+  background-color: #52b1ff;
+}
+.bg-text-blue {
+  color: #2689da;
+}
+.bg-blue-gradient {
+  background: linear-gradient(180deg, #2689da 0%, #52b1ff 100%);
+  color: white;
+}
+.rounded-custom {
+  border-radius: 1rem;
+}
+.icon-socmed img {
+  height: 50px;
+}
+ul .active {
+  background: #2689da;
+  border-radius: 1rem;
+}
+a.nav-link {
+  color: #2689da !important;
+}
+.active a.nav-link {
+  color: white !important;
+}
+.navbar-brand img {
+  height: 50px;
+  float: left;
+}
