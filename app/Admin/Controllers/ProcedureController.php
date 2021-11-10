@@ -28,9 +28,7 @@ class ProcedureController extends AdminController
 
         
         $grid->column('title', __('Title'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
-        $grid->column('image', __('Image'));
+        $grid->column('image', __('Image'))->image();
 
         return $grid;
     }
@@ -45,11 +43,10 @@ class ProcedureController extends AdminController
     {
         $show = new Show(Procedure::findOrFail($id));
 
-        $show->field('id', __('Id'));
         $show->field('title', __('Title'));
+        $show->field('image', __('Image'))->image();
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->field('image', __('Image'));
 
         return $show;
     }
