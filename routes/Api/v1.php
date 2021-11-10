@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\PokdakanController;
 use App\Http\Controllers\Api\PondController;
 use App\Http\Controllers\Api\PondDetailProductController;
 use App\Http\Controllers\Api\ProcedureController;
+use App\Http\Controllers\Api\RegionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,8 @@ Route::post('imei', [AuthController::class, 'imeiCheck']);
 Route::get('pokdakans', [PokdakanController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function() {
+    Route::get('regions', [RegionController::class, 'index']);
+
     Route::get('article_categories', [ArticleCategoryController::class, 'index']);
 
     Route::get('procedures', [ProcedureController::class, 'index']);
