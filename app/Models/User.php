@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
+        'avatar',
         'gender',
         'birth_date',
         'address',
@@ -48,4 +49,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $appends = [
+        'avatar_url'
+    ];
+
+    public function ponds() {
+        return $this->hasMany(Pond::class);
+    }
+
+    public function getAvatarUrlAttribute() {
+        return asset($this->attributes['avatar']);
+    }
 }

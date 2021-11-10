@@ -20,6 +20,6 @@ class FishCategory extends Model
 
     public function getImageUrlAttribute()
     {
-        return env('APP_URL').$this->image;
+        return env('STORAGE_URL').$this->image;
     }
 }
