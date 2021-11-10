@@ -14,7 +14,8 @@ class Outcome extends Model
         'pond_detail_id',
         'outcome_setting_id',
         'name',
-        'total_price'
+        'total_price',
+        'reported_at'
     ];
 
     public function pond_detail()

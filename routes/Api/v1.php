@@ -7,6 +7,9 @@ use App\Http\Controllers\Api\FishCategoryController;
 use App\Http\Controllers\Api\FishSpeciesController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\IncomeController;
+use App\Http\Controllers\Api\OutcomeCategoryController;
+use App\Http\Controllers\Api\OutcomeController;
+use App\Http\Controllers\Api\OutcomeSettingController;
 use App\Http\Controllers\Api\PokdakanController;
 use App\Http\Controllers\Api\PondController;
 use App\Http\Controllers\Api\ProcedureController;
@@ -55,4 +58,10 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::get('incomes', [IncomeController::class, 'index']);
     Route::post('incomes', [IncomeController::class, 'store']);
+
+    Route::get('outcomes/categories', [OutcomeCategoryController::class, 'index']);
+    Route::get('outcomes/settings', [OutcomeSettingController::class, 'index']);
+    Route::get('outcomes', [OutcomeController::class, 'index']);
+    Route::post('outcomes', [OutcomeController::class, 'store']);
+    Route::get('outcomes/show', [OutcomeController::class, 'show']);
 });
