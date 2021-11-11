@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ArticleCategoryController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BuyerController;
 use App\Http\Controllers\Api\FishCategoryController;
 use App\Http\Controllers\Api\FishSpeciesController;
 use App\Http\Controllers\Api\HomeController;
@@ -70,4 +71,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('outcomes', [OutcomeController::class, 'index']);
     Route::post('outcomes', [OutcomeController::class, 'store']);
     Route::get('outcomes/show', [OutcomeController::class, 'show']);
+
+    Route::get('buyers', [BuyerController::class, 'index']);
 });
