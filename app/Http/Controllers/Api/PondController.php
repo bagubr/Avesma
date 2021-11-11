@@ -11,6 +11,7 @@ use App\Repositories\PondRepository;
 use App\Repositories\ProcedureRepository;
 use App\Services\PondService;
 use Illuminate\Http\Request;
+use ReflectionClass;
 
 class PondController extends Controller {
     public function index(Request $request) {
@@ -41,5 +42,23 @@ class PondController extends Controller {
         ];
 
         return $this->sendSuccessResponse($data);
+    }
+
+    public function statuses() {
+        return $this->sendSuccessResponse([
+            'statuses'=>PondRepository::getStatuses()
+        ]);
+    }
+
+    public function update(Request $request, $id) {
+        $pond = PondRepository::find($id);
+        $fillable = $pond->getFillable();
+
+        $pond->update($request->only($fillable));
+        $pond->refresh();
+
+        $this->sendSuccessResponse([
+            'pond'=>$pond
+        ]);
     }
 }

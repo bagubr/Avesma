@@ -24,6 +24,7 @@
 <body>
     @include('layouts.navbar')
     @yield('content')
+    @yield('imagefooter')
     <footer class="pt-5 bg-blue-sky">
         <div class="container-fluid">
             <div class="text-center icon-socmed">

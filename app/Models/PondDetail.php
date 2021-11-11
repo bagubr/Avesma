@@ -25,7 +25,7 @@ class PondDetail extends Model
 
     public function pond()
     {
-        return $this->belongsTo(Pond::class, 'pond_id');
+        return $this->belongsTo(Pond::class);
     }
 
     public function getPondNameAttribute()
