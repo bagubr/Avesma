@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="box-shadow: 0px 5px 30px #383f85; z-index: 1">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="box-shadow: 0px 5px 30px #2689DA; z-index: 1">
     <div class="container">
         <a class="navbar-brand" href="#">
             <img src="asset/logo-avesma-10.png" class="img-fluid navbar-brand" />

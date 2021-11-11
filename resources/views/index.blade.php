@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="text-right">
-                    <button class="btn btn-outline-default">Pasar Virtual</button>
+                    <a href="{{route('pasar_virtual')}}" class="btn btn-outline-default">Pasar Virtual</a>
                 </div>
             </div>
         </div>
@@ -138,7 +138,7 @@
                 </div>
             </div>
             <div class="col-md-4 order-1 order-md-2">
-                <img src="asset/android-phone.png" class="img-fluid" />
+                <img src="{{asset('asset/mockup-avesma-new.png')}}" class="img-fluid" />
                 <img src="asset/playstore.png" class="img-fluid" />
             </div>
             <div class="col-md-4 order-3 order-md-3 m-auto">
