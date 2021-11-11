@@ -16,7 +16,7 @@ class ProcedureRepository {
         });
     }
 
-    public static function get(array $filter) {
+    public static function get(array $filter = []) {
         return self::queryGet($filter)->get();
     }
 }

@@ -6,19 +6,32 @@ use App\Models\Pond;
 use Illuminate\Database\Eloquent\Collection;
 
 class PondRepository {
-    public static function get($user_id, $name, $fish_species_name) : Collection {
-        return Pond::with('pond_detail.fish_species.fish_category')->when($user_id, function($query) use ($user_id) {
-            $query->where('user_id', $user_id);
+    public static function get(array $filter = []) {
+        return self::queryGet($filter)->get();
+    }
+
+    public static function find($id) {
+        return self::queryGet([
+            'id'=>$id
+        ])->first();
+    }
+
+    private static function queryGet(array $filter = []) {
+        return Pond::with('pond_detail.fish_species.fish_category')
+        ->when(@$filter['user_id'], function($query) use ($filter) {
+            $query->where('user_id', $filter['user_id']);
         })
-        ->when($name, function($query) use ($name) {
-            $query->where('name', 'ilike', '%'.$name.'%');
+        ->when(@$filter['name'], function($query) use ($filter) {
+            $query->where('name', 'ilike', '%'.$filter['name'].'%');
         })
-        ->when($fish_species_name, function($query) use ($fish_species_name) {
-            $query->whereHas('pond_detail', function($q) use ($fish_species_name) {
-                $q->where('name', 'ilike', "%$fish_species_name%");
+        ->when(@$filter['fish_species_name'], function($query) use ($filter) {
+            $query->whereHas('pond_detail', function($q) use ($filter) {
+                $q->where('name', 'ilike', "%".$filter['fish_species_name']."%");
             }); 
         })
-        ->get();
+        ->when(@$filter['id'], function($query) use ($filter) {
+            $query->where('id', $filter['id']);
+        });
     }
 
     public static function createModel($user_id=null,$name=null,$area=null,$latitude=null,$longitude=null,$address=null,$status='TEST') : Pond {
