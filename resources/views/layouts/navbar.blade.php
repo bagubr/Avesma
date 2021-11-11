@@ -12,7 +12,7 @@
                 <li class="nav-item mx-3 {{Request::routeIs('home') ? 'active' : ''}}">
                     <a class="nav-link" href="{{route('home')}}">Beranda</a>
                 </li>
-                <li class="nav-item mx-3 {{Request::routeIs('pasar_virtual') ? 'active' : ''}}">
+                <li class="nav-item mx-3 {{Request::routeIs('pasar_virtual','detail_pasar_virtual') ? 'active' : ''}}">
                     <a class="nav-link" href="{{route('pasar_virtual')}}">Pasar Virtual</a>
                 </li>
                 <li class="nav-item mx-3">

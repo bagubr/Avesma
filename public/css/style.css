@@ -1,6 +1,20 @@
 * {
     font-family: Poppins;
 }
+.btn-primary {
+    background-color:#2689da;
+    color: white;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle .btn-primary.active {
+    background-color: #2373b5;
+    border-color: #12436a;
+    color: white;
+}
 .btn-light {
     background-color: white;
     color: #2689da;

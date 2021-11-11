@@ -16,4 +16,8 @@ class IndexController extends Controller
     {
         return view('pasar_virtual');
     }
+    public function detail_pasar_virtual()
+    {
+        return view('detail_pasar_virtual');
+    }
 }

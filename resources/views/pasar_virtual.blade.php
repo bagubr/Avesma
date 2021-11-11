@@ -46,6 +46,14 @@
     img.ikan.rounded-circle {
         object-fit: cover;
     }
+
+    img.ikan {
+        filter: drop-shadow(-7px 4px 14px #2689DA);
+    }
+
+    .btn-cari {
+        width: 7rem;
+    }
 </style>
 @endpush
 @section('content')
@@ -72,19 +80,18 @@
         <div class="text-center mt-5">
             <h1 class="font-weight-bold">Pasar Virtual</h1>
             <div class="row mt-4">
-                <div class="col-4">
-                    <img src="{{asset('asset/image-2.jpg')}}" class="ikan rounded-circle"
-                        style="filter: drop-shadow(-8px 9px 27px #2689DA);" width="150rem" height="150rem">
+                <div class="col-md-4">
+                    <img src="{{asset('asset/image-2.jpg')}}" class="ikan rounded-circle" width="150rem"
+                        height="150rem">
                     <h4 class="font-weight-bold mt-4">Air Tawar</h4>
                 </div>
-                <div class="col-4">
-                    <img src="{{asset('asset/1.jpg')}}" class="ikan rounded-circle"
-                        style="filter: drop-shadow(-8px 9px 27px #2689DA);" width="150rem" height="150rem">
+                <div class="col-md-4">
+                    <img src="{{asset('asset/1.jpg')}}" class="ikan rounded-circle" width="150rem" height="150rem">
                     <h4 class="font-weight-bold mt-4">Air Tawar</h4>
                 </div>
-                <div class="col-4">
-                    <img src="{{asset('asset/fakta-ikan-nila-2_169.jpeg')}}" class="ikan rounded-circle"
-                        style="filter: drop-shadow(-8px 9px 27px #2689DA);" width="150rem" height="150rem">
+                <div class="col-md-4">
+                    <img src="{{asset('asset/fakta-ikan-nila-2_169.jpeg')}}" class="ikan rounded-circle" width="150rem"
+                        height="150rem">
                     <h4 class="font-weight-bold mt-4">Air Tawar</h4>
                 </div>
             </div>
@@ -102,7 +109,7 @@
             </div>
         </div>
         <div class="text-right">
-            <button class="btn btn-primary">Cari</button>
+            <button class="btn btn-primary font-weight-bold rounded-custom btn-cari">Cari</button>
         </div>
         <div class="row mt-5">
             <div class="col-6 col-md-3 mb-4">
@@ -113,7 +120,7 @@
                         <p class="card-text">Nama Petani / Area</p>
                         <p class="card-text">10/Kg</p>
                         <div class="text-center">
-                            <a href="#" class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
+                            <a href="{{route('detail_pasar_virtual')}}" class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
                         </div>
                     </div>
                 </div>
