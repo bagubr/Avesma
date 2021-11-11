@@ -12,4 +12,10 @@ class ArticleProcedureController extends Controller {
             'articles'=>ArticleProcedureRepository::get($request->toArray())
         ]);
     }
+
+    public function show($id) {
+        return $this->sendSuccessResponse([
+            'article'=>ArticleProcedureRepository::find($id)
+        ]);
+    }
 }

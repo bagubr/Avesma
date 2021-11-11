@@ -14,5 +14,11 @@ class ArticleProcedureRepository {
     public static function get(array $filter = []) {
         return self::queryGet($filter)->get();
     }
+
+    public static function find($id) {
+        return self::queryGet([
+            'id'=>$id
+        ])->find($id);
+    }
 }
         

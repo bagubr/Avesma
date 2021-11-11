@@ -47,6 +47,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('article_categories', [ArticleCategoryController::class, 'index']);
 
     Route::get('article_procedures', [ArticleProcedureController::class, 'index']);
+    Route::get('article_procedures/{id}', [ArticleProcedureController::class, 'show']);
 
     Route::get('procedures', [ProcedureController::class, 'index']);
 
