@@ -21,7 +21,9 @@ class UserCreateRegisterFormRequest extends ApiRequest
                 'phone'=>'required|string|unique:users,phone',
                 'gender'=>'required|string',
                 'birth_date'=>'sometimes|nullable|date',
-                'address'=>'sometimes|nullable|max:40'
+                'address'=>'sometimes|nullable|max:40',
+                'pokdakan'=>'sometimes|nullable|string',
+                'region_id'=>'sometimes|nullable|numeric|exists:regions,id'
             ];
         }
         return [
