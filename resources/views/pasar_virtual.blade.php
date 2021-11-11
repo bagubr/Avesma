@@ -110,8 +110,7 @@
                         <p class="card-text">Nama Petani / Area</p>
                         <p class="card-text">10/Kg</p>
                         <div class="text-center">
-
-                            <a href="#" class="btn btn-primary">Detail</a>
+                            <a href="#" class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
                         </div>
                     </div>
                 </div>
