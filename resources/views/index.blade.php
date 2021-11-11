@@ -5,6 +5,12 @@
         width: 100%;
         margin-right: 16px;
     }
+
+    .slider-img img {
+        height: 500px;
+        object-fit: cover;
+        object-position: center;
+    }
 </style>
 @endpush
 @section('content')
@@ -26,10 +32,10 @@
                 </div>
             </div>
             <div class="col-md-6 order-1 order-md-2 px-0">
-                <div class="main-carousel" data-flickity='{ "contain": true }'>
+                <div class="main-carousel" data-flickity='{ "contain": true,"pageDots": false }'>
                     @foreach ($sliders as $slider)
-                    <div class="carousel-cell text-center">
-                        <img src="{{$slider->image_url}}" />
+                    <div class="carousel-cell slider-img">
+                        <img src="{{$slider->image_url}}" class="w-100" />
                     </div>
                     @endforeach
                 </div>
