@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="text-right">
-                    <button class="btn btn-outline-default">Pasar Virtual</button>
+                    <a href="{{route('pasar_virtual')}}" class="btn btn-outline-default">Pasar Virtual</a>
                 </div>
             </div>
         </div>
