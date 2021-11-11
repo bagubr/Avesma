@@ -109,7 +109,7 @@
             </div>
         </div>
         <div class="text-right">
-            <button class="btn btn-primary font-weight-bold rounded-custom btn-cari">Cari</button>
+            <button class="btn btn-primary font-weight-bold rounded-custom btn-cari"><i class="fas fa-search"></i> Cari</button>
         </div>
         <div class="row mt-5">
             <div class="col-6 col-md-3 mb-4">

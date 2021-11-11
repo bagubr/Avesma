@@ -26,10 +26,40 @@
                     nobis, saepe impedit. Nostrum nemo enim dolores saepe sint, illum rem magnam laboriosam ab! Rem,
                     aliquam voluptatibus.</p>
                 <div class="text-right">
-                    <div class="btn btn-primary"><i class="fas fa-map-marker-alt"></i> Cari Lokasi</div>
+                    <a href="https://g.page/cancreative?share" target="_blank" class="btn btn-primary">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Cari Lokasi
+                    </a>
                 </div>
             </div>
         </div>
+    </div>
+</section>
+<section class="form-pengajuan mt-3">
+    <div class="container">
+        <h2 class="text-center font-weight-bold">Form Pengajuan</h2>
+        <form>
+            <div class="form-group">
+                <label class="font-weight-bold">Nama <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="Masukkan Nama Anda" required>
+            </div>
+            <div class="form-group">
+                <label class="font-weight-bold">Email</label>
+                <input type="text" class="form-control" placeholder="Masukkan Email Anda">
+            </div>
+            <div class="form-group">
+                <label class="font-weight-bold">Nomor Handphone <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="Masukkan Nomor Handphone Anda" required>
+                <small class="form-text text-muted">Contoh +62812345678</small>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="Whatsapp">
+                <label class="form-check-label" for="Whatsapp">Nomor Whatsapp ?</label>
+            </div>
+            <div class="text-right">
+                <div class="btn btn-primary"><i class="fas fa-paper-plane"></i> Kirim</div>
+            </div>
+        </form>
     </div>
 </section>
 @endsection
