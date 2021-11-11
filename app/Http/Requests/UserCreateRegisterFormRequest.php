@@ -31,7 +31,8 @@ class UserCreateRegisterFormRequest extends ApiRequest
             'gender'=>'required|string',
             'birth_date'=>'sometimes|nullable|date',
             'address'=>'sometimes|nullable|max:40',
-            'pokdakan_id'=>'sometimes|nullable|numeric|exists:pokdakans,id'
+            'pokdakan_id'=>'sometimes|nullable|numeric|exists:pokdakans,id',
+            'region_id'=>'sometimes|nullable|numeric|exists:regions,id'
         ];
     }
 }
