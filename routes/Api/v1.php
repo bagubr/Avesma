@@ -38,9 +38,9 @@ Route::post('login/email', [AuthController::class, 'loginEmail']);
 Route::post('imei', [AuthController::class, 'imeiCheck']);
 
 Route::get('pokdakans', [PokdakanController::class, 'index']);
+Route::get('regions', [RegionController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::get('regions', [RegionController::class, 'index']);
 
     Route::get('article_categories', [ArticleCategoryController::class, 'index']);
 

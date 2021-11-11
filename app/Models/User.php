@@ -28,6 +28,7 @@ class User extends Authenticatable
         'address',
         'is_verified',
         'password',
+        'pokdakan',
         'region_id',
         'imei'
     ];
