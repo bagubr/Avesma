@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Pond;
 use Illuminate\Database\Eloquent\Collection;
+use ReflectionClass;
 
 class PondRepository {
     public static function get(array $filter = []) {
@@ -34,7 +35,7 @@ class PondRepository {
         });
     }
 
-    public static function createModel($user_id=null,$name=null,$area=null,$latitude=null,$longitude=null,$address=null,$status='TEST') : Pond {
+    public static function createModel($user_id=null,$name=null,$area=null,$latitude=null,$longitude=null,$address=null,$status=Pond::STATUS1) : Pond {
         return new Pond([
             'user_id'=>$user_id,
             'name'=>$name,
@@ -44,6 +45,14 @@ class PondRepository {
             'address'=>$address,
             'status'=>$status
         ]);
+    }
+
+    public static function getStatuses() {
+        $filter = array_filter((new ReflectionClass(Pond::class))->getConstants(), function($i, $x) {
+            if(str_contains($x, "STATUS")) return true;
+        }, ARRAY_FILTER_USE_BOTH);
+        $filter = array_values($filter);
+        return $filter;
     }
 }
         
