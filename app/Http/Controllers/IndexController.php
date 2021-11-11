@@ -20,4 +20,8 @@ class IndexController extends Controller
     {
         return view('detail_pasar_virtual');
     }
+    public function kontak()
+    {
+        return view('contact');
+    }
 }
