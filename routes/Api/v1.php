@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ArticleCategoryController;
+use App\Http\Controllers\Api\ArticleProcedureController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BuyerController;
 use App\Http\Controllers\Api\FishCategoryController;
@@ -44,6 +45,8 @@ Route::get('regions', [RegionController::class, 'index']);
 Route::middleware('auth:sanctum')->group(function() {
 
     Route::get('article_categories', [ArticleCategoryController::class, 'index']);
+
+    Route::get('article_procedures', [ArticleProcedureController::class, 'index']);
 
     Route::get('procedures', [ProcedureController::class, 'index']);
 
