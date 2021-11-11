@@ -12,8 +12,8 @@ class FormProcedureDetailInput extends Model
     protected $fillable = [
         'form_procedure_detail_id',
         'form_procedure_detail_formula_id',
-        'pond_detail_id',
-        'score',
+        'form_procedure_input_user_id',
+        'score'
     ];
 
     public function form_procedure_detail()

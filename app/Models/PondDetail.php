@@ -19,7 +19,8 @@ class PondDetail extends Model
 
     protected $appends = [
         'pond_name',
-        'spesies_name'
+        'spesies_name',
+        'pond_spesies',
     ];
 
     public function pond()
@@ -40,5 +41,10 @@ class PondDetail extends Model
     public function getSpesiesNameAttribute()
     {
         return $this->fish_species()->first()->name;
+    }
+
+    public function getPondSpesiesAttribute()
+    {
+        return $this->pond()->first()->name .' - '. $this->fish_species()->first()->name;
     }
 }
