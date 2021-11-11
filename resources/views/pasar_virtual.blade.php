@@ -101,72 +101,10 @@
                 <input type="text" class="form-control font-weight-bold" placeholder="Pilih Wilayah">
             </div>
         </div>
-        <div class="row">
-            <div class="col-6 col-md-3 mb-4">
-                <div class="card w-100 bg-blue">
-                    <img class="card-img-top" src="{{asset('asset/image-2.jpg')}}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Ikan Nila</h5>
-                        <p class="card-text">Nama Petani / Area</p>
-                        <p class="card-text">10/Kg</p>
-                        <div class="text-center">
-                            <a href="#" class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 mb-4">
-                <div class="card w-100 bg-blue">
-                    <img class="card-img-top" src="{{asset('asset/image-2.jpg')}}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Ikan Nila</h5>
-                        <p class="card-text">Nama Petani / Area</p>
-                        <p class="card-text">10/Kg</p>
-                        <div class="text-center">
-                            <a href="#" class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 mb-4">
-                <div class="card w-100 bg-blue">
-                    <img class="card-img-top" src="{{asset('asset/image-2.jpg')}}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Ikan Nila</h5>
-                        <p class="card-text">Nama Petani / Area</p>
-                        <p class="card-text">10/Kg</p>
-                        <div class="text-center">
-                            <a href="#" class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 mb-4">
-                <div class="card w-100 bg-blue">
-                    <img class="card-img-top" src="{{asset('asset/image-2.jpg')}}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Ikan Nila</h5>
-                        <p class="card-text">Nama Petani / Area</p>
-                        <p class="card-text">10/Kg</p>
-                        <div class="text-center">
-                            <a href="#" class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 mb-4">
-                <div class="card w-100 bg-blue">
-                    <img class="card-img-top" src="{{asset('asset/image-2.jpg')}}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Ikan Nila</h5>
-                        <p class="card-text">Nama Petani / Area</p>
-                        <p class="card-text">10/Kg</p>
-                        <div class="text-center">
-                            <a href="#" class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="text-right">
+            <button class="btn btn-primary">Cari</button>
+        </div>
+        <div class="row mt-5">
             <div class="col-6 col-md-3 mb-4">
                 <div class="card w-100 bg-blue">
                     <img class="card-img-top" src="{{asset('asset/image-2.jpg')}}" alt="Card image cap">
@@ -183,4 +121,7 @@
         </div>
     </div>
 </section>
+@endsection
+@section('imagefooter')
+<img class="w-100" src="{{asset('asset/footer-image.png')}}" />
 @endsection
