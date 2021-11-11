@@ -9,6 +9,9 @@ class Pond extends Model
 {
     use HasFactory;
     protected $table = 'ponds';
+
+    const STATUS1 = "HATCHERY";
+
     protected $fillable = [
         'user_id',
         'name',

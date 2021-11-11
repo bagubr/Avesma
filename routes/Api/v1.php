@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ArticleCategoryController;
+use App\Http\Controllers\Api\ArticleProcedureController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BuyerController;
 use App\Http\Controllers\Api\FishCategoryController;
 use App\Http\Controllers\Api\FishSpeciesController;
 use App\Http\Controllers\Api\HomeController;
@@ -38,11 +40,14 @@ Route::post('login/email', [AuthController::class, 'loginEmail']);
 Route::post('imei', [AuthController::class, 'imeiCheck']);
 
 Route::get('pokdakans', [PokdakanController::class, 'index']);
+Route::get('regions', [RegionController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::get('regions', [RegionController::class, 'index']);
 
     Route::get('article_categories', [ArticleCategoryController::class, 'index']);
+
+    Route::get('article_procedures', [ArticleProcedureController::class, 'index']);
+    Route::get('article_procedures/{id}', [ArticleProcedureController::class, 'show']);
 
     Route::get('procedures', [ProcedureController::class, 'index']);
 
@@ -50,6 +55,9 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::get('ponds', [PondController::class, 'index']);
     Route::post('ponds/store', [PondController::class, 'store']);
+    Route::get('ponds/{id}', [PondController::class, 'show'])->where('id', '[0-9]+');
+    Route::get('ponds/status', [PondController::class, 'statuses']);
+    Route::post('ponds/update/{id}', [PondController::class, 'update']);
     Route::get('ponds/products', [PondDetailProductController::class, 'index']);
     Route::post('ponds/products', [PondDetailProductController::class, 'store']);
 
@@ -70,4 +78,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('outcomes', [OutcomeController::class, 'index']);
     Route::post('outcomes', [OutcomeController::class, 'store']);
     Route::get('outcomes/show', [OutcomeController::class, 'show']);
+
+    Route::get('buyers', [BuyerController::class, 'index']);
 });
