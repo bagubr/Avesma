@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class PondRepository {
     public static function get($user_id, $name, $fish_species_name) : Collection {
-        return Pond::with('pond_detail.fish_species')->when($user_id, function($query) use ($user_id) {
+        return Pond::with('pond_detail.fish_species.fish_category')->when($user_id, function($query) use ($user_id) {
             $query->where('user_id', $user_id);
         })
         ->when($name, function($query) use ($name) {
