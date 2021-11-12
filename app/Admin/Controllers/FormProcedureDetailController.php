@@ -4,11 +4,13 @@ namespace App\Admin\Controllers;
 
 use App\Models\FormProcedure;
 use App\Models\FormProcedureDetail;
+use App\Models\PondDetail;
 use App\Models\Procedure;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Http\Request;
 
 class FormProcedureDetailController extends AdminController
 {
@@ -71,5 +73,19 @@ class FormProcedureDetailController extends AdminController
         $form->text('name', __('Name'));
 
         return $form;
+    }
+
+    public function getDataByPondDetailId(Request $request)
+    {
+        $pond_details = PondDetail::find($request->get('q'));
+
+        $form = FormProcedureDetail::whereHas('form_procedure', function ($query) use ($pond_details)
+        {
+            $query->where('fish_species_id', $pond_details->fish_species_id);
+        })->get('id', 'name as text');
+
+        return $form;
+
+
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Admin\Controllers\PondDetailController;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -28,11 +29,13 @@ Route::group([
     $router->resource('procedures', ProcedureController::class);
     $router->resource('form-procedures', FormProcedureController::class);
     $router->resource('form-procedure-formulas', FormProcedureFormulaController::class);
+    $router->get('form-procedure-details/by_pond_detail_id', 'FormProcedureDetailController@getDataByPondDetailId');
     $router->resource('form-procedure-details', FormProcedureDetailController::class);
     $router->resource('form-procedure-detail-formulas', FormProcedureDetailFormulaController::class);
     $router->resource('form-procedure-detail-inputs', FormProcedureDetailInputController::class);
     $router->resource('form-procedure-input-users', FormProcedureInputUserController::class);
     $router->resource('ponds', PondController::class);
+    $router->get('pond-details/by_user_id', 'PondDetailController@getData');
     $router->resource('pond-details', PondDetailController::class);
     $router->resource('incomes', IncomeController::class);
     $router->resource('income-details', IncomeDetailController::class);

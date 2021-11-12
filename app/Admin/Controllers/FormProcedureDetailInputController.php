@@ -27,7 +27,7 @@ class FormProcedureDetailInputController extends AdminController
         $grid = new Grid(new FormProcedureDetailInput());
 
         
-        $grid->column('form_procedure_detail_id', __('Form procedure detail id'));
+        $grid->column('form_procedure_detail_id', __('Pertanyaan'));
         $grid->column('form_procedure_detail_formula_id', __('Form procedure detail formula id'));
         $grid->column('score', __('Score'));
         $grid->column('created_at', __('Created at'));
@@ -65,7 +65,7 @@ class FormProcedureDetailInputController extends AdminController
     {
         $form = new Form(new FormProcedureDetailInput());
 
-        $form->number('form_procedure_detail_id', __('Form procedure detail id'));
+        $form->number('form_procedure_detail_id', __('Pertanyaan'));
         $form->number('form_procedure_detail_formula_id', __('Form procedure detail formula id'));
         $form->decimal('score', __('Score'));
 
