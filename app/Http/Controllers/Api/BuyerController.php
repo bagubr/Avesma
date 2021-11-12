@@ -14,4 +14,24 @@ class BuyerController extends Controller
             'buyers'=>BuyerRepository::get($request->toArray())
         ]);
     }
+
+    public function show(Request $request, $id) {
+        $buyer = BuyerRepository::find($id);
+        
+        return $this->sendSuccessResponse([
+            'buyer'=>$buyer
+        ]);
+    }
+
+    public function update(Request $request, $id) {
+        $buyer = BuyerRepository::find($id);
+        $fillable = $buyer->getFillable();
+
+        $buyer->update($request->only($fillable));
+        $buyer->refresh();
+
+        return $this->sendSuccessResponse([
+            'buyer'=>$buyer
+        ]);
+    }
 }

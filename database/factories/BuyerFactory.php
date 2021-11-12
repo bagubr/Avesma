@@ -18,7 +18,8 @@ class BuyerFactory extends Factory
             'pond_detail_id'=>PondDetail::inRandomOrder()->first()->id,
             'name'=>$this->faker->userName(),
             'phone'=>$this->faker->phoneNumber(),
-            'status'=>'PENDING'
+            'status'=>'PENDING',
+            'question'=>$this->faker->text(100)
         ];
     }
 }

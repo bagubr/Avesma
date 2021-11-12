@@ -17,7 +17,8 @@ class FormProcedure extends Model
 
     protected $appends = [
         'procedure_name',
-        'fish_species_name'
+        'fish_species_name',
+        'fish_and_procedure'
     ];
 
     public function procedure()
@@ -29,20 +30,30 @@ class FormProcedure extends Model
     {
         return $this->procedure()->first()->title;
     }
-
+    
     public function fish_species()
     {
         return $this->belongsTo(FishSpecies::class, 'fish_species_id');
     }
-
+    
     public function getFishSpeciesNameAttribute()
     {
         return $this->fish_species()->first()->name;
+    }
+    
+    public function getFishAndProcedureAttribute()
+    {
+        return $this->procedure()->first()->title.' - '.$this->fish_species()->first()->name;
     }
 
     public function form_procedure_detail()
     {
         return $this->hasMany(FormProcedureDetail::class, 'form_procedure_id', 'id');
+    }
+
+    public function form_procedure_formula()
+    {
+        return $this->hasMany(FormProcedureFormula::class, 'form_procedure_id', 'id');
     }
 
 }

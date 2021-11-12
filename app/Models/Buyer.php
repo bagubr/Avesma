@@ -13,7 +13,8 @@ class Buyer extends Model
         'pond_detail_id',
         'name',
         'phone',
-        'status'
+        'status',
+        'question'
     ];
 
     public function pond_detail() {

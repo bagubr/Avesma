@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\PondController;
 use App\Http\Controllers\Api\PondDetailProductController;
 use App\Http\Controllers\Api\ProcedureController;
 use App\Http\Controllers\Api\RegionController;
+use App\Models\Buyer;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,4 +81,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('outcomes/show', [OutcomeController::class, 'show']);
 
     Route::get('buyers', [BuyerController::class, 'index']);
+    Route::get('buyers/{id}', [BuyerController::class, 'show']);
+    Route::post('buyers/update/{id}', [BuyerController::class, 'update']);
 });

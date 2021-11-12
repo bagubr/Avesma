@@ -28,9 +28,7 @@ class FishSpeciesController extends AdminController
 
         
         $grid->column('name', __('Name'));
-        $grid->column('image', __('Image'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('image', __('Image'))->image();
 
         return $grid;
     }
@@ -47,9 +45,7 @@ class FishSpeciesController extends AdminController
 
         $show->field('id', __('Id'));
         $show->field('name', __('Name'));
-        $show->field('image', __('Image'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $show->field('image', __('Image'))->image();
 
         return $show;
     }
