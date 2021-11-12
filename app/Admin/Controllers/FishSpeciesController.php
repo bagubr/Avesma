@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\FishCategory;
 use App\Models\FishSpecies;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -60,6 +61,7 @@ class FishSpeciesController extends AdminController
         $form = new Form(new FishSpecies());
 
         $form->text('name', __('Nama'));
+        $form->select('fish_category_id', __('Kategori Ikan'))->options(FishCategory::all()->pluck('name','id'));
         $form->image('image', __('Image'));
 
         return $form;
