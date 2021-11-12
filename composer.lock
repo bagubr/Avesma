@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28fb808f18e1a9015a3ecd4b7f079796",
+    "content-hash": "3a16fa044ca7e6f7f3d0e57b06b5d771",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6234,6 +6234,66 @@
             "time": "2020-07-13T06:12:54+00:00"
         },
         {
+            "name": "tokarskimarcin/laravel-admin-ext-modal-form",
+            "version": "v0.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tokarskimarcin/laravel-admin-ext-modal-form.git",
+                "reference": "c46018dd571cc26e6283c315a2e24b8183beb1ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tokarskimarcin/laravel-admin-ext-modal-form/zipball/c46018dd571cc26e6283c315a2e24b8183beb1ea",
+                "reference": "c46018dd571cc26e6283c315a2e24b8183beb1ea",
+                "shasum": ""
+            },
+            "require": {
+                "encore/laravel-admin": "~1.6",
+                "php": ">=7.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Encore\\ModalForm\\ModalFormServiceProvider"
+                    ],
+                    "aliases": {
+                        "Modal": "Encore\\ModalForm\\Facades\\Modal"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Encore\\ModalForm\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcin Tokarski",
+                    "email": "marcinxx1994@gmail.com"
+                }
+            ],
+            "description": "Extension allows create modal form",
+            "homepage": "https://github.com/tokarskimarcin/laravel-admin-ext-modal-form",
+            "keywords": [
+                "extension",
+                "laravel-admin",
+                "modal-form"
+            ],
+            "support": {
+                "issues": "https://github.com/tokarskimarcin/laravel-admin-ext-modal-form/issues",
+                "source": "https://github.com/tokarskimarcin/laravel-admin-ext-modal-form/tree/master"
+            },
+            "time": "2020-05-15T10:54:46+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v5.4.0",
             "source": {
@@ -8956,5 +9016,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }

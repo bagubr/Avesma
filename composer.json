@@ -15,7 +15,8 @@
         "laravel/framework": "^8.65",
         "laravel/octane": "^1.0",
         "laravel/sanctum": "^2.12",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "tokarskimarcin/laravel-admin-ext-modal-form": "^0.1.5"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

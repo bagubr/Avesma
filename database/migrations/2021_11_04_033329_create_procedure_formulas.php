@@ -15,8 +15,8 @@ class CreateProcedureFormulas extends Migration
     {
         Schema::create('procedure_formulas', function (Blueprint $table) {
             $table->id();
-            $table->integer('procedure_id');
-            $table->foreign('procedure_id')->references('id')->on('procedures');
+            $table->integer('form_procedure_id');
+            $table->foreign('form_procedure_id')->references('id')->on('form_procedures');
             $table->string('note');
             $table->float('min_range');
             $table->float('max_range');
