@@ -434,6 +434,21 @@ return [
                     'api_key' => '3693fe745aea0df8852739dac08a22fb',
                 ],
             ]
+        ],
+        'summernote' => [
+
+            //Set to false if you want to disable this extension
+            'enable' => true,
+
+            // Editor configuration
+            'config' => [
+                'height'    => 500,
+                'toolbar'   => [
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            ]
         ]
     ],
 ];

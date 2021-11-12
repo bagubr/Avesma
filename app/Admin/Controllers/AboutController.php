@@ -55,7 +55,7 @@ class AboutController extends AdminController
     {
         $form = new Form(new About());
 
-        $form->textarea('description', __('Deskripsi'));
+        $form->summernote('description', __('Deskripsi'));
 
         return $form;
     }
