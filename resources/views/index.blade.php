@@ -48,17 +48,18 @@
         <div class="row h-100">
             <div class="col-md-6">
                 <div class="embed-responsive embed-responsive-16by9 h-100">
-                    <iframe class="embed-responsive-item" src="{{$about->video_url ?? ""}}" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" src="{{$about->video_url ?? "
+                        https://www.youtube.com/embed/QggJzZdIYPI"}}" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="col-md-6">
                 <h2 class="font-weight-bold">Tentang Kita</h2>
                 <div class="main-carousel" data-flickity='{ "prevNextButtons": false }'>
                     <div class="text-justify carousel-cell">
-                        {!!$about->description_indo ?? ""!!}
+                        {!!$about->description_indo ?? "Belum Ada Data Dimasukkan"!!}
                     </div>
                     <div class="text-justify carousel-cell">
-                        {!!$about->description_english ?? ""!!}
+                        {!!$about->description_english ?? "Belum Ada Data Dimasukkan"!!}
                     </div>
                 </div>
                 <div class="text-right">
@@ -78,13 +79,13 @@
                         <div class="visi">
                             <h2 class="font-weight-bold">Visi</h2>
                             <p>
-                                {!!$about->vision ?? ""!!}
+                                {!!$about->vision ?? "Belum Ada Data Dimasukkan"!!}
                             </p>
                         </div>
                         <div class="visi">
                             <h2 class="font-weight-bold">Misi</h2>
                             <p>
-                                {!!$about->mission ?? ""!!}
+                                {!!$about->mission ?? "Belum Ada Data Dimasukkan"!!}
                             </p>
                         </div>
                     </div>
@@ -168,6 +169,7 @@
                         </div>
                     </div>
                 </div>
+                @isset($testimonials)
                 <div class="col-md-7 my-2">
                     <div class="main-carousel" data-flickity='{ "contain": true,"pageDots": false }'>
                         @foreach ($testimonials as $testimonial)
@@ -196,6 +198,7 @@
                         @endforeach
                     </div>
                 </div>
+                @endisset
             </div>
         </div>
     </div>
