@@ -15,17 +15,19 @@ class BuyerRepository {
     }
 
     public static function find($id) {
-        return self::queryGet([])->with('pond_detail.fish_species.fish_category')->find($id);
+        return self::queryGet([])->with('pond_detail.fish_species.fish_category')->with('pond_detail.pond.user')->find($id);
     }
 
     public static function get(array $filter) {
-        return self::queryGet($filter)->with('pond_detail.fish_species.fish_category')->select(
-            'id',
-            'pond_detail_id',
-            'name',
-            'phone',
-            'status'
-        )->get();
+        return self::queryGet($filter)->with('pond_detail.fish_species.fish_category')
+            ->with('pond_detail.pond.user')
+            ->select(
+                'id',
+                'pond_detail_id',
+                'name',
+                'phone',
+                'status'
+            )->get();
     } 
 
 }
