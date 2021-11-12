@@ -194,25 +194,30 @@
                     </div>
                 </div>
                 <div class="col-md-7 my-2">
-                    <div class="container bg-white rounded-custom py-4">
-                        <div class="row h-100">
-                            <div class="col-md-3">
-                                <div class="text-center">
-                                    <img src="asset/screenshot_5.png" class="img-fluid rounded-circle"
-                                        style="height: 100px" />
+                    <div class="main-carousel" data-flickity='{ "contain": true,"pageDots": false }'>
+                        @foreach ($testimonials as $testimonial)
+                        <div class="carousel-cell">
+                            <div class="container bg-white rounded-custom py-4">
+                                <div class="row h-100">
+                                    <div class="col-md-3">
+                                        <div class="text-center">
+                                            <img src="{{$testimonial->image_url}}" class="testimonial img-fluid rounded-circle"
+                                                style="height: 100px" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 my-auto">
+                                        <h4 class="font-weight-bold mb-0">{{$testimonial->name}}</h4>
+                                        <h5>{{$testimonial->position}}</h5>
+                                    </div>
+                                    <div class="col-md-12 mt-4">
+                                        <p class="text-center" style="color: black">
+                                            "{{$testimonial->message}}"
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-9 my-auto">
-                                <h4 class="font-weight-bold mb-0">Satrio Jati Wicaksono</h4>
-                                <h5>Can Creative</h5>
-                            </div>
-                            <div class="col-md-12 mt-4">
-                                <p class="text-center" style="color: black">
-                                    "Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Repudiandae, fuga!"
-                                </p>
-                            </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

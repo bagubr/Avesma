@@ -94,3 +94,7 @@ a.nav-link {
     color: white !important;
     transition: 0.3s;
 }
+img.testimonial {
+    object-fit: cover;
+    object-position: center;
+}

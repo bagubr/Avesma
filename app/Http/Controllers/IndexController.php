@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Slider;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -10,7 +11,8 @@ class IndexController extends Controller
     public function home()
     {
         $sliders = Slider::all();
-        return view('index', compact('sliders'));
+        $testimonials = Testimonial::all();
+        return view('index', compact('sliders', 'testimonials'));
     }
     public function pasar_virtual()
     {
