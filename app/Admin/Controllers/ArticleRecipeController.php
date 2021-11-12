@@ -29,7 +29,7 @@ class ArticleRecipeController extends AdminController
         
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
-        $grid->column('image', __('Image'));
+        $grid->column('image', __('Image'))->image();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 

@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\FormProcedureDetail;
 use App\Models\FormProcedureDetailFormula;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -64,11 +65,12 @@ class FormProcedureDetailFormulaController extends AdminController
     protected function form()
     {
         $form = new Form(new FormProcedureDetailFormula());
-
-        $form->number('form_procedure_detail_id', __('Form procedure detail id'));
+        $form->hidden('form_procedure_detail_id', __('Formulir'))->value(@$_GET['form_procedure_detail_id']);
         $form->text('parameter', __('Parameter'));
         $form->decimal('score', __('Score'));
-
+        $form->saved(function (Form $form) {
+            return redirect('/admin/form-procedure-details/'.$form->form_procedure_detail_id);
+        });
         return $form;
     }
 }

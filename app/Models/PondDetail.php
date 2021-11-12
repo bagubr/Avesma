@@ -19,17 +19,19 @@ class PondDetail extends Model
 
     protected $appends = [
         'pond_name',
-        'spesies_name'
+        'spesies_name',
+        'pond_spesies',
+        'text',
     ];
 
     public function pond()
     {
-        return $this->belongsTo(Pond::class);
+        return $this->belongsTo(Pond::class, 'pond_id');
     }
 
     public function getPondNameAttribute()
     {
-        return $this->pond()->first()->name;
+        return $this->pond()->first()?->name??'';
     }
     
     public function fish_species()
@@ -39,6 +41,16 @@ class PondDetail extends Model
 
     public function getSpesiesNameAttribute()
     {
-        return $this->fish_species()->first()->name;
+        return $this->fish_species()->first()?->name??'';
+    }
+
+    public function getPondSpesiesAttribute()
+    {
+        return $this->pond_name.' - '. $this->spesies_name;
+    }
+
+    public function getTextAttribute()
+    {
+        return $this->pond_name.' - '. $this->spesies_name;
     }
 }

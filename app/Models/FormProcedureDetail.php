@@ -15,9 +15,18 @@ class FormProcedureDetail extends Model
         'form_procedure_id'
     ];
 
+    protected $appends = [
+        'fish_and_procedure'
+    ];
+
     public function form_procedure()
     {
         return $this->belongsTo(FormProcedure::class, 'form_procedure_id');
+    }
+
+    public function getFishAndProcedureAttribute()
+    {
+        return $this->form_procedure()->first()?->fish_and_procedure;
     }
 
     public function form_procedure_detail_formulas()

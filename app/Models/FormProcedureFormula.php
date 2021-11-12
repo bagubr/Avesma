@@ -10,7 +10,7 @@ class FormProcedureFormula extends Model
     use HasFactory;
     protected $table = 'procedure_formulas';
     protected $fillable = [
-        'procedure_id',
+        'form_procedure_id',
         'note',
         'min_range',
         'max_range',
@@ -18,17 +18,23 @@ class FormProcedureFormula extends Model
     ];
 
     protected $appends = [
-        'procedure_name'
+        'procedure_title',
+        'fish_and_procedure'
     ];
 
-    public function procedure()
+    public function form_procedure()
     {
-        return $this->belongsTo(Procedure::class, 'procedure_id');
+        return $this->belongsTo(FormProcedure::class, 'form_procedure_id');
     }
 
-    public function getProcedureNameAttribute()
+    public function getProcedureTitleAttribute()
     {
-        return $this->procedure()->first()->title;
+        return $this->form_procedure()->first()->procedure()->first()->title;
+    }
+
+    public function getFishAndProcedureAttribute()
+    {
+        return $this->form_procedure()->first()->fish_and_procedure;
     }
 
 }

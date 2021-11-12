@@ -45,8 +45,6 @@ class ProcedureController extends AdminController
 
         $show->field('title', __('Title'));
         $show->field('image', __('Image'))->image();
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
 
         return $show;
     }
