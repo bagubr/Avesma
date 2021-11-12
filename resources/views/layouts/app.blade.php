@@ -28,9 +28,9 @@
     <footer class="pt-5 bg-blue-sky">
         <div class="container-fluid">
             <div class="text-center icon-socmed">
-                <img class="img-fluid mx-3" src="{{asset('asset/fb.png')}}" />
-                <img class="img-fluid mx-3" src="{{asset('asset/ig.png')}}" />
-                <img class="img-fluid mx-3" src="{{asset('asset/gmail.png')}}" />
+                @foreach ($social_medias as $social_media)
+                <img class="img-fluid mx-3" src="{{$social_media->image_url}}" />
+                @endforeach
             </div>
         </div>
         <div class="mt-4 text-center">

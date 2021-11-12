@@ -6,11 +6,17 @@ use App\Models\About;
 use App\Models\FishCategory;
 use App\Models\Region;
 use App\Models\Slider;
+use App\Models\SocialMedia;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
+    public function __construct()
+    {
+        $social_medias = SocialMedia::all();
+        view()->share('social_medias', $social_medias);
+    }
     public function home()
     {
         $about = About::first();

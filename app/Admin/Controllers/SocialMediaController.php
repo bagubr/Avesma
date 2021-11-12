@@ -2,20 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\FishCategory;
+use App\Models\SocialMedia;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class FishCategoryController extends AdminController
+class SocialMediaController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'FishCategory';
+    protected $title = 'Social Media';
 
     /**
      * Make a grid builder.
@@ -24,9 +24,10 @@ class FishCategoryController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new FishCategory());
+        $grid = new Grid(new SocialMedia());
 
-        $grid->column('name', __('Nama'));
+        $grid->column('name', __('Nama Social Media'));
+        $grid->column('url', __('Link Sosial Meida'));
         $grid->column('image', __('Image'))->image();
 
         return $grid;
@@ -40,10 +41,10 @@ class FishCategoryController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(FishCategory::findOrFail($id));
+        $show = new Show(SocialMedia::findOrFail($id));
 
-        $show->field('name', __('Nama'));
-        $show->field('image', __('Image'))->image();
+        $show->field('name', __('Nama Social Media'));
+        $show->field('url', __('Link Sosial Media'));
         $show->field('image', __('Image'))->image();
 
         return $show;
@@ -56,9 +57,10 @@ class FishCategoryController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new FishCategory());
+        $form = new Form(new SocialMedia());
 
-        $form->text('name', __('Nama'));
+        $form->text('name', __('Nama Social Media'));
+        $form->url('url', __('Link Sosial Media'));
         $form->image('image', __('Image'));
 
         return $form;

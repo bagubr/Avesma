@@ -45,4 +45,5 @@ Route::group([
     $router->resource('settings', SettingController::class);
     $router->resource('testimonials', TestimonialController::class);
     $router->resource('abouts', AboutController::class);
+    $router->resource('social-medias', SocialMediaController::class);
 });
