@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\About;
 use App\Models\FishCategory;
 use App\Models\Slider;
 use App\Models\Testimonial;
@@ -11,9 +12,10 @@ class IndexController extends Controller
 {
     public function home()
     {
+        $abouts = About::all();
         $sliders = Slider::all();
         $testimonials = Testimonial::all();
-        return view('index', compact('sliders', 'testimonials'));
+        return view('index', compact('sliders', 'testimonials', 'abouts'));
     }
     public function pasar_virtual()
     {
