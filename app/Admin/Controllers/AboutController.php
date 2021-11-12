@@ -15,7 +15,7 @@ class AboutController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Tentang Kita';
+    protected $title = 'About';
 
     /**
      * Make a grid builder.
@@ -25,8 +25,18 @@ class AboutController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new About());
+        $grid->disableCreateButton();
+        $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $actions->disableView();
+            $actions->disableDelete();
+        });
 
-        $grid->column('description', __('Deskripsi'));
+        $grid->column('description_indo', __('Description indo'));
+        $grid->column('description_english', __('Description english'));
+        $grid->column('video_url', __('Video url'));
+        $grid->column('vision', __('Vision'));
+        $grid->column('mission', __('Mission'));
+        $grid->column('image', __('Image'))->image();
 
         return $grid;
     }
@@ -41,7 +51,12 @@ class AboutController extends AdminController
     {
         $show = new Show(About::findOrFail($id));
 
-        $show->field('description', __('Deskripsi'));
+        $show->field('description_indo', __('Description indo'));
+        $show->field('description_english', __('Description english'));
+        $show->field('video_url', __('Video url'));
+        $show->field('vision', __('Vision'));
+        $show->field('mission', __('Mission'));
+        $show->field('image', __('Image'));
 
         return $show;
     }
@@ -55,7 +70,12 @@ class AboutController extends AdminController
     {
         $form = new Form(new About());
 
-        $form->summernote('description', __('Deskripsi'));
+        $form->summernote('description_indo', __('Description indo'));
+        $form->summernote('description_english', __('Description english'));
+        $form->text('video_url', __('Video url'));
+        $form->summernote('vision', __('Vision'));
+        $form->summernote('mission', __('Mission'));
+        $form->image('image', __('Image'));
 
         return $form;
     }

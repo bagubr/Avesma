@@ -12,10 +12,10 @@ class IndexController extends Controller
 {
     public function home()
     {
-        $abouts = About::all();
+        $about = About::first();
         $sliders = Slider::all();
         $testimonials = Testimonial::all();
-        return view('index', compact('sliders', 'testimonials', 'abouts'));
+        return view('index', compact('sliders', 'testimonials', 'about'));
     }
     public function pasar_virtual()
     {
