@@ -70,6 +70,12 @@ class FormProcedureController extends AdminController
             $procedure_formula->score();
         });
 
+        $show->form_procedure_detail('Formulir', function ($procedure_formula) {
+
+            $procedure_formula->setResource('/admin/form-procedure-details');
+            $procedure_formula->name();
+        });
+
         return $show;
     }
 
@@ -81,12 +87,22 @@ class FormProcedureController extends AdminController
     protected function form()
     {
         $form = new Form(new FormProcedure());
-
         $procedure = Procedure::get()->pluck('title', 'id');
-        $form->select('procedure_id', 'Procedure')->options($procedure)->rules('required|unique_with:form_procedures,fish_species_id');
+        $form->select('procedure_id', 'Procedure')->options($procedure)->rules('required|unique_with:form_procedures,fish_species_id,{{id}}');
         $spesies = FishSpecies::get()->pluck('name', 'id');
         $form->select('fish_species_id', 'Spesies')->options($spesies)->rules('required');
 
+        
+        $form->hasMany('form_procedure_detail', 'Formulir', function (Form\NestedForm $form) {
+            $form->text('name', __('Name'));
+        });
+
+        $form->hasMany('form_procedure_formula', 'Penilaian', function (Form\NestedForm $form) {
+            $form->text('min_range', __('Min range'));
+            $form->text('max_range', __('Max range'));
+            $form->text('score', __('Score'));
+            $form->text('note', __('Note'));
+        });
         return $form;
     }
 }

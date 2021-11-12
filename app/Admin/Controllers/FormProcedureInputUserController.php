@@ -29,11 +29,10 @@ class FormProcedureInputUserController extends AdminController
         $grid = new Grid(new FormProcedureInputUser());
 
         $grid->column('id', __('Id'));
-        $grid->column('user_id', __('User id'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
-        $grid->column('pond_detail_id', __('Pond detail id'));
+        $grid->column('user.name', __('User Name'));
+        $grid->column('pond_detail.pond_spesies', __('Kolam'));
         $grid->column('reported_at', __('Reported at'));
+        $grid->column('created_at', __('Created at'));
 
         return $grid;
     }
@@ -49,11 +48,19 @@ class FormProcedureInputUserController extends AdminController
         $show = new Show(FormProcedureInputUser::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('user_id', __('User id'));
+        $show->field('user.name', __('User Name'));
+        $show->field('pond_detail.pond_spesies', __('Kolam'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->field('pond_detail_id', __('Pond detail id'));
         $show->field('reported_at', __('Reported at'));
+
+        $show->form_procedure_detail_input('Isian', function ($procedure) {
+
+            $procedure->setResource('/admin/form-procedure-detail-inputs');
+            $procedure->form_procedure_detail_id('Pertanyaan');
+            $procedure->form_procedure_detail_formula_id('Pilihan');
+            $procedure->score();
+        });
 
         return $show;
     }
@@ -67,18 +74,16 @@ class FormProcedureInputUserController extends AdminController
     {
         $form = new Form(new FormProcedureInputUser());
         $users = User::get()->pluck('name', 'id');
-        $form->select('user_id', __('User name'))->options($users);
-        $form->date('reported_at', __('Reported at'))->default(date('Y-m-d'));
+        $form->select('user_id', __('User name'))->options($users)->load('pond_detail_id', '/admin/pond-details/by_user_id')->rules('required');
+        $form->select('pond_detail_id', __('Kolam User'))->rules('required')->load('form_procedure_detail_id', '/admin/form-procedure-details/by_pond_detail_id');
+        $form->date('reported_at', __('Reported at'))->default(date('Y-m-d'))->rules('required');
 
-        return $form->saving(function (Form $form)
-        {
-            $form->when($form, function (Form $form) {
-                $pond_details = PondDetail::whereHas('pond', function ($query) use ($form)
-                {
-                    $query->where('user_id', $form->user_id);
-                })->get()->pluck('pond_name', 'id');
-                $form->select('pond_detail_id', __('Kolam User'))->options($pond_details);
-            });
+        $form->hasMany('form_procedure_detail_input', 'Formulir', function (Form\NestedForm $form) {
+            $form->select('form_procedure_detail_id', __('Pertanyaan'))->rules('required');
+            $form->select('form_procedure_detail_formula_id', __('Pilih Nilai'))->rules('required');
+            // $form->decimal('score', __('Score'))->rules('required');
         });
+
+        return $form;
     }
 }

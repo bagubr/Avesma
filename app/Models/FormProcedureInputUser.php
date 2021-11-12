@@ -20,11 +20,11 @@ class FormProcedureInputUser extends Model
 
     public function pond_detail()
     {
-        return $this->hasOne(PondDetail::class, 'pond_detail_id');
+        return $this->belongsTo(PondDetail::class, 'pond_detail_id');
     }
 
-    public function form_procedure_input_user()
+    public function form_procedure_detail_input()
     {
-        return $this->hasMany(FormProcedureInputUser::class, 'form_procedure_input_user_id', 'id');
+        return $this->hasMany(FormProcedureDetailInput::class, 'form_procedure_input_user_id', 'id');
     }
 }

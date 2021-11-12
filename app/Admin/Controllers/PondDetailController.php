@@ -7,6 +7,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Http\Request;
 
 class PondDetailController extends AdminController
 {
@@ -76,5 +77,17 @@ class PondDetailController extends AdminController
         $form->text('feed_type', __('Feed type'));
 
         return $form;
+    }
+
+    public function getData(Request $request)
+    {
+        $user_id = $request->get('q');
+
+        $pond_details = PondDetail::whereHas('pond', function ($query) use ($user_id)
+        {
+            $query->where('user_id', $user_id);
+        })->get(['id', 'fish_species_id', 'pond_id']);
+
+        return $pond_details;
     }
 }
