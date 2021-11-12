@@ -48,17 +48,17 @@
         <div class="row h-100">
             <div class="col-md-6">
                 <div class="embed-responsive embed-responsive-16by9 h-100">
-                    <iframe class="embed-responsive-item" src="{{$about->video_url}}" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" src="{{$about->video_url ?? ""}}" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="col-md-6">
                 <h2 class="font-weight-bold">Tentang Kita</h2>
                 <div class="main-carousel" data-flickity='{ "prevNextButtons": false }'>
                     <div class="text-justify carousel-cell">
-                        {!!$about->description_indo!!}
+                        {!!$about->description_indo ?? ""!!}
                     </div>
                     <div class="text-justify carousel-cell">
-                        {!!$about->description_english!!}
+                        {!!$about->description_english ?? ""!!}
                     </div>
                 </div>
                 <div class="text-right">
@@ -78,19 +78,19 @@
                         <div class="visi">
                             <h2 class="font-weight-bold">Visi</h2>
                             <p>
-                                {!!$about->vision!!}
+                                {!!$about->vision ?? ""!!}
                             </p>
                         </div>
                         <div class="visi">
                             <h2 class="font-weight-bold">Misi</h2>
                             <p>
-                                {!!$about->mission!!}
+                                {!!$about->mission ?? ""!!}
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 my-auto">
-                    <img src="{{$about->image_url}}" class="img-fluid" />
+                    <img src="{{$about->image_url ?? ""}}" class="img-fluid" />
                 </div>
             </div>
         </div>
