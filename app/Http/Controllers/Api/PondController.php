@@ -19,8 +19,7 @@ class PondController extends Controller {
         if(empty($user_id)) $this->sendFailedResponse([], 'Maaf, sepertinya anda harus login ulang');
         $this->sendSuccessResponse([
             'ponds'=>PondRepository::get([
-                'user_id'=>$user_id,
-                ...$request->toArray()
+                'user_id'=>$user_id
             ])
         ]);
     }

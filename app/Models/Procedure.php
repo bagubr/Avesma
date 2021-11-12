@@ -22,8 +22,4 @@ class Procedure extends Model
     {
         return env('APP_URL').$this->image;
     }
-
-    public function form_procedures() {
-        return $this->hasMany(FormProcedure::class);
-    }
 }

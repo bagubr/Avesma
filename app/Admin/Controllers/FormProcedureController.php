@@ -24,13 +24,14 @@ class FormProcedureController extends AdminController
      *
      * @return Grid
      */
+
+     
     protected function grid()
     {
         $grid = new Grid(new FormProcedure());
         $grid->column('procedure.title', __('Procedure'));
         $grid->column('fish_species.name', __('Fish Species'));
         $grid->column('created_at', __('Created at'));
-
         return $grid;
     }
 
@@ -98,9 +99,8 @@ class FormProcedureController extends AdminController
         });
 
         $form->hasMany('form_procedure_formula', 'Penilaian', function (Form\NestedForm $form) {
-            $form->text('min_range', __('Min range'));
-            $form->text('max_range', __('Max range'));
-            $form->text('score', __('Score'));
+            $form->number('min_range', __('Min range'));
+            $form->number('max_range', __('Max range'));
             $form->text('note', __('Note'));
         });
         return $form;
