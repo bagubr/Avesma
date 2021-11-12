@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class ArticleProcedureController extends Controller {
     public function index(Request $request) {
         return $this->sendSuccessResponse([
-            'articles'=>ArticleProcedureRepository::get($request->toArray())
+            'article_procedures'=>ArticleProcedureRepository::get($request->toArray())
         ]);
     }
 
     public function show($id) {
         return $this->sendSuccessResponse([
-            'article'=>ArticleProcedureRepository::find($id)
+            'article_procedure'=>ArticleProcedureRepository::find($id)
         ]);
     }
 }
