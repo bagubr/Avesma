@@ -19,3 +19,4 @@ use Symfony\Component\HttpFoundation\Response;
 Route::get('/', [IndexController::class, 'home'])->name('home');
 Route::get('/pasar_virtual', [IndexController::class, 'pasar_virtual'])->name('pasar_virtual');
 Route::get('/detail_pasar_virtual', [IndexController::class, 'detail_pasar_virtual'])->name('detail_pasar_virtual');
+Route::get('/kontak', [IndexController::class, 'kontak'])->name('kontak');

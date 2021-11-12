@@ -43,4 +43,6 @@ Route::group([
     $router->resource('outcome-categories', OutcomeCategoryController::class);
     $router->resource('outcome-settings', OutcomeSettingController::class);
     $router->resource('settings', SettingController::class);
+    $router->resource('testimonials', TestimonialController::class);
+    $router->resource('abouts', AboutController::class);
 });

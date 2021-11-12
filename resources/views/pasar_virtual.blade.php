@@ -80,20 +80,12 @@
         <div class="text-center mt-5">
             <h1 class="font-weight-bold">Pasar Virtual</h1>
             <div class="row mt-4">
+                @foreach ($fish_categories as $fish_category)
                 <div class="col-md-4">
-                    <img src="{{asset('asset/image-2.jpg')}}" class="ikan rounded-circle" width="150rem"
-                        height="150rem">
-                    <h4 class="font-weight-bold mt-4">Air Tawar</h4>
+                    <img src="{{$fish_category->image_url}}" class="ikan rounded-circle" width="150rem" height="150rem">
+                    <h4 class="font-weight-bold mt-4">{{$fish_category->name}}</h4>
                 </div>
-                <div class="col-md-4">
-                    <img src="{{asset('asset/1.jpg')}}" class="ikan rounded-circle" width="150rem" height="150rem">
-                    <h4 class="font-weight-bold mt-4">Air Tawar</h4>
-                </div>
-                <div class="col-md-4">
-                    <img src="{{asset('asset/fakta-ikan-nila-2_169.jpeg')}}" class="ikan rounded-circle" width="150rem"
-                        height="150rem">
-                    <h4 class="font-weight-bold mt-4">Air Tawar</h4>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -109,7 +101,8 @@
             </div>
         </div>
         <div class="text-right">
-            <button class="btn btn-primary font-weight-bold rounded-custom btn-cari"><i class="fas fa-search"></i> Cari</button>
+            <button class="btn btn-primary font-weight-bold rounded-custom btn-cari"><i class="fas fa-search"></i>
+                Cari</button>
         </div>
         <div class="row mt-5">
             <div class="col-6 col-md-3 mb-4">
@@ -120,7 +113,8 @@
                         <p class="card-text">Nama Petani / Area</p>
                         <p class="card-text">10/Kg</p>
                         <div class="text-center">
-                            <a href="{{route('detail_pasar_virtual')}}" class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
+                            <a href="{{route('detail_pasar_virtual')}}"
+                                class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
                         </div>
                     </div>
                 </div>
