@@ -48,20 +48,19 @@
         <div class="row h-100">
             <div class="col-md-6">
                 <div class="embed-responsive embed-responsive-16by9 h-100">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/dEnplvG7jEE"
-                        allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" src="{{$about->video_url}}" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="col-md-6">
                 <h2 class="font-weight-bold">Tentang Kita</h2>
                 <div class="main-carousel" data-flickity='{ "prevNextButtons": false }'>
-                    @foreach ($abouts as $about)
                     <div class="text-justify carousel-cell">
-                        {!!$about->description!!}
+                        {!!$about->description_indo!!}
                     </div>
-                    @endforeach
+                    <div class="text-justify carousel-cell">
+                        {!!$about->description_english!!}
+                    </div>
                 </div>
-
                 <div class="text-right">
                     <a href="{{route('pasar_virtual')}}" class="btn btn-outline-default">Pasar Virtual</a>
                 </div>
@@ -79,23 +78,19 @@
                         <div class="visi">
                             <h2 class="font-weight-bold">Visi</h2>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                Deleniti odit omnis animi consequuntur mod
+                                {!!$about->vision!!}
                             </p>
                         </div>
                         <div class="visi">
                             <h2 class="font-weight-bold">Misi</h2>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                Deleniti odit omnis animi consequuntur modi nesciunt
-                                explicabo rerum earum reiciendis voluptatum in dolorem optio
-                                aliquid dolor, quibusdam esse sequi saepe fugit!
+                                {!!$about->mission!!}
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 my-auto">
-                    <img src="{{asset('asset/visi-misi.png')}}" class="img-fluid" />
+                    <img src="{{$about->image_url}}" class="img-fluid" />
                 </div>
             </div>
         </div>

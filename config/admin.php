@@ -442,7 +442,6 @@ return [
 
             // Editor configuration
             'config' => [
-                'height'    => 500,
                 'toolbar'   => [
                     ['font', ['bold', 'underline', 'clear']],
                     ['para', ['ul', 'ol', 'paragraph']],

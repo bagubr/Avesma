@@ -50,6 +50,9 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('article_procedures', [ArticleProcedureController::class, 'index']);
     Route::get('article_procedures/{id}', [ArticleProcedureController::class, 'show']);
 
+    Route::get('article_recipes', [ArticleProcedureController::class, 'index']);
+    Route::get('article_recipes/{id}', [ArticleProcedureController::class, 'show']);
+
     Route::get('procedures', [ProcedureController::class, 'index']);
 
     Route::get('home', [HomeController::class, 'index']);

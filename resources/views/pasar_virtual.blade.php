@@ -97,7 +97,13 @@
                 <input type="text" class="form-control font-weight-bold" placeholder="Cari Spesies">
             </div>
             <div class="col-md-6 form-group">
-                <input type="text" class="form-control font-weight-bold" placeholder="Pilih Wilayah">
+                <select class="form-control font-weight-bold">
+                    <option value="">Pilih Area</option>
+                    @foreach ($regions as $region)
+                    <option value="{{$region->id}}">{{$region->name}}</option>
+                    @endforeach
+                </select>
+                {{-- <input type="text" class="form-control font-weight-bold" placeholder="Pilih Wilayah"> --}}
             </div>
         </div>
         <div class="text-right">
