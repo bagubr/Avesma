@@ -26,9 +26,9 @@ class TestimonialController extends AdminController
     {
         $grid = new Grid(new Testimonial());
 
-        $grid->column('name', __('Name'));
-        $grid->column('position', __('Position'));
-        $grid->column('message', __('Message'));
+        $grid->column('name', __('Nama'));
+        $grid->column('position', __('Jabatan'));
+        $grid->column('message', __('Pesan'));
         $grid->column('image', __('Image'))->image();
 
         return $grid;
@@ -44,10 +44,10 @@ class TestimonialController extends AdminController
     {
         $show = new Show(Testimonial::findOrFail($id));
 
-        $show->field('name', __('Name'));
-        $show->field('position', __('Position'));
-        $show->field('message', __('Message'));
-        $show->field('image', __('Image'))->image();
+        $show->field('name', __('Nama'));
+        $show->field('position', __('Jabatan'));
+        $show->field('message', __('Pesan'));
+        $show->field('image', __('Foto'))->image();
 
         return $show;
     }
@@ -61,10 +61,10 @@ class TestimonialController extends AdminController
     {
         $form = new Form(new Testimonial());
 
-        $form->text('name', __('Name'));
-        $form->text('position', __('Position'));
-        $form->textarea('message', __('Message'));
-        $form->image('image', __('Image'));
+        $form->text('name', __('Nama'));
+        $form->text('position', __('Jabatan'));
+        $form->textarea('message', __('Pesan'));
+        $form->image('image', __('Foto'));
 
         return $form;
     }
