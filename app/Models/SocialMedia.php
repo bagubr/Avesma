@@ -5,21 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Procedure extends Model
+class SocialMedia extends Model
 {
     use HasFactory;
-    protected $table = 'procedures';
-    protected $fillable = [
-        'title',
-        'image'
-    ];
-
+    protected $fillable = ['name', 'url', 'image'];
     protected $appends = [
         'image_url'
     ];
 
     public function getImageUrlAttribute()
     {
-        return env('APP_URL').$this->image;
+        return url('uploads/' . $this->image);
     }
 }

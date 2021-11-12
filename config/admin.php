@@ -445,7 +445,8 @@ return [
                 'toolbar'   => [
                     ['font', ['bold', 'underline', 'clear']],
                     ['para', ['ul', 'ol', 'paragraph']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                    ['height', ['height']]
                 ]
             ]
         ]

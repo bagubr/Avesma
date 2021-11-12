@@ -15,7 +15,7 @@ class FishSpeciesController extends AdminController
      *
      * @var string
      */
-    protected $title = 'FishSpecies';
+    protected $title = 'Spesies Ikan';
 
     /**
      * Make a grid builder.
@@ -26,8 +26,9 @@ class FishSpeciesController extends AdminController
     {
         $grid = new Grid(new FishSpecies());
 
-        
-        $grid->column('name', __('Name'));
+
+        $grid->column('name', __('Nama'));
+        $grid->column('fish_category.name', __('Kategori Ikan'));
         $grid->column('image', __('Image'))->image();
 
         return $grid;
@@ -43,8 +44,7 @@ class FishSpeciesController extends AdminController
     {
         $show = new Show(FishSpecies::findOrFail($id));
 
-        $show->field('id', __('Id'));
-        $show->field('name', __('Name'));
+        $show->field('name', __('Nama'));
         $show->field('image', __('Image'))->image();
 
         return $show;
@@ -59,7 +59,7 @@ class FishSpeciesController extends AdminController
     {
         $form = new Form(new FishSpecies());
 
-        $form->text('name', __('Name'));
+        $form->text('name', __('Nama'));
         $form->image('image', __('Image'));
 
         return $form;
