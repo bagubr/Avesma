@@ -20,6 +20,7 @@ class FishCategory extends Model
 
     public function getImageUrlAttribute()
     {
-        return env('STORAGE_URL').$this->image;
+        return url('uploads/' . $this->image);
+
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FishCategory;
 use App\Models\Slider;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class IndexController extends Controller
     }
     public function pasar_virtual()
     {
-        return view('pasar_virtual');
+        $fish_categories = FishCategory::all();
+        return view('pasar_virtual', compact('fish_categories'));
     }
     public function detail_pasar_virtual()
     {
