@@ -28,11 +28,10 @@ class FormProcedureInputUserController extends AdminController
     {
         $grid = new Grid(new FormProcedureInputUser());
 
-        $grid->column('id', __('Id'));
-        $grid->column('user_id', __('User id'));
+        $grid->column('user.name', __('User Name'));
+        $grid->column('pond_detail.pond_name', __('Pond detail'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
-        $grid->column('pond_detail_id', __('Pond detail id'));
         $grid->column('reported_at', __('Reported at'));
 
         return $grid;
@@ -48,7 +47,6 @@ class FormProcedureInputUserController extends AdminController
     {
         $show = new Show(FormProcedureInputUser::findOrFail($id));
 
-        $show->field('id', __('Id'));
         $show->field('user_id', __('User id'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
