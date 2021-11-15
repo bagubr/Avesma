@@ -11,6 +11,14 @@
         object-fit: cover;
         object-position: center;
     }
+
+    .flickity-page-dots {
+        bottom: 10px;
+    }
+
+    .flickity-page-dots .dot {
+        background: #2689da;
+    }
 </style>
 @endpush
 @section('content')
@@ -32,7 +40,7 @@
                 </div>
             </div>
             <div class="col-md-6 order-1 order-md-2 px-0">
-                <div class="main-carousel" data-flickity='{ "contain": true,"pageDots": false }'>
+                <div class="main-carousel" data-flickity='{ "contain": true,"pageDots": false,"wrapAround": true }'>
                     @foreach ($sliders as $slider)
                     <div class="carousel-cell slider-img">
                         <img src="{{$slider->image_url}}" class="w-100" />
@@ -52,9 +60,9 @@
                         https://www.youtube.com/embed/QggJzZdIYPI"}}" allowfullscreen></iframe>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" data-aos="fade-right">
                 <h2 class="font-weight-bold">Tentang Kita</h2>
-                <div class="main-carousel" data-flickity='{ "prevNextButtons": false }'>
+                <div class="main-carousel pb-3" data-flickity='{ "prevNextButtons": false }'>
                     <div class="text-justify carousel-cell">
                         {!!$about->description_indo ?? "Belum Ada Data Dimasukkan"!!}
                     </div>
@@ -74,7 +82,7 @@
     <div class="bg-blue">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 my-auto">
+                <div class="col-md-6 order-2 order-md-1 my-auto">
                     <div class="py-2">
                         <div class="visi">
                             <h2 class="font-weight-bold">Visi</h2>
@@ -90,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 my-auto">
+                <div class="col-md-6 order-1 order-md-2 my-auto">
                     <img src="{{$about->image_url ?? ""}}" class="img-fluid" />
                 </div>
             </div>
@@ -171,7 +179,7 @@
                 </div>
                 @isset($testimonials)
                 <div class="col-md-7 my-2">
-                    <div class="main-carousel" data-flickity='{ "contain": true,"pageDots": false }'>
+                    <div class="main-carousel" data-flickity='{"prevNextButtons" : false, "wrapAround": true}'>
                         @foreach ($testimonials as $testimonial)
                         <div class="carousel-cell">
                             <div class="container bg-white rounded-custom py-4">

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="icon" type="image/x-icon" href="{{asset('asset/logo-avesma-10.png')}}">
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <title>Avesma</title>
     @stack('css')
 </head>
@@ -48,6 +49,14 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            disable: 'phone',
+            duration: 1000,
+            easing: 'ease' // values from 0 to 3000, with step 50ms
+        });
+    </script>
 </body>
 
 </html>
