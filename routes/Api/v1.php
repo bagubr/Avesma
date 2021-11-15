@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AboutController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ArticleCategoryController;
 use App\Http\Controllers\Api\ArticleProcedureController;
@@ -31,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('login', function() {
+Route::get('login', function () {
     return "Login";
 });
 
@@ -43,7 +44,7 @@ Route::post('imei', [AuthController::class, 'imeiCheck']);
 Route::get('pokdakans', [PokdakanController::class, 'index']);
 Route::get('regions', [RegionController::class, 'index']);
 
-Route::middleware('auth:sanctum')->group(function() {
+Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('article_categories', [ArticleCategoryController::class, 'index']);
 
@@ -86,4 +87,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('buyers', [BuyerController::class, 'index']);
     Route::get('buyers/{id}', [BuyerController::class, 'show']);
     Route::post('buyers/update/{id}', [BuyerController::class, 'update']);
+
+    Route::get('about', [AboutController::class, 'index']);
 });

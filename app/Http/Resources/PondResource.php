@@ -22,8 +22,8 @@ class PondResource extends JsonResource
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'address' => $this->address,
-            "created_at"=> $this->created_at->format('Y-m-d H:i:s'),
-            "updated_at"=> $this->updated_at->format('Y-m-d H:i:s'),
+            "created_at" => $this->created_at->format('Y-m-d H:i:s'),
+            "updated_at" => $this->updated_at->format('Y-m-d H:i:s'),
             "status" => $this->status,
         ];
     }

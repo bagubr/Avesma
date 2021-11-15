@@ -22,4 +22,8 @@ class Procedure extends Model
     {
         return url('uploads/' . $this->image);
     }
+    public function form_procedures()
+    {
+        return $this->hasMany(FormProcedure::class, 'procedure_id', 'id');
+    }
 }
