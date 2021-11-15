@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\OutcomeSettingController;
 use App\Http\Controllers\Api\PokdakanController;
 use App\Http\Controllers\Api\PondController;
 use App\Http\Controllers\Api\PondDetailProductController;
+use App\Http\Controllers\Api\PrivacyPolicyController;
 use App\Http\Controllers\Api\ProcedureController;
 use App\Http\Controllers\Api\RegionController;
 use App\Models\Buyer;
@@ -89,4 +90,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('buyers/update/{id}', [BuyerController::class, 'update']);
 
     Route::get('about', [AboutController::class, 'index']);
+
+    Route::get('privacy_policy', [PrivacyPolicyController::class, 'index']);
 });

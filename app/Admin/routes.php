@@ -46,4 +46,5 @@ Route::group([
     $router->resource('testimonials', TestimonialController::class);
     $router->resource('abouts', AboutController::class);
     $router->resource('social-medias', SocialMediaController::class);
+    $router->resource('privacy-policies', PrivacyController::class);
 });
