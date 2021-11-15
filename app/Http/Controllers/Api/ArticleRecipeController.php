@@ -10,13 +10,13 @@ use Illuminate\Http\Request;
 class ArticleRecipeController extends Controller {
     public function index(Request $request) {
         return $this->sendSuccessResponse([
-            'articles'=>ArticleRecipeRepository::get()
+            'article_recipes'=>ArticleRecipeRepository::get()
         ]);
     }
 
     public function show(Request $request, $id) {
         return $this->sendSuccessResponse([
-            'article'=>ArticleRecipeRepository::find($id)
+            'article_recipe'=>ArticleRecipeRepository::find($id)
         ]);
     }
 }
