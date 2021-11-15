@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ProcedureController extends Controller {
     public function index(Request $request) {
         $this->sendSuccessResponse([
-            'procedures'=>ProcedureRepository::get($request->toArray())
+            'procedures'=> ProcedureRepository::get($request->toArray())
         ]);
     }
 }

@@ -20,6 +20,6 @@ class Procedure extends Model
 
     public function getImageUrlAttribute()
     {
-        return env('APP_URL').$this->image;
+        return url('uploads/' . $this->image);
     }
 }

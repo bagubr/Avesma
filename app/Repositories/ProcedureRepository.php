@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Http\Resources\ProcedureResource;
 use App\Models\Procedure;
 
 class ProcedureRepository {
@@ -17,7 +18,7 @@ class ProcedureRepository {
     }
 
     public static function get(array $filter = []) {
-        return self::queryGet($filter)->get();
+        return ProcedureResource::collection(self::queryGet($filter)->get());
     }
 }
         
