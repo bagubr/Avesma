@@ -13,28 +13,30 @@ use App\Services\PondService;
 use Illuminate\Http\Request;
 use ReflectionClass;
 
-class PondController extends Controller {
-    public function index(Request $request) {
+class PondController extends Controller
+{
+    public function index(Request $request)
+    {
         $user_id = $request->user()->id == $request->user_id ? $request->user_id : null;
-        if(empty($user_id)) $this->sendFailedResponse([], 'Maaf, sepertinya anda harus login ulang');
+        if (empty($user_id)) $this->sendFailedResponse([], 'Maaf, sepertinya anda harus login ulang');
         $this->sendSuccessResponse([
-            'ponds'=>PondRepository::get([
-                'user_id'=>$user_id
-            ])
+            'ponds' => PondRepository::get()
         ]);
     }
 
-    public function store(PondCreateRequest $request) {
+    public function store(PondCreateRequest $request)
+    {
         $pond = PondRepository::createModel($request->user()->id, $request->name, $request->area, $request->latitude, $request->longitude, $request->address);
         $pond_detail = PondDetailRepository::createModel($request->fish_species_id, $request->seed_count, $request->seed_size, $request->feed_type);
         $pond = PondService::create($pond, $pond_detail);
         $pond = $pond->query()->with('pond_detail.fish_species')->find($pond->id);
         $this->sendSuccessResponse([
-            'pond'=>$pond
+            'pond' => $pond
         ]);
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $data = [
             'pond' => PondRepository::find($id),
             'procedures' => ProcedureRepository::get()
@@ -43,13 +45,15 @@ class PondController extends Controller {
         return $this->sendSuccessResponse($data);
     }
 
-    public function statuses() {
+    public function statuses()
+    {
         return $this->sendSuccessResponse([
-            'statuses'=>PondRepository::getStatuses()
+            'statuses' => PondRepository::getStatuses()
         ]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $pond = PondRepository::find($id);
         $fillable = $pond->getFillable();
 
@@ -57,7 +61,7 @@ class PondController extends Controller {
         $pond->refresh();
 
         $this->sendSuccessResponse([
-            'pond'=>$pond
+            'pond' => $pond
         ]);
     }
 }
