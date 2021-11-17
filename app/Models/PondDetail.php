@@ -19,6 +19,7 @@ class PondDetail extends Model
 
     protected $appends = [
         'pond_name',
+        'fish_category',
         'spesies_name',
         'pond_spesies',
         'text',
@@ -27,6 +28,10 @@ class PondDetail extends Model
     public function pond()
     {
         return $this->belongsTo(Pond::class, 'pond_id');
+    }
+    public function getFishCategoryAttribute()
+    {
+        return $this->fish_species->fish_category->name;
     }
 
     public function getPondNameAttribute()
