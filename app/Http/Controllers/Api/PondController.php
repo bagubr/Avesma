@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PondCreateRequest;
+use App\Http\Resources\PondResource;
 use App\Models\Pond;
 use App\Models\PondDetail;
 use App\Repositories\PondDetailRepository;
@@ -17,10 +18,16 @@ class PondController extends Controller
 {
     public function index(Request $request)
     {
-        $user_id = $request->user()->id == $request->user_id ? $request->user_id : null;
-        if (empty($user_id)) $this->sendFailedResponse([], 'Maaf, sepertinya anda harus login ulang');
+        // $user_id = $request->user()->id == $request->user_id ? $request->user_id : null;
+        $ponds = Pond::where('user_id', $request->user_id)
+            ->when($request->fish_species_id, function ($query) use ($request) {
+                $query->whereHas('pond_detail', function ($q) use ($request) {
+                    $q->where('fish_species_id', $request->fish_species_id);
+                });
+            })->get();
+        if (empty($request->user_id)) $this->sendFailedResponse([], 'Maaf, sepertinya anda harus login ulang');
         $this->sendSuccessResponse([
-            'ponds' => PondRepository::get()
+            'ponds' => PondResource::collection($ponds)
         ]);
     }
 

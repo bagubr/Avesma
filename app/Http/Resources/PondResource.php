@@ -25,6 +25,7 @@ class PondResource extends JsonResource
             "created_at" => $this->created_at->format('Y-m-d H:i:s'),
             "updated_at" => $this->updated_at->format('Y-m-d H:i:s'),
             "status" => $this->status,
+            "pond_detail" => $this->pond_detail,
         ];
     }
 }

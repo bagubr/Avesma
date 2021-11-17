@@ -30,9 +30,9 @@ class PondRepository
             ->when(@$filter['name'], function ($query) use ($filter) {
                 $query->where('name', 'ilike', '%' . $filter['name'] . '%');
             })
-            ->when(@$filter['fish_species_name'], function ($query) use ($filter) {
+            ->when(@$filter['fish_species_id'], function ($query) use ($filter) {
                 $query->whereHas('pond_detail', function ($q) use ($filter) {
-                    $q->where('name', 'ilike', "%" . $filter['fish_species_name'] . "%");
+                    $q->where('id', $filter['fish_species_id']);
                 });
             })
             ->when(@$filter['id'], function ($query) use ($filter) {
