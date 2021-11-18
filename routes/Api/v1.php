@@ -3,7 +3,9 @@
 use App\Http\Controllers\Api\AboutController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ArticleCategoryController;
+use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\ArticleProcedureController;
+use App\Http\Controllers\Api\ArticleRecipeController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BuyerController;
 use App\Http\Controllers\Api\FishCategoryController;
@@ -47,13 +49,15 @@ Route::get('regions', [RegionController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    Route::get('article/{id}', [ArticleController::class, 'show']);
+
     Route::get('article_categories', [ArticleCategoryController::class, 'index']);
 
     Route::get('article_procedures', [ArticleProcedureController::class, 'index']);
     Route::get('article_procedures/{id}', [ArticleProcedureController::class, 'show']);
 
-    Route::get('article_recipes', [ArticleProcedureController::class, 'index']);
-    Route::get('article_recipes/{id}', [ArticleProcedureController::class, 'show']);
+    Route::get('article_recipes', [ArticleRecipeController::class, 'index']);
+    Route::get('article_recipes/{id}', [ArticleRecipeController::class, 'show']);
 
     Route::get('procedures', [ProcedureController::class, 'index']);
 
