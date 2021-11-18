@@ -7,6 +7,7 @@ use App\Http\Requests\Api\CreateIncomeRequest;
 use App\Http\Resources\IncomeIndexResource;
 use App\Http\Resources\IncomeTotalResource;
 use App\Models\Income;
+use App\Models\IncomeDetail;
 use App\Repositories\IncomeDetailRepository;
 use App\Repositories\IncomeRepository;
 use App\Services\IncomeService;
@@ -17,10 +18,14 @@ class IncomeController extends Controller
 {
     public function index(Request $request)
     {
-        $incomes = Income::where('pond_detail_id', $request->pond_detail_id)->get();
+        $incomes = Income::where('pond_detail_id', $request->pond_detail_id);
+        $income_total = IncomeDetail::whereHas('income', function ($q) use ($request) {
+            $q->where('pond_detail_id', $request->pond_detail_id);
+        })->sum('total_price');
         if (empty($request->pond_detail_id)) $this->sendFailedResponse([], 'Maaf, sepertinya anda harus login ulang');
         $this->sendSuccessResponse([
-            'incomes' => IncomeIndexResource::collection($incomes),
+            'income_total' => $income_total,
+            'incomes' => IncomeIndexResource::collection($incomes->get()),
         ]);
         // $this->sendSuccessResponse([
         //     'incomes' => Income::with('income_detail')->when($request->reported_at, function ($query) use ($request) {
