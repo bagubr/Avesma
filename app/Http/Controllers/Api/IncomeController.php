@@ -46,7 +46,7 @@ class IncomeController extends Controller
     public function show ($id){
         $income = Income::find($id);
         $this->sendSuccessResponse([
-            'incomes' => $income,
+            'incomes' => new IncomeIndexResource($income),
         ]);
     }
     public function store(CreateIncomeRequest $request)
