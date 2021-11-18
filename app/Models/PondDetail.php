@@ -31,14 +31,14 @@ class PondDetail extends Model
     }
     public function getFishCategoryAttribute()
     {
-        return $this->fish_species->fish_category->name;
+        return $this->fish_species->fish_category?->name ?? '';
     }
 
     public function getPondNameAttribute()
     {
-        return $this->pond()->first()?->name??'';
+        return $this->pond()->first()?->name ?? '';
     }
-    
+
     public function fish_species()
     {
         return $this->belongsTo(FishSpecies::class, 'fish_species_id');
@@ -46,16 +46,16 @@ class PondDetail extends Model
 
     public function getSpesiesNameAttribute()
     {
-        return $this->fish_species()->first()?->name??'';
+        return $this->fish_species()->first()?->name ?? '';
     }
 
     public function getPondSpesiesAttribute()
     {
-        return $this->pond_name.' - '. $this->spesies_name;
+        return $this->pond_name . ' - ' . $this->spesies_name;
     }
 
     public function getTextAttribute()
     {
-        return $this->pond_name.' - '. $this->spesies_name;
+        return $this->pond_name . ' - ' . $this->spesies_name;
     }
 }
