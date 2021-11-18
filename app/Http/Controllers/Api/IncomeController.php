@@ -43,7 +43,8 @@ class IncomeController extends Controller
         //         ->simplePaginate(20)
         // ]);
     }
-    public function show ($id){
+    public function show($id)
+    {
         $income = Income::find($id);
         $this->sendSuccessResponse([
             'incomes' => new IncomeIndexResource($income),

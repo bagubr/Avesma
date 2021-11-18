@@ -81,8 +81,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('fish_categories', [FishCategoryController::class, 'index']);
 
     Route::get('incomes', [IncomeController::class, 'index']);
-    Route::get('incomes/{id}', [IncomeController::class, 'show']);
     Route::post('incomes', [IncomeController::class, 'store']);
+    Route::get('incomes/{id}', [IncomeController::class, 'show']);
 
     Route::get('outcomes/categories', [OutcomeCategoryController::class, 'index']);
     Route::get('outcomes/settings', [OutcomeSettingController::class, 'index']);
