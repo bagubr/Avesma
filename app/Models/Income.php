@@ -14,13 +14,13 @@ class Income extends Model
         'reported_at',
         'pond_detail_product_id'
     ];
-
     public function pond_detail()
     {
         return $this->belongsTo(PondDetail::class, 'pond_detail_id');
     }
 
-    public function pond_detail_product() {
+    public function pond_detail_product()
+    {
         return $this->belongsTo(PondDetailProduct::class);
     }
 
@@ -28,4 +28,5 @@ class Income extends Model
     {
         return $this->hasMany(IncomeDetail::class, 'income_id', 'id');
     }
+
 }
