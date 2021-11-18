@@ -21,4 +21,8 @@ class IncomeDetail extends Model
     {
         return $this->belongsTo(Income::class, 'income_id');
     }
+    public function pond_detail_products()
+    {
+        return $this->hasOne(PondDetailProduct::class, 'id', 'pond_detail_product_id');
+    }
 }

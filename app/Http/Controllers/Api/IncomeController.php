@@ -43,6 +43,12 @@ class IncomeController extends Controller
         //         ->simplePaginate(20)
         // ]);
     }
+    public function show ($id){
+        $income = Income::find($id);
+        $this->sendSuccessResponse([
+            'incomes' => $income,
+        ]);
+    }
     public function store(CreateIncomeRequest $request)
     {
         DB::beginTransaction();

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class IncomeIndexResource extends JsonResource
+class IncomeDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,10 @@ class IncomeIndexResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'total_price' => $this->income_detail->sum('total_price'),
-            'reported_at' => $this->reported_at,
-            'income_details' => IncomeDetailResource::collection($this->income_detail)
+            'product_name' => $this->pond_detail_products->name,
+            'weight' => $this->weight,
+            'price' => $this->price,
+            'total_price' => $this->total_price,
         ];
     }
 }
