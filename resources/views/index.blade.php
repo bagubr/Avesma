@@ -30,15 +30,11 @@
         height: 100px;
         max-width: 100%;
     }
-
-    .visi-misi-bg {
-        background-image: url('{{asset('asset/bg-avesma--02-03.png')}}');
-        color: white;
-        background-repeat: no-repeat;
-        background-size: 100% auto;
-        background-position: center top;
-        background-attachment: fixed;
-    }
+/* 
+    .visi-misi {
+        background-image: url('{{asset('asset/bg-avesma-motif-03-03.png')}}'),
+        #6DB3F2;
+    } */
 </style>
 @endpush
 @section('content')
@@ -98,7 +94,8 @@
     </div>
 </section>
 <section class="visi-misi mt-5">
-    <div class="visi-misi-bg" style="">
+    <img class="w-100" src="{{asset('asset/vector-atas1.png')}}" />
+    <div class="bg-blue">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 order-2 order-md-1 my-auto">
@@ -123,6 +120,7 @@
             </div>
         </div>
     </div>
+    <img class="w-100" src="{{asset('asset/vector-bawah1.png')}}" />
     <div></div>
 </section>
 <section class="kenapa-avesma mt-5">
