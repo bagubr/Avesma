@@ -126,14 +126,14 @@
         <div class="row text-center mt-3 h-100">
             <div class="col-md-4 order-2 order-md-1 m-auto">
                 <div class="row img-kenapa">
-                    <div class="col col-md-12">
+                    <div class="col-md-12">
                         <img src="{{$benefits[0]->image_url}}" />
-                        <h4 class="font-weight-bold">{{$benefits[0]->title}}</h4>
+                        <h5 class="font-weight-bold">{{$benefits[0]->title}}</h5>
                         <p>{{$benefits[0]->description}}</p>
                     </div>
-                    <div class="col col-md-12">
+                    <div class="col-md-12">
                         <img src="{{$benefits[1]->image_url}}" />
-                        <h4 class="font-weight-bold">{{$benefits[1]->title}}</h4>
+                        <h5 class="font-weight-bold">{{$benefits[1]->title}}</h5>
                         <p>{{$benefits[1]->description}}</p>
                     </div>
                 </div>
@@ -144,14 +144,14 @@
             </div>
             <div class="col-md-4 order-3 order-md-3 m-auto">
                 <div class="row img-kenapa">
-                    <div class="col col-md-12">
+                    <div class="col-md-12">
                         <img src="{{$benefits[2]->image_url}}" />
-                        <h4 class="font-weight-bold">{{$benefits[2]->title}}</h4>
+                        <h5 class="font-weight-bold">{{$benefits[2]->title}}</h5>
                         <p>{{$benefits[2]->description}}</p>
                     </div>
-                    <div class="col col-md-12">
+                    <div class="col-md-12">
                         <img src="{{$benefits[3]->image_url ?? ''}}" />
-                        <h4 class="font-weight-bold">{{$benefits[3]->title ?? ''}}</h4>
+                        <h5 class="font-weight-bold">{{$benefits[3]->title ?? ''}}</h5>
                         <p>{{$benefits[3]->description ?? ''}}</p>
                     </div>
                 </div>

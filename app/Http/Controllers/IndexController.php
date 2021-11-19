@@ -23,7 +23,7 @@ class IndexController extends Controller
         $about = About::first();
         $sliders = Slider::all();
         $testimonials = Testimonial::all();
-        $benefits = Benefit::all();
+        $benefits = Benefit::orderBy('id', 'asc')->get();
         return view('index', compact('sliders', 'testimonials', 'about', 'benefits'));
     }
     public function pasar_virtual()
