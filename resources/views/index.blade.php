@@ -27,7 +27,7 @@
     }
 
     .img-kenapa img {
-        height: 100 px;
+        height: 100px;
         max-width: 100%;
     }
 </style>
