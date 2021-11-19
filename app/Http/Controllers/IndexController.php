@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\Benefit;
 use App\Models\FishCategory;
 use App\Models\Region;
 use App\Models\Slider;
@@ -22,7 +23,8 @@ class IndexController extends Controller
         $about = About::first();
         $sliders = Slider::all();
         $testimonials = Testimonial::all();
-        return view('index', compact('sliders', 'testimonials', 'about'));
+        $benefits = Benefit::all();
+        return view('index', compact('sliders', 'testimonials', 'about', 'benefits'));
     }
     public function pasar_virtual()
     {

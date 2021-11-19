@@ -122,14 +122,14 @@
             <div class="col-md-4 order-2 order-md-1 m-auto">
                 <div class="row">
                     <div class="col col-md-12">
-                        <img src="{{asset('asset/asset-kenapa.png')}}" />
-                        <h4 class="font-weight-bold">Judul</h4>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <img src="{{$benefits[0]->image_url}}" />
+                        <h4 class="font-weight-bold">{{$benefits[0]->title}}</h4>
+                        <p>{{$benefits[0]->description}}</p>
                     </div>
                     <div class="col col-md-12">
-                        <img src="{{asset('asset/asset-kenapa.png')}}" />
-                        <h4 class="font-weight-bold">Judul</h4>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <img src="{{$benefits[1]->image_url}}" />
+                        <h4 class="font-weight-bold">{{$benefits[1]->title}}</h4>
+                        <p>{{$benefits[1]->description}}</p>
                     </div>
                 </div>
             </div>
@@ -139,15 +139,15 @@
             </div>
             <div class="col-md-4 order-3 order-md-3 m-auto">
                 <div class="row">
-                    <div class="col col-md-12">
-                        <img src="{{asset('asset/asset-kenapa.png')}}" />
-                        <h4 class="font-weight-bold">Judul</h4>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                     <div class="col col-md-12">
+                        <img src="{{$benefits[2]->image_url}}" />
+                        <h4 class="font-weight-bold">{{$benefits[2]->title}}</h4>
+                        <p>{{$benefits[2]->description}}</p>
                     </div>
-                    <div class="col col-md-12">
-                        <img src="{{asset('asset/asset-kenapa.png')}}" />
-                        <h4 class="font-weight-bold">Judul</h4>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                     <div class="col col-md-12">
+                        <img src="{{$benefits[3]->image_url ?? ''}}" />
+                        <h4 class="font-weight-bold">{{$benefits[3]->title ?? ''}}</h4>
+                        <p>{{$benefits[3]->description ?? ''}}</p>
                     </div>
                 </div>
             </div>
