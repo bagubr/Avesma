@@ -60,4 +60,23 @@ class IncomeController extends Controller
             'income' => $income->load('income_detail')
         ]);
     }
+    public function Update(CreateIncomeRequest $request, Income $income)
+    {
+        DB::beginTransaction();
+        $data_income = $request->only('pond_detail_id', 'reported_at');
+        $income->update($data_income);
+        foreach ($request->data as $i) {
+            IncomeDetail::updateOrCreate([
+                'pond_detail_product_id' => $i->pond_detail_product_id,
+            ],[
+                'weight' => $i->weight,
+                'price' => $i->price,
+                'total_price' => $i->total_price,
+            ]);
+        };
+        DB::commit();
+        return $this->sendSuccessResponse([
+            'income' => $income->load('income_detail')
+        ]);
+    }
 }

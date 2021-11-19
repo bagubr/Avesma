@@ -51,6 +51,7 @@ Route::get('regions', [RegionController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    Route::get('article', [ArticleController::class, 'index']);
     Route::get('article/{id}', [ArticleController::class, 'show']);
 
     Route::get('article_categories', [ArticleCategoryController::class, 'index']);
@@ -85,6 +86,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('incomes', [IncomeController::class, 'index']);
     Route::post('incomes', [IncomeController::class, 'store']);
     Route::get('incomes/{id}', [IncomeController::class, 'show']);
+    Route::post('incomes/{income}', [IncomeController::class, 'update']);
 
     Route::get('outcomes/categories', [OutcomeCategoryController::class, 'index']);
     Route::get('outcomes/settings', [OutcomeSettingController::class, 'index']);
