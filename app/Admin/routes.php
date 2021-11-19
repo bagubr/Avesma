@@ -48,4 +48,5 @@ Route::group([
     $router->resource('social-medias', SocialMediaController::class);
     $router->resource('privacy-policies', PrivacyController::class);
     $router->resource('benefits', BenefitController::class);
+    $router->resource('term-and-conditions', TermAndConditionController::class);
 });

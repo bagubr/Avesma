@@ -21,7 +21,9 @@ use App\Http\Controllers\Api\PondDetailProductController;
 use App\Http\Controllers\Api\PrivacyPolicyController;
 use App\Http\Controllers\Api\ProcedureController;
 use App\Http\Controllers\Api\RegionController;
+use App\Http\Controllers\Api\TermAndConditionController;
 use App\Models\Buyer;
+use App\Models\TermAndCondition;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -97,4 +99,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('about', [AboutController::class, 'index']);
 
     Route::get('privacy_policy', [PrivacyPolicyController::class, 'index']);
+
+    Route::get('term_and_condition', [TermAndConditionController::class, 'index']);
 });

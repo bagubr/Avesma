@@ -31,7 +31,9 @@
         <div class="container-fluid">
             <div class="text-center icon-socmed">
                 @foreach ($social_medias as $social_media)
-                <img class="img-fluid mx-3" src="{{$social_media->image_url}}" />
+                <a href="{{$social_media->url}}" target="_blank"><img class="img-fluid mx-3"
+                        src="{{$social_media->image_url}}" />
+                </a>
                 @endforeach
             </div>
         </div>
