@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Avesma',
+    'name' => 'AVESMA',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>Avesma</b> admin',
+    'logo' => '<b>AVESMA</b> admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => 'Avesma',
+    'title' => 'AVESMA',
 
     /*
     |--------------------------------------------------------------------------

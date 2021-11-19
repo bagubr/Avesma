@@ -19,7 +19,7 @@
     <link rel="icon" type="image/x-icon" href="{{asset('asset/logo-avesma-10.png')}}">
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <title>Avesma</title>
+    <title>AVESMA</title>
     @stack('css')
 </head>
 

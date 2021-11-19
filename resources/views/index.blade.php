@@ -38,7 +38,7 @@
         <div class="row h-100">
             <div class="col-md-1"></div>
             <div class="col-md-5 order-2 order-md-1 my-auto">
-                <h1 class="font-weight-bold">Avesma</h1>
+                <h1 class="font-weight-bold">AVESMA</h1>
                 <p>
                     AVESMA merupakan aplikasi handphone yang dibuat bagi pembudidaya
                     ikan untuk memberikan informasi cara budidaya ikan yang baik
@@ -89,8 +89,7 @@
     </div>
 </section>
 <section class="visi-misi mt-5">
-    <img class="w-100" src="{{asset('asset/vector-atas1.png')}}" />
-    <div class="bg-blue">
+    <div style="background-image: url('{{asset('asset/bg-avesma--02-03.png')}}');color:white;background-size: cover;">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 order-2 order-md-1 my-auto">
@@ -115,13 +114,12 @@
             </div>
         </div>
     </div>
-    <img class="w-100" src="{{asset('asset/vector-bawah1.png')}}" />
     <div></div>
 </section>
 <section class="kenapa-avesma mt-5">
     <div class="container">
         <div class="text-center">
-            <h2 class="font-weight-bold">Kenapa Harus Avesma ?</h2>
+            <h2 class="font-weight-bold">Kenapa Harus AVESMA ?</h2>
         </div>
         <div class="row text-center mt-3 h-100">
             <div class="col-md-4 order-2 order-md-1 m-auto">
@@ -194,7 +192,7 @@
                         @foreach ($testimonials as $testimonial)
                         <div class="carousel-cell">
                             <div class="container bg-white rounded-custom py-4">
-                                <div class="row h-100">
+                                <div class="row">
                                     <div class="col-md-3">
                                         <div class="text-center">
                                             <img src="{{$testimonial->image_url}}"
