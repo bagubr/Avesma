@@ -30,6 +30,15 @@
         height: 100px;
         max-width: 100%;
     }
+
+    .visi-misi-bg {
+        background-image: url('{{asset('asset/bg-avesma--02-03.png')}}');
+        color: white;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        background-position: center top;
+        background-attachment: fixed;
+    }
 </style>
 @endpush
 @section('content')
@@ -89,7 +98,7 @@
     </div>
 </section>
 <section class="visi-misi mt-5">
-    <div style="background-image: url('{{asset('asset/bg-avesma--02-03.png')}}');color:white;background-size: cover;">
+    <div class="visi-misi-bg" style="">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 order-2 order-md-1 my-auto">
