@@ -12,6 +12,12 @@
         object-position: center;
     }
 
+    @media (min-width: 768px) {
+        .slider-img img {
+            border-radius: 0 0 0 25px;
+        }
+    }
+
     .flickity-page-dots {
         bottom: 10px;
     }
@@ -164,11 +170,11 @@
                             </div>
                             <div class="col-md-6 col-6">
                                 <h3 class="font-weight-bold m-0">999</h3>
-                                <p>Jumlah Petani</p>
+                                <p>Jumlah Pembudidaya</p>
                             </div>
                             <div class="col-md-6 col-6">
                                 <h3 class="font-weight-bold m-0">312</h3>
-                                <p>Transaksi Berhasil</p>
+                                <p>Jumlah Panen / Kg</p>
                             </div>
                             <div class="col-md-6 col-6">
                                 <h3 class="font-weight-bold m-0">4,5</h3>
