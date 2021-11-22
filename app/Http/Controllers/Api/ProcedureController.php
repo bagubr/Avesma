@@ -21,7 +21,8 @@ class ProcedureController extends Controller
         if ($request->toArray()) {
             $this->sendSuccessResponse([
                 'procedures' => ProcedureRepository::search($request->toArray())
-            ]);        }else{
+            ]);
+        } else {
             $this->sendSuccessResponse([
                 'procedures' => ProcedureRepository::get()
             ]);
@@ -42,17 +43,17 @@ class ProcedureController extends Controller
             'procedure' => new ProcedureUserResource($procedure_user)
         ]);
     }
-    public function inputdetail(Request $request)
+    public function getFormProcedure($id)
     {
-        $procedures_detail = FormProcedure::with('form_procedure_detail.form_procedure_detail_formulas')->where('fish_species_id', $request->fish_species_id)
-            ->when($request->procedure_id, function ($query) use ($request) {
-                $query->where('procedure_id', $request->procedure_id);
-            })->get()->first();
-        if (empty($request->fish_species_id && $request->procedure_id)) {
-            $this->sendFailedResponse([], 'Maaf Anda Belum Memilih Spesies Ikan atau SOP');
-        }
+        // $procedures_detail = FormProcedure::with('form_procedure_detail.form_procedure_detail_formulas')->where('fish_species_id', $request->fish_species_id)
+        //     ->when($request->procedure_id, function ($query) use ($request) {
+        //         $query->where('procedure_id', $request->procedure_id);
+        //     })->get()->first();
+
+        $form_procedure = FormProcedure::where('id',$id)
+            ->with('form_procedure_detail.form_procedure_detail_formulas')->first();
         $this->sendSuccessResponse([
-            'procedure' => $procedures_detail
+            'form_procedure' => $form_procedure
         ]);
     }
     public function store(Request $request)
