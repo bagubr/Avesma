@@ -64,6 +64,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('procedures', [ProcedureController::class, 'index']);
     Route::get('procedures/list', [ProcedureController::class, 'getProcedureList']);
+    Route::get('procedures/list/{id}', [ProcedureController::class, 'getProcedureShow']);
     Route::post('procedures',[ProcedureController::class, 'store']);
     Route::get('procedures/input_detail',[ProcedureController::class, 'inputdetail']);
 

@@ -22,11 +22,19 @@ class ProcedureController extends Controller
             'procedures' => ProcedureRepository::get($request->toArray())
         ]);
     }
-    public function getProcedureList()
+    public function getProcedureList(Request $request)
     {
-        $procedure_users = FormProcedureInputUser::all();
+        $procedure_users = FormProcedureInputUser::where('pond_detail_id', $request->pond_detail_id)
+            ->where('form_procedure_id', $request->form_procedure_id)->get();
         return $this->sendSuccessResponse([
             'procedures' => ProcedureUserResource::collection($procedure_users)
+        ]);
+    }
+    public function getProcedureShow($id)
+    {
+        $procedure_user = FormProcedureInputUser::find($id);
+        return $this->sendSuccessResponse([
+            'procedure' => new ProcedureUserResource($procedure_user)
         ]);
     }
     public function inputdetail(Request $request)
