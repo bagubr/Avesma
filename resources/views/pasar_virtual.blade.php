@@ -118,7 +118,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-center">
                             {{$income_detail->pond_detail_products->pond_detail->fish_species->name}}</h5>
-                        <p class="card-text">{{$income_detail->pond_detail_products->pond_detail}} / Area
+                        <p class="card-text">Deskripsi Singkat
                         </p>
                         <p class="card-text">10/Kg</p>
                         <div class="text-center">
