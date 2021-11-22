@@ -13,10 +13,9 @@ class ProcedureRepository
             $query->whereHas('form_procedures', function ($q) use ($filter) {
                 $q->where('fish_species_id', $filter['fish_species_id']);
             });
-        })
-            ->when(@$filter['title'], function ($query) use ($filter) {
-                $query->where('title', 'ilike', '%' . $filter['title'] . '%');
-            });
+        })->when(@$filter['title'], function ($query) use ($filter) {
+            $query->where('title', 'ilike', '%' . $filter['title'] . '%');
+        });
     }
 
     public static function get(array $filter = [])

@@ -68,7 +68,6 @@ class FormProcedureController extends AdminController
             $procedure_formula->note();
             $procedure_formula->min_range();
             $procedure_formula->max_range();
-            $procedure_formula->score();
         });
 
         $show->form_procedure_detail('Formulir', function ($procedure_formula) {

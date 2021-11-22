@@ -19,6 +19,7 @@ class ProcedureResource extends JsonResource
             'title' => $this->title,
             'image' => $this->image,
             'image_url' => $this->image_url,
+            'fish_species_id' => $this->form_procedures,
         ];
     }
 }
