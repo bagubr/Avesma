@@ -24,6 +24,8 @@ class PondController extends Controller
                 $query->whereHas('pond_detail', function ($q) use ($request) {
                     $q->where('fish_species_id', $request->fish_species_id);
                 });
+            })->when($request->status, function ($q) use ($request) {
+                $q->where('status', 'ilike', '%' . $request->status . '%');
             })->get();
         if (empty($request->user_id)) $this->sendFailedResponse([], 'Maaf, sepertinya anda harus login ulang');
         $this->sendSuccessResponse([
