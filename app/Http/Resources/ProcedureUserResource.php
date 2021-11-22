@@ -21,6 +21,7 @@ class ProcedureUserResource extends JsonResource
             "pond_detail_id" => $this->pond_detail_id,
             "total_score" => $this->form_procedure_detail_input->sum('score'),
             "reported_at" => $this->reported_at,
+            "procedure_details" => ProcedureDetailResource::collection($this->form_procedure_detail_input)
         ];
     }
 }
