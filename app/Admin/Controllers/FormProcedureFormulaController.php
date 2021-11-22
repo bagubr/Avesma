@@ -34,7 +34,6 @@ class FormProcedureFormulaController extends AdminController
         $grid->column('note', __('Note'));
         $grid->column('min_range', __('Min range'));
         $grid->column('max_range', __('Max range'));
-        $grid->column('score', __('Score'));
 
         return $grid;
     }
@@ -54,7 +53,6 @@ class FormProcedureFormulaController extends AdminController
         $show->field('note', __('Note'));
         $show->field('min_range', __('Min range'));
         $show->field('max_range', __('Max range'));
-        $show->field('score', __('Score'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -75,7 +73,6 @@ class FormProcedureFormulaController extends AdminController
         $form->text('note', __('Note'))->rules('required');
         $form->decimal('min_range', __('Min range'));
         $form->decimal('max_range', __('Max range'))->rules('required|gt:min_range');
-        $form->decimal('score', __('Score'))->rules('required');
 
         return $form->saving(function (Form $form) {
             // $max_range = FormProcedureFormula::whereFormProcedureId($form->form_procedure_id)->orderBy('id', 'desc')->first()?->max_range??0;
