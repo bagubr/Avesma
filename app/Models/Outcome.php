@@ -27,4 +27,14 @@ class Outcome extends Model
     {
         return $this->belongsTo(OutcomeSetting::class, 'outcome_setting_id');
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
 }

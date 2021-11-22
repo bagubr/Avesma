@@ -13,4 +13,14 @@ class ArticleCategory extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
 }

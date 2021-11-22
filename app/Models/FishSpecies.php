@@ -33,4 +33,14 @@ class FishSpecies extends Model
     public function pond_details() {
         return $this->hasMany(PondDetail::class);
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
 }

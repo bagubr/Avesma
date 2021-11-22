@@ -21,4 +21,14 @@ class UserPokdakan extends Model
     public function pokdakan() {
         return $this->belongsTo(Pokdakan::class);
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
 }

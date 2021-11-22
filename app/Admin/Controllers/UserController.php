@@ -27,15 +27,16 @@ class UserController extends AdminController
         $grid = new Grid(new User());
 
         // 
+        // $grid->quickSearch('name', 'email', 'phone', 'gender', 'birt');
         $grid->column('name', __('Name'));
         $grid->column('email', __('Email'));
         $grid->column('phone', __('Phone'));
         $grid->column('gender', __('Gender'));
         $grid->column('birth_date', __('Birth date'));
         $grid->column('address', __('Address'));
-        $grid->column('is_verified', __('Is verified'));
+        $grid->column('is_verified', __('Is verified'))->bool();
         // 
-        $grid->column('created_at', __('Created at'));
+        $grid->column('created_at', __('Member Since'));
         $grid->column('updated_at', __('Updated at'));
 
         return $grid;
@@ -59,9 +60,15 @@ class UserController extends AdminController
         $show->field('birth_date', __('Birth date'));
         $show->field('address', __('Address'));
         $show->field('is_verified', __('Is verified'));
-        // $show->field('deleted_at', __('Deleted at'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $show->field('created_at', __('Member Since'));
+        
+        $show->user_information('Procedure', function ($user_information) {
+
+            $user_information->setResource('/admin/user-informations');
+            $user_information->nik();
+            $user_information->ktp_photo()->image();
+            $user_information->ktp_selfie_photo()->image();
+        });
 
         return $show;
     }

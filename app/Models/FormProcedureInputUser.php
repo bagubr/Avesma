@@ -27,4 +27,14 @@ class FormProcedureInputUser extends Model
     {
         return $this->hasMany(FormProcedureDetailInput::class, 'form_procedure_input_user_id', 'id');
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
 }

@@ -24,4 +24,14 @@ class FormProcedureDetailInput extends Model
     {
         return $this->belongsTo(FormProcedureDetailFormula::class, 'form_procedure_detail_formula_id');
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
 }

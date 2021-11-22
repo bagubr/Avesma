@@ -26,4 +26,14 @@ class Procedure extends Model
     {
         return $this->hasMany(FormProcedure::class, 'procedure_id', 'id');
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
 }

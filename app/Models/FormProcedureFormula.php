@@ -35,4 +35,14 @@ class FormProcedureFormula extends Model
     {
         return $this->form_procedure()->first()->fish_and_procedure;
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
 }

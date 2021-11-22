@@ -20,4 +20,14 @@ class Buyer extends Model
     public function pond_detail() {
         return $this->belongsTo(PondDetail::class);
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
 }

@@ -35,11 +35,26 @@ class User extends Authenticatable
         'avatar_url'
     ];
 
+    public function user_information()
+    {
+        return $this->belongsTo(UserInformation::class, 'user_id');
+    }
+
     public function ponds() {
         return $this->hasMany(Pond::class);
     }
 
     public function getAvatarUrlAttribute() {
         return asset($this->attributes['avatar']);
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
     }
 }
