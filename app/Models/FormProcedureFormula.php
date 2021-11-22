@@ -14,6 +14,7 @@ class FormProcedureFormula extends Model
         'note',
         'min_range',
         'max_range',
+        'score',
     ];
 
     protected $appends = [
