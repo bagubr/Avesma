@@ -20,12 +20,6 @@ class FormProcedureDetailInput extends Model
     {
         return $this->belongsTo(FormProcedureDetail::class, 'form_procedure_detail_id');
     }
-
-    public function pond_detail()
-    {
-        return $this->belongsTo(PondDetail::class, 'pond_detail_id');
-    }
-
     public function form_procedure_detail_formula()
     {
         return $this->belongsTo(FormProcedureDetailFormula::class, 'form_procedure_detail_formula_id');
