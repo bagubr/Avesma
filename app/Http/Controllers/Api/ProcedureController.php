@@ -18,9 +18,14 @@ class ProcedureController extends Controller
 {
     public function index(Request $request)
     {
-        $this->sendSuccessResponse([
-            'procedures' => ProcedureRepository::get($request->toArray())
-        ]);
+        if ($request->toArray()) {
+            $this->sendSuccessResponse([
+                'procedures' => ProcedureRepository::search($request->toArray())
+            ]);        }else{
+            $this->sendSuccessResponse([
+                'procedures' => ProcedureRepository::get()
+            ]);
+        }
     }
     public function getProcedureList(Request $request)
     {

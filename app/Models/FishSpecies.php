@@ -20,10 +20,9 @@ class FishSpecies extends Model
     protected $appends = [
         'image_url'
     ];
-
     public function getImageUrlAttribute()
     {
-        return env('STORAGE_URL').$this->image;
+        return url('uploads/' . $this->image);
     }
 
     public function fish_category() {

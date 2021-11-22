@@ -24,7 +24,7 @@ class Procedure extends Model
     }
     public function form_procedures()
     {
-        return $this->hasMany(FormProcedure::class, 'procedure_id', 'id');
+        return $this->hasMany(FormProcedure::class,'procedure_id');
     }
 
     public function getCreatedAtAttribute($value)
