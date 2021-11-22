@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\About;
 use App\Models\Benefit;
 use App\Models\FishCategory;
+use App\Models\IncomeDetail;
 use App\Models\Region;
 use App\Models\Slider;
 use App\Models\SocialMedia;
@@ -30,7 +31,8 @@ class IndexController extends Controller
     {
         $fish_categories = FishCategory::all();
         $regions = Region::all();
-        return view('pasar_virtual', compact('fish_categories', 'regions'));
+        $income_details = IncomeDetail::all();
+        return view('pasar_virtual', compact('fish_categories', 'regions', 'income_details'));
     }
     public function detail_pasar_virtual()
     {

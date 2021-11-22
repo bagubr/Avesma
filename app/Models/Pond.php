@@ -11,6 +11,8 @@ class Pond extends Model
     protected $table = 'ponds';
 
     const STATUS1 = "HATCHERY";
+    const STATUS2 = "HARVEST";
+    const STATUS3 = "IS_CLOSE";
 
     protected $fillable = [
         'user_id',

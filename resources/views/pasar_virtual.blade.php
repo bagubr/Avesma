@@ -111,12 +111,15 @@
                 Cari</button>
         </div>
         <div class="row mt-5">
+            @foreach ($income_details as $income_detail)
             <div class="col-6 col-md-3 mb-4">
                 <div class="card w-100 bg-blue">
                     <img class="card-img-top" src="{{asset('asset/image-2.jpg')}}" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Ikan Nila</h5>
-                        <p class="card-text">Nama Petani / Area</p>
+                        <h5 class="card-title text-center">
+                            {{$income_detail->pond_detail_products->pond_detail->fish_species->name}}</h5>
+                        <p class="card-text">{{$income_detail->pond_detail_products->pond_detail}} / Area
+                        </p>
                         <p class="card-text">10/Kg</p>
                         <div class="text-center">
                             <a href="{{route('detail_pasar_virtual')}}"
@@ -125,6 +128,7 @@
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
 </section>
