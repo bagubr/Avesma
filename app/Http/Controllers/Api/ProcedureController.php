@@ -49,6 +49,7 @@ class ProcedureController extends Controller
             'user_id' => $request->user_id,
             'pond_detail_id' => $request->pond_detail_id,
             'reported_at' => $request->reported_at,
+            'form_procedure_id' => $request->form_procedure_id,
         ]);
         foreach ($request->data as $i) {
             FormProcedureDetailInput::create([

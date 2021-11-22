@@ -15,7 +15,7 @@ class AddFormProcedureIdToFormProcedureInputUsersTable extends Migration
     {
         Schema::table('form_procedure_input_users', function (Blueprint $table) {
             $table->integer('form_procedure_id')->nullable();
-            $table->foreign('form_procedure_id')->references('id')->on('fish_categories');
+            $table->foreign('form_procedure_id')->references('id')->on('form_procedures');
         });
     }
 

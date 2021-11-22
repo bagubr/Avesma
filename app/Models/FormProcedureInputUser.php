@@ -10,7 +10,7 @@ class FormProcedureInputUser extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'pond_detail_id', 'reported_at'
+        'user_id', 'pond_detail_id', 'reported_at', 'form_procedure_id'
     ];
 
     public function user()
@@ -21,6 +21,10 @@ class FormProcedureInputUser extends Model
     public function pond_detail()
     {
         return $this->belongsTo(PondDetail::class, 'pond_detail_id');
+    }
+    public function form_procedure()
+    {
+        return $this->belongsTo(FormProcedure::class, 'form_procedure_id');
     }
 
     public function form_procedure_detail_input()
