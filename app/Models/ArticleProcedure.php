@@ -27,16 +27,15 @@ class ArticleProcedure extends Model
         'image_url'
     ];
 
-    public function getFileUrlAttribute()
-    {
-        return env('STORAGE_URL').$this->file;
-    }
-
     public function getImageUrlAttribute()
     {
-        return env('STORAGE_URL').$this->image;
+        return url('uploads/' . $this->image);
     }
-
+    public function getFileUrlAttribute()
+    {
+        return url('uploads/' . $this->file);
+    }
+    
     public function getListType()
     {
         return [

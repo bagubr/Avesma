@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProcedureUserResource;
 use App\Models\FormProcedure;
 use App\Models\FormProcedureDetail;
 use App\Models\FormProcedureDetailFormula;
@@ -19,6 +20,13 @@ class ProcedureController extends Controller
     {
         $this->sendSuccessResponse([
             'procedures' => ProcedureRepository::get($request->toArray())
+        ]);
+    }
+    public function getProcedureList()
+    {
+        $procedure_users = FormProcedureInputUser::all();
+        return $this->sendSuccessResponse([
+            'procedures' => ProcedureUserResource::collection($procedure_users)
         ]);
     }
     public function inputdetail(Request $request)

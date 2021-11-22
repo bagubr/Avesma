@@ -63,6 +63,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('article_recipes/{id}', [ArticleRecipeController::class, 'show']);
 
     Route::get('procedures', [ProcedureController::class, 'index']);
+    Route::get('procedures/list', [ProcedureController::class, 'getProcedureList']);
     Route::post('procedures',[ProcedureController::class, 'store']);
     Route::get('procedures/input_detail',[ProcedureController::class, 'inputdetail']);
 
