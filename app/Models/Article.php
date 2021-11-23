@@ -28,7 +28,9 @@ class Article extends Model
 
     public function getFileAttribute($value)
     {
-        return url('uploads/' . $value);
+        if ($value) {
+            return url('uploads/' . $value);
+        }
     }
     public function getImageUrlAttribute()
     {
