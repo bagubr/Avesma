@@ -31,6 +31,13 @@ class ArticleCategoryController extends AdminController
             $filter->like('nama', 'Nama');
         });
 
+        $grid->disableRowSelector();
+        $grid->disableColumnSelector();
+        $grid->disableExport();
+        $grid->disableFilter();
+        $grid->quickSearch('name');
+
+        $grid->column('id', __('ID'));
         $grid->column('name', __('Nama'));
 
         return $grid;
@@ -47,7 +54,13 @@ class ArticleCategoryController extends AdminController
         $show = new Show(ArticleCategory::findOrFail($id));
 
         $show->field('name', __('Nama'));
-
+        
+        $show->panel()->tools(function ($tools)
+        {
+            $tools->disableList();
+            $tools->disableEdit();
+            $tools->disableDelete();
+        });
         return $show;
     }
 
@@ -61,6 +74,9 @@ class ArticleCategoryController extends AdminController
         $form = new Form(new ArticleCategory());
 
         $form->text('name', __('Nama'));
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
 
         return $form;
     }

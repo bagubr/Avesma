@@ -26,7 +26,11 @@ class ArticleController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Article());
-
+        $grid->disableFilter();
+        $grid->disableExport();
+        $grid->disableRowSelector();
+        $grid->disableColumnSelector();
+        $grid->quickSearch('title', 'description', 'article_category.name', 'type');
         $grid->column('article_category.name', __('Kategori Artikel'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
@@ -47,8 +51,6 @@ class ArticleController extends AdminController
     protected function detail($id)
     {
         $show = new Show(Article::findOrFail($id));
-
-        $show->field('id', __('Id'));
         $show->field('article_category_id', __('Article category'));
         $show->field('title', __('Title'));
         $show->field('description', __('Description'));
@@ -57,7 +59,12 @@ class ArticleController extends AdminController
         $show->field('image', __('Image'));
         $show->field('embed_link', __('Embed Link'));
         $show->field('file', __('File'));
-
+        $show->panel()->tools(function ($tools)
+        {
+            $tools->disableList();
+            $tools->disableEdit();
+            $tools->disableDelete();
+        });
         return $show;
     }
 
@@ -76,12 +83,21 @@ class ArticleController extends AdminController
         $form->summernote('description', __('Description'))->required();
         $form->image('image', __('Image'))->required();
         $form->select('type', __('Tipe'))->options([
-            Article::TYPE_FILE => Article::TYPE_FILE,
-            Article::TYPE_VIDEO_EMBED => Article::TYPE_VIDEO_EMBED
-        ])->required();
-        $form->text('embed_link', __('Embed Link'));
-        $form->file('file', __('File'));
-
+            Article::TYPE_FILE => 'File',
+            Article::TYPE_VIDEO_EMBED => 'Video Embed Youtube'
+        ])
+        ->when(Article::TYPE_FILE, function (Form $form)
+        {
+            $form->file('file', __('File'));
+        })
+        ->when(Article::TYPE_VIDEO_EMBED, function (Form $form)
+        {
+            $form->text('embed_link', __('Embed Link'));
+        })
+        ->required();
+        $form->disableCreatingCheck();
+        $form->disableViewCheck();
+        $form->disableEditingCheck();
         return $form;
     }
 }

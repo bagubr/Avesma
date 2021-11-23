@@ -25,13 +25,17 @@ class ArticleRecipeController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new ArticleRecipe());
-
-        
+        $grid->disableFilter();
+        $grid->disableExport();
+        $grid->disableRowSelector();
+        $grid->disableColumnSelector();
+        $grid->quickSearch('title', 'description', 'type');
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
         $grid->column('image', __('Image'))->image();
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('type', __('Type'));
+        $grid->column('embed_link', __('Embed Link'))->link();
+        $grid->column('file', __('File'));
 
         return $grid;
     }
@@ -46,13 +50,21 @@ class ArticleRecipeController extends AdminController
     {
         $show = new Show(ArticleRecipe::findOrFail($id));
 
-        $show->field('id', __('Id'));
         $show->field('title', __('Title'));
         $show->field('description', __('Description'));
         $show->field('image', __('Image'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
+        $show->field('image', __('Image'));
+        $show->field('embed_link', __('Embed Link'));
+        $show->field('file', __('File'));
 
+        $show->panel()->tools(function ($tools)
+        {
+            $tools->disableList();
+            $tools->disableEdit();
+            $tools->disableDelete();
+        });
         return $show;
     }
 
@@ -64,10 +76,25 @@ class ArticleRecipeController extends AdminController
     protected function form()
     {
         $form = new Form(new ArticleRecipe());
-
-        $form->text('title', __('Title'));
-        $form->summernote('description', __('Description'));
-        $form->image('image', __('Image'));
+        $form->text('title', __('Judul'))->required();
+        $form->summernote('description', __('Description'))->required();
+        $form->image('image', __('Image'))->required();
+        $form->select('type', __('Tipe'))->options([
+            ArticleRecipe::TYPE_FILE => 'File',
+            ArticleRecipe::TYPE_VIDEO_EMBED => 'Video Embed Youtube'
+        ])
+        ->when(ArticleRecipe::TYPE_FILE, function (Form $form)
+        {
+            $form->file('file', __('File'));
+        })
+        ->when(ArticleRecipe::TYPE_VIDEO_EMBED, function (Form $form)
+        {
+            $form->text('embed_link', __('Embed Link'));
+        })
+        ->required();
+        $form->disableCreatingCheck();
+        $form->disableViewCheck();
+        $form->disableEditingCheck();
 
         return $form;
     }
