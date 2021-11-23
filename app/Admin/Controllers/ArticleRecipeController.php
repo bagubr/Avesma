@@ -66,7 +66,7 @@ class ArticleRecipeController extends AdminController
         $form = new Form(new ArticleRecipe());
 
         $form->text('title', __('Title'));
-        $form->textarea('description', __('Description'));
+        $form->summernote('description', __('Description'));
         $form->image('image', __('Image'));
 
         return $form;

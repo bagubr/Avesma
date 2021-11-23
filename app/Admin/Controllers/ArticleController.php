@@ -73,7 +73,7 @@ class ArticleController extends AdminController
         $form->select('article_category_id', 'Kategori')->options(ArticleCategory::all()->pluck('name', 'id'))->required();
 
         $form->text('title', __('Judul'))->required();
-        $form->textarea('description', __('Description'))->required();
+        $form->summernote('description', __('Description'))->required();
         $form->image('image', __('Image'))->required();
         $form->select('type', __('Tipe'))->options([
             Article::TYPE_FILE => Article::TYPE_FILE,
