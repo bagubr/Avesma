@@ -9,11 +9,11 @@ class FishPrice extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fish_species_id', 'price', 'reported_at', 'city_id', 'is_verified'];
+    protected $fillable = ['fish_species_id', 'price', 'reported_at', 'region_id', 'is_verified'];
 
-    public function city()
+    public function region()
     {
-        return $this->belongsTo(City::class, 'city_id');
+        return $this->belongsTo(Region::class, 'region_id');
     }
 
     public function fish_species()

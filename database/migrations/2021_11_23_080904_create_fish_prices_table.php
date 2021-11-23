@@ -15,11 +15,10 @@ class CreateFishPricesTable extends Migration
     {
         Schema::create('fish_prices', function (Blueprint $table) {
             $table->id();
-            $table->integer('fish_species_id');
-            $table->foreign('fish_species_id')->references('id')->on('fish_specieses');
+            $table->unsignedInteger('fish_species_id');
             $table->integer('price');
             $table->string('reported_at');
-            $table->integer('city_id');
+            $table->unsignedInteger('region_id');
             $table->boolean('is_verified');
             $table->timestamps();
         });
