@@ -27,8 +27,14 @@ class ProcedureController extends AdminController
         $grid = new Grid(new Procedure());
 
         
+        $grid->quickSearch('title');
         $grid->column('title', __('Title'));
         $grid->column('image', __('Image'))->image();
+
+        $grid->disableRowSelector();
+        $grid->disableExport();
+        $grid->disableFilter();
+        $grid->disableColumnSelector();
 
         return $grid;
     }
@@ -45,7 +51,12 @@ class ProcedureController extends AdminController
 
         $show->field('title', __('Title'));
         $show->field('image', __('Image'))->image();
-
+        $show->panel()->tools(function ($tools)
+        {
+            $tools->disableList();
+            $tools->disableEdit();
+            $tools->disableDelete();
+        });
         return $show;
     }
 
@@ -60,7 +71,9 @@ class ProcedureController extends AdminController
 
         $form->text('title', __('Title'));
         $form->image('image', __('Image'));
-
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
         return $form;
     }
 }
