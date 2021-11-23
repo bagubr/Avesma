@@ -25,12 +25,20 @@ class SliderController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Slider());
+        $grid->filter(function($filter){
+            $filter->disableIdFilter();
+            $filter->like('title', 'Title');
+            $filter->like('description', 'Description');
 
-        
+        });
+        $grid->quickSearch('title', 'description');
+        $grid->disableExport();
+        $grid->disableColumnSelector();
+        $grid->disableBatchActions();
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
         $grid->column('image', __('Image'))->image();
-        $grid->column('type', __('Type'));
+        // $grid->column('type', __('Type'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -51,7 +59,7 @@ class SliderController extends AdminController
         $show->field('title', __('Title'));
         $show->field('description', __('Description'));
         $show->field('image', __('Image'));
-        $show->field('type', __('Type'));
+        // $show->field('type', __('Type'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -70,7 +78,10 @@ class SliderController extends AdminController
         $form->text('title', __('Title'));
         $form->textarea('description', __('Description'));
         $form->image('image', __('Image'));
-        $form->text('type', __('Type'))->default('SLIDER');
+        // $form->text('type', __('Type'))->default('SLIDER');
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
 
         return $form;
     }

@@ -71,7 +71,9 @@ class RegionController extends AdminController
         $form = new Form(new Region());
 
         $form->text('name', __('Name'));
-
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
         return $form;
     }
 }

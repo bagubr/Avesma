@@ -32,8 +32,14 @@ class PrivacyController extends AdminController
             $actions->disableView();
             $actions->disableDelete();
         });
-
-        $grid->column('description', __('Deskripsi'));
+        $grid->disableExport();
+        $grid->disableFilter();
+        $grid->disablePagination();
+        $grid->disableColumnSelector();
+        $grid->disableBatchActions();
+        $grid->column('desciption')->display(function () {
+            return $this->description;
+        });
 
         return $grid;
     }
@@ -63,7 +69,9 @@ class PrivacyController extends AdminController
         $form = new Form(new PrivacyPolicy());
 
         $form->summernote('description', __('Deskripsi'));
-
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
         return $form;
     }
 }

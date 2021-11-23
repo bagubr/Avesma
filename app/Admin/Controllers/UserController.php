@@ -115,6 +115,9 @@ class UserController extends AdminController
 
         $data = Region::get()->pluck('name', 'id');
         $form->select('region_id', __('Wilayah'))->options($data);
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
         // $form->tab('User', function ($form) {
 
         //     $form->text('name', __('Name'))->required();
