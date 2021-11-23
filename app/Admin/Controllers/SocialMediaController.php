@@ -25,6 +25,12 @@ class SocialMediaController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new SocialMedia());
+        
+        $grid->disableExport();
+        $grid->disableRowSelector();
+        $grid->disableFilter();
+        $grid->disableColumnSelector();
+        $grid->quickSearch('name', 'url');
 
         $grid->column('name', __('Nama Social Media'));
         $grid->column('url', __('Link Sosial Meida'));
@@ -62,6 +68,9 @@ class SocialMediaController extends AdminController
         $form->text('name', __('Nama Social Media'));
         $form->url('url', __('Link Sosial Media'));
         $form->image('image', __('Image'));
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
 
         return $form;
     }

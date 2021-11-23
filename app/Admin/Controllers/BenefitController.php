@@ -33,6 +33,10 @@ class BenefitController extends AdminController
         }
         $grid->disableFilter();
         $grid->disableExport();
+        $grid->disableColumnSelector();
+        $grid->disableRowSelector();
+        $grid->disablePagination();
+        $grid->column('id', __('ID'));
         $grid->column('title', __('Judul'));
         $grid->column('description', __('Deskripsi'));
         $grid->column('image', __('Gambar'))->image();

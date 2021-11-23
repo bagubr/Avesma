@@ -15,7 +15,7 @@ class AboutController extends AdminController
      *
      * @var string
      */
-    protected $title = 'About';
+    protected $title = 'Beranda';
 
     /**
      * Make a grid builder.
@@ -33,11 +33,28 @@ class AboutController extends AdminController
             $actions->disableDelete();
         });
 
-        $grid->column('description_indo', __('Deskripsi Indonesia'));
-        $grid->column('description_english', __('Deskripsi Inggris'));
-        $grid->column('video_url', __('Video url'));
-        $grid->column('vision', __('Vision'));
-        $grid->column('mission', __('Mission'));
+        $grid->disableColumnSelector();
+        $grid->disableBatchActions();
+        $grid->disableExport();
+        $grid->disableFilter();
+
+        $grid->column('description_indo', __('Deskripsi Indonesia'))->display(function ()
+        {
+            return $this->description_indo;
+        });
+        $grid->column('description_english', __('Deskripsi Inggris'))->display(function ()
+        {
+            return $this->description_english;
+        });
+        $grid->column('video_url', __('Video url'))->link();
+        $grid->column('vision', __('Vision'))->display(function ()
+        {
+            return $this->vision;
+        });
+        $grid->column('mission', __('Mission'))->display(function ()
+        {
+            return $this->mission;
+        });
         $grid->column('image', __('Image'))->image();
 
         return $grid;

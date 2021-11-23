@@ -25,7 +25,11 @@ class TestimonialController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Testimonial());
-
+        $grid->disableExport();
+        $grid->disableRowSelector();
+        $grid->disableFilter();
+        $grid->disableColumnSelector();
+        $grid->quickSearch('name', 'position', 'message');
         $grid->column('name', __('Nama'));
         $grid->column('position', __('Jabatan'));
         $grid->column('message', __('Pesan'));
@@ -65,7 +69,9 @@ class TestimonialController extends AdminController
         $form->text('position', __('Jabatan'));
         $form->textarea('message', __('Pesan'));
         $form->image('image', __('Foto'));
-
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
         return $form;
     }
 }
