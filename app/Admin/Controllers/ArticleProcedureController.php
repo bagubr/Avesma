@@ -35,10 +35,8 @@ class ArticleProcedureController extends AdminController
         $grid->column('procedure.title', __('SOP'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
-        $grid->column('file', __('File'));
         $grid->column('type', __('Type'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('file', __('File'))->downloadable();
         $grid->column('image', __('Image'))->image();
 
         return $grid;
