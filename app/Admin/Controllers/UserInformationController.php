@@ -99,7 +99,9 @@ class UserInformationController extends AdminController
                 'DECLINE' => 'Decline',
             ];
         $form->select('status', __('Status'))->options($data);
-
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
         return $form;
     }
 }

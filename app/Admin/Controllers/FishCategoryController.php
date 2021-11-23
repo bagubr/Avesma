@@ -60,7 +60,9 @@ class FishCategoryController extends AdminController
 
         $form->text('name', __('Nama'));
         $form->image('image', __('Image'));
-
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
         return $form;
     }
 }

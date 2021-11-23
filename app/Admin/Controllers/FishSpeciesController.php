@@ -72,7 +72,9 @@ class FishSpeciesController extends AdminController
         $form->text('name', __('Nama'));
         $form->select('fish_category_id', __('Jenis Kultivan'))->options(FishCategory::all()->pluck('name','id'));
         $form->image('image', __('Image'));
-
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
         return $form;
     }
 }

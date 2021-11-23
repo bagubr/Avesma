@@ -29,12 +29,18 @@ class TermAndConditionController extends AdminController
             $grid->disableCreateButton();
         }
         $grid->actions(function (Grid\Displayers\Actions $actions) {
-            $actions->disableView();
             $actions->disableDelete();
+            $actions->disableView();
         });
-
+        $grid->disableExport();
+        $grid->disableFilter();
+        $grid->disablePagination();
+        $grid->disableColumnSelector();
+        $grid->disableBatchActions();
         $grid->column('title', __('Judul'));
-        $grid->column('description', __('Deskripsi'));
+        $grid->column('desciption')->display(function () {
+            return $this->description;
+        });
 
         return $grid;
     }
@@ -50,7 +56,7 @@ class TermAndConditionController extends AdminController
         $show = new Show(TermAndCondition::findOrFail($id));
 
         $show->field('title', __('Judul'));
-        $show->field('description', __('Deskripsi'));
+        $show->field('desciption');
 
         return $show;
     }
@@ -66,7 +72,9 @@ class TermAndConditionController extends AdminController
 
         $form->text('title', __('Judul'));
         $form->summernote('description', __('Deskripsi'));
-
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
         return $form;
     }
 }
