@@ -12,8 +12,8 @@ class ArticleRecipe extends Model
     const TYPE_FILE = 'FILE';
     protected $table = 'article_recipes';
     protected $fillable = [
-        'title', 
-        'description', 
+        'title',
+        'description',
         'image',
         'type',
         'file',
@@ -24,6 +24,10 @@ class ArticleRecipe extends Model
         'image_url'
     ];
 
+    public function getFileAttribute($value)
+    {
+        return url('uploads/' . $value);
+    }
     public function getImageUrlAttribute()
     {
         return url('uploads/' . $this->image);

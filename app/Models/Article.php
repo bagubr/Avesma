@@ -20,12 +20,16 @@ class Article extends Model
         'file',
         'embed_link',
     ];
-    
+
     protected $appends = [
         'image_url',
         'category_name'
     ];
 
+    public function getFileAttribute($value)
+    {
+        return url('uploads/' . $value);
+    }
     public function getImageUrlAttribute()
     {
         return url('uploads/' . $this->image);
@@ -50,5 +54,4 @@ class Article extends Model
     {
         return date("d-m-Y H:i:s", strtotime($value));
     }
-
 }
