@@ -20,9 +20,8 @@ class FishPriceController extends Controller
     }
     public function show(FishPrice $fish_price)
     {
-        dd($fish_price);
         return $this->sendSuccessResponse([
-            'fish_price' => $fish_price,
+            'fish_price' => new FishPriceResource($fish_price),
         ]);
     }
 }
