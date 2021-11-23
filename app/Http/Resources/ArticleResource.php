@@ -21,6 +21,7 @@ class ArticleResource extends JsonResource
             "title" => $this->title,
             "description" => $this->description,
             "image_url" => $this->image_url,
+            "type" => $this->type,
             "embed_link" => $this->embed_link ?? '',
             "file" => $this->file ?? '',
             "created_at" => $this->created_at,

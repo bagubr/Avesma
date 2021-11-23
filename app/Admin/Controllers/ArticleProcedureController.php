@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\ArticleProcedure;
+use App\Models\Procedure;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -26,7 +27,7 @@ class ArticleProcedureController extends AdminController
     {
         $grid = new Grid(new ArticleProcedure());
 
-        
+
         $grid->column('procedure_id', __('Procedure id'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
@@ -71,9 +72,9 @@ class ArticleProcedureController extends AdminController
     {
         $form = new Form(new ArticleProcedure());
 
-        $form->number('procedure_id', __('Procedure id'));
+        $form->select('procedure_id', __('Procedure'))->options(Procedure::all()->pluck('title', 'id'))->required();
         $form->text('title', __('Title'));
-        $form->textarea('description', __('Description'));
+        $form->summernote('description', __('Description'));
         $form->file('file', __('File'));
         $form->text('type', __('Type'));
         $form->image('image', __('Image'));

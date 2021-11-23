@@ -31,7 +31,8 @@ class ArticleController extends AdminController
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
         $grid->column('image', __('Image'))->image();
-        $grid->column('embed_link', __('Embed Link'));
+        $grid->column('type', __('Type'));
+        $grid->column('embed_link', __('Embed Link'))->link();
         $grid->column('file', __('File'));
 
         return $grid;
@@ -72,8 +73,12 @@ class ArticleController extends AdminController
         $form->select('article_category_id', 'Kategori')->options(ArticleCategory::all()->pluck('name', 'id'))->required();
 
         $form->text('title', __('Judul'))->required();
-        $form->textarea('description', __('Description'))->required();
+        $form->summernote('description', __('Description'))->required();
         $form->image('image', __('Image'))->required();
+        $form->select('type', __('Tipe'))->options([
+            Article::TYPE_FILE => Article::TYPE_FILE,
+            Article::TYPE_VIDEO_EMBED => Article::TYPE_VIDEO_EMBED
+        ])->required();
         $form->text('embed_link', __('Embed Link'));
         $form->file('file', __('File'));
 
