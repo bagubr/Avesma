@@ -9,6 +9,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Tab;
 
 class FormProcedureController extends AdminController
 {
@@ -17,7 +18,7 @@ class FormProcedureController extends AdminController
      *
      * @var string
      */
-    protected $title = 'FormProcedure';
+    protected $title = 'Form Procedure';
 
     /**
      * Make a grid builder.
@@ -80,19 +81,31 @@ class FormProcedureController extends AdminController
                 $tools->disableDelete();
             });
         });
+        $show->form_procedure_formula('Formula', function (Grid $procedure_formula) {
 
-        $show->form_procedure_formula('Formula', function ($procedure_formula) {
-
-            $procedure_formula->setResource('/admin/form-procedure-formulas');
+            $procedure_formula->resource('/admin/form-procedure-formulas');
             $procedure_formula->note();
             $procedure_formula->min_range();
             $procedure_formula->max_range();
+            $procedure_formula->disableCreateButton();
+            $procedure_formula->disableFilter();
+            $procedure_formula->disableExport();
+            $procedure_formula->disableColumnSelector();
+            $procedure_formula->disableActions();
+            $procedure_formula->disablePagination();
+            $procedure_formula->disableRowSelector();
         });
-
-        $show->form_procedure_detail('Formulir', function ($procedure_formula) {
+        $show->form_procedure_detail('Formulir', function (Grid $procedure_formula) {
 
             $procedure_formula->setResource('/admin/form-procedure-details');
             $procedure_formula->name();
+            $procedure_formula->disableCreateButton();
+            $procedure_formula->disableFilter();
+            $procedure_formula->disableExport();
+            $procedure_formula->disableColumnSelector();
+            $procedure_formula->disableActions();
+            $procedure_formula->disablePagination();
+            $procedure_formula->disableRowSelector();
         });
 
         $show->panel()->tools(function ($tools)

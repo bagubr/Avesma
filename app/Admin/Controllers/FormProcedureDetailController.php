@@ -29,7 +29,9 @@ class FormProcedureDetailController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new FormProcedureDetail());
-        
+        $grid->disableRowSelector();
+        $grid->disableFilter();
+        $grid->disableColumnSelector();
         $grid->column('fish_and_procedure', __('Form Procedure'));
         $grid->column('name', __('Name'));
 
