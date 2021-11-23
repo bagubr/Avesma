@@ -41,6 +41,8 @@
 
     img.card-img-top {
         border-radius: 30px;
+        max-height: 100px;
+        object-fit: cover;
     }
 
     img.ikan.rounded-circle {
@@ -111,13 +113,16 @@
                 Cari</button>
         </div>
         <div class="row mt-5">
-            @foreach ($income_details as $income_detail)
+            @foreach ($ponds as $pond)
             <div class="col-6 col-md-3 mb-4">
                 <div class="card w-100 bg-blue">
-                    <img class="card-img-top" src="{{asset('asset/image-2.jpg')}}" alt="Card image cap">
+                    <img class="card-img-top"
+                        src="{{$pond->pond_detail?->fish_species?->image_url ?? asset('asset/empty-asset.png')}}"
+                        alt="{{$pond->pond_detail?->fish_species?->name}}">
                     <div class="card-body">
                         <h5 class="card-title text-center">
-                            {{$income_detail->pond_detail_products->pond_detail->fish_species->name}}</h5>
+                            {{$pond->pond_detail?->fish_species?->name}}
+                        </h5>
                         <p class="card-text">Deskripsi Singkat
                         </p>
                         <p class="card-text">10/Kg</p>
