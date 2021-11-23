@@ -15,6 +15,7 @@ class Article extends Model
         'title',
         'description',
         'article_category_id',
+        'type',
         'image',
         'embed_link',
     ];
