@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\FormProcedure;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProcedureResource extends JsonResource
+class ProcedureResourceFishSpecies extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,7 +20,7 @@ class ProcedureResource extends JsonResource
             'title' => $this->title,
             'image' => $this->image,
             'image_url' => $this->image_url,
-            // 'fish_species_id' => $this->form_procedures,
+            'form_procedure' => $this->form_procedures->whereIn('fish_species_id', $request->fish_species_id)->first(),
         ];
     }
 }

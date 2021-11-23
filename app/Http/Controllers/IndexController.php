@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PondResource;
 use App\Models\About;
 use App\Models\Benefit;
 use App\Models\FishCategory;
 use App\Models\IncomeDetail;
+use App\Models\Pond;
 use App\Models\Region;
 use App\Models\Slider;
 use App\Models\SocialMedia;
@@ -31,8 +33,8 @@ class IndexController extends Controller
     {
         $fish_categories = FishCategory::all();
         $regions = Region::all();
-        $income_details = IncomeDetail::all();
-        return view('pasar_virtual', compact('fish_categories', 'regions', 'income_details'));
+        $ponds = Pond::where('status', Pond::STATUS2)->get();
+        return view('pasar_virtual', compact('fish_categories', 'regions', 'ponds'));
     }
     public function detail_pasar_virtual()
     {

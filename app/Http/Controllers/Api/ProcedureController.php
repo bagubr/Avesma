@@ -18,28 +18,42 @@ class ProcedureController extends Controller
 {
     public function index(Request $request)
     {
-        $this->sendSuccessResponse([
-            'procedures' => ProcedureRepository::get($request->toArray())
-        ]);
+        if ($request->toArray()) {
+            $this->sendSuccessResponse([
+                'procedures' => ProcedureRepository::search($request->toArray())
+            ]);
+        } else {
+            $this->sendSuccessResponse([
+                'procedures' => ProcedureRepository::get()
+            ]);
+        }
     }
-    public function getProcedureList()
+    public function getProcedureList(Request $request)
     {
-        $procedure_users = FormProcedureInputUser::all();
+        $procedure_users = FormProcedureInputUser::where('pond_detail_id', $request->pond_detail_id)
+            ->where('form_procedure_id', $request->form_procedure_id)->get();
         return $this->sendSuccessResponse([
             'procedures' => ProcedureUserResource::collection($procedure_users)
         ]);
     }
-    public function inputdetail(Request $request)
+    public function getProcedureShow($id)
     {
-        $procedures_detail = FormProcedure::with('form_procedure_detail.form_procedure_detail_formulas')->where('fish_species_id', $request->fish_species_id)
-            ->when($request->procedure_id, function ($query) use ($request) {
-                $query->where('procedure_id', $request->procedure_id);
-            })->get()->first();
-        if (empty($request->fish_species_id && $request->procedure_id)) {
-            $this->sendFailedResponse([], 'Maaf Anda Belum Memilih Spesies Ikan atau SOP');
-        }
+        $procedure_user = FormProcedureInputUser::find($id);
+        return $this->sendSuccessResponse([
+            'procedure' => new ProcedureUserResource($procedure_user)
+        ]);
+    }
+    public function getFormProcedure($id)
+    {
+        // $procedures_detail = FormProcedure::with('form_procedure_detail.form_procedure_detail_formulas')->where('fish_species_id', $request->fish_species_id)
+        //     ->when($request->procedure_id, function ($query) use ($request) {
+        //         $query->where('procedure_id', $request->procedure_id);
+        //     })->get()->first();
+
+        $form_procedure = FormProcedure::where('id',$id)
+            ->with('form_procedure_detail.form_procedure_detail_formulas')->first();
         $this->sendSuccessResponse([
-            'procedure' => $procedures_detail
+            'form_procedure' => $form_procedure
         ]);
     }
     public function store(Request $request)
