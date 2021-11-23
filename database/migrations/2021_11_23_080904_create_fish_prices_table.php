@@ -20,7 +20,7 @@ class CreateFishPricesTable extends Migration
             $table->integer('price');
             $table->string('reported_at');
             $table->integer('city_id');
-            $table->integer('province_id');
+            $table->boolean('is_verified');
             $table->timestamps();
         });
     }
