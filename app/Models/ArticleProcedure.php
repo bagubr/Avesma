@@ -19,6 +19,7 @@ class ArticleProcedure extends Model
         'image',
         'file',
         'type',
+        'embed_link',
     ];
 
     protected $appends = [

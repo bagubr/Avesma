@@ -8,9 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleRecipe extends Model
 {
     use HasFactory;
+    const TYPE_VIDEO_EMBED = 'VIDEO_EMBED';
+    const TYPE_FILE = 'FILE';
     protected $table = 'article_recipes';
     protected $fillable = [
-        'title', 'description', 'image'
+        'title', 
+        'description', 
+        'image',
+        'type',
+        'embed_link'
     ];
 
     protected $appends = [
