@@ -29,9 +29,14 @@ class FormProcedureController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new FormProcedure());
+        $grid->quickSearch('procedure.title', 'fish_species.name');
         $grid->column('procedure.title', __('Procedure'));
         $grid->column('fish_species.name', __('Fish Species'));
         $grid->column('created_at', __('Created at'));
+        $grid->disableRowSelector();
+        $grid->disableColumnSelector();
+        $grid->disableExport();
+        $grid->disableFilter();
         return $grid;
     }
 
@@ -52,14 +57,28 @@ class FormProcedureController extends AdminController
 
             $procedure->title();
             $procedure->image()->image();
+
+            $procedure->panel()->tools(function ($tools)
+            {
+                $tools->disableList();
+                $tools->disableEdit();
+                $tools->disableDelete();
+            });
         });
 
-        $show->fish_species('Spesies', function ($procedure) {
+        $show->fish_species('Spesies', function ($fish_species) {
 
-            $procedure->setResource('/admin/fish-species');
+            $fish_species->setResource('/admin/fish-species');
 
-            $procedure->name();
-            $procedure->image()->image();
+            $fish_species->name();
+            $fish_species->image()->image();
+
+            $fish_species->panel()->tools(function ($tools)
+            {
+                $tools->disableList();
+                $tools->disableEdit();
+                $tools->disableDelete();
+            });
         });
 
         $show->form_procedure_formula('Formula', function ($procedure_formula) {
@@ -74,6 +93,13 @@ class FormProcedureController extends AdminController
 
             $procedure_formula->setResource('/admin/form-procedure-details');
             $procedure_formula->name();
+        });
+
+        $show->panel()->tools(function ($tools)
+        {
+            $tools->disableList();
+            $tools->disableEdit();
+            $tools->disableDelete();
         });
 
         return $show;
@@ -101,6 +127,12 @@ class FormProcedureController extends AdminController
             $form->number('min_range', __('Min range'));
             $form->number('max_range', __('Max range'));
             $form->text('note', __('Note'));
+        });
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
+        $form->tools(function (Form\Tools $tools) {
+            $tools->disableDelete();
         });
         return $form;
     }
