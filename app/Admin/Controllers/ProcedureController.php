@@ -32,9 +32,14 @@ class ProcedureController extends AdminController
         $grid->column('image', __('Image'))->image();
 
         $grid->disableRowSelector();
+        $grid->disableCreateButton();
         $grid->disableExport();
         $grid->disableFilter();
         $grid->disableColumnSelector();
+
+        $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $actions->disableDelete();
+        });
 
         return $grid;
     }
@@ -74,6 +79,9 @@ class ProcedureController extends AdminController
         $form->disableCreatingCheck();
         $form->disableEditingCheck();
         $form->disableViewCheck();
+        $form->tools(function (Form\Tools $tools) {
+            $tools->disableDelete();
+        });
         return $form;
     }
 }
