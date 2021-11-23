@@ -70,6 +70,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('procedures/list', [ProcedureController::class, 'getProcedureList']);
     Route::get('procedures/list/{id}', [ProcedureController::class, 'getProcedureShow']);
     Route::post('procedures', [ProcedureController::class, 'store']);
+    Route::post('procedures/edit/{form_procedure_input_user}', [ProcedureController::class, 'update']);
     Route::get('procedures/form_procedure/{id}', [ProcedureController::class, 'getFormProcedure']);
 
     Route::get('home', [HomeController::class, 'index']);

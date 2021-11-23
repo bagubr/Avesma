@@ -52,7 +52,7 @@ class ProcedureController extends Controller
         //         $query->where('procedure_id', $request->procedure_id);
         //     })->get()->first();
 
-        $form_procedure = FormProcedure::where('id',$id)
+        $form_procedure = FormProcedure::where('id', $id)
             ->with('form_procedure_detail.form_procedure_detail_formulas')->first();
         $this->sendSuccessResponse([
             'form_procedure' => $form_procedure
@@ -77,6 +77,36 @@ class ProcedureController extends Controller
             'reported_at' => $request->reported_at,
             'form_procedure_id' => $request->form_procedure_id,
         ]);
+        foreach ($request->data as $i) {
+            FormProcedureDetailInput::create([
+                'form_procedure_detail_id' => $i['form_procedure_detail_id'],
+                'form_procedure_detail_formula_id' => $i['form_procedure_detail_formula_id'],
+                'score' => FormProcedureDetailFormula::findOrFail($i['form_procedure_detail_formula_id'])->score,
+                'form_procedure_input_user_id' => $form_procedure_input_user->id,
+            ]);
+        };
+        DB::commit();
+
+        return $this->sendSuccessResponse([
+            'procedure' => $form_procedure_input_user->load('form_procedure_detail_input')
+        ]);
+    }
+    public function update(Request $request, FormProcedureInputUser $form_procedure_input_user)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'reported_at' => 'required',
+        ]);
+        DB::beginTransaction();
+        if ($validator->fails()) {
+            return $this->sendFailedResponse(['errors' => $validator->errors()]);
+        }
+        $form_procedure_input_user->update([
+            'reported_at' => $request->reported_at,
+        ]);
+        foreach ($form_procedure_input_user->form_procedure_detail_input as $key) {
+            $key->destroy($key->id);
+        }
         foreach ($request->data as $i) {
             FormProcedureDetailInput::create([
                 'form_procedure_detail_id' => $i['form_procedure_detail_id'],
