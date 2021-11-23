@@ -31,6 +31,8 @@ class ArticleController extends AdminController
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
         $grid->column('image', __('Image'))->image();
+        $grid->column('embed_link', __('Embed Link'));
+        $grid->column('file', __('File'));
 
         return $grid;
     }
@@ -46,12 +48,14 @@ class ArticleController extends AdminController
         $show = new Show(Article::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('article_category_id', __('Article category id'));
+        $show->field('article_category_id', __('Article category'));
         $show->field('title', __('Title'));
         $show->field('description', __('Description'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
         $show->field('image', __('Image'));
+        $show->field('embed_link', __('Embed Link'));
+        $show->field('file', __('File'));
 
         return $show;
     }
@@ -70,6 +74,8 @@ class ArticleController extends AdminController
         $form->text('title', __('Judul'))->required();
         $form->textarea('description', __('Description'))->required();
         $form->image('image', __('Image'))->required();
+        $form->text('embed_link', __('Embed Link'));
+        $form->file('file', __('File'));
 
         return $form;
     }
