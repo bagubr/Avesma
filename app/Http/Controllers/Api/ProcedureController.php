@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProcedureRequest;
 use App\Http\Resources\ProcedureUserResource;
 use App\Models\FormProcedure;
 use App\Models\FormProcedureDetail;
@@ -13,6 +14,7 @@ use App\Models\Procedure;
 use App\Repositories\ProcedureRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ProcedureController extends Controller
 {
@@ -58,7 +60,17 @@ class ProcedureController extends Controller
     }
     public function store(Request $request)
     {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'user_id' => 'required|exists:users,id',
+            'pond_detail_id' => 'required|exists:pond_details,id',
+            'reported_at' => 'required',
+            'form_procedure_id' => 'required|exists:form_procedures,id',
+        ]);
         DB::beginTransaction();
+        if ($validator->fails()) {
+            return $this->sendFailedResponse(['errors' => $validator->errors()]);
+        }
         $form_procedure_input_user = FormProcedureInputUser::create([
             'user_id' => $request->user_id,
             'pond_detail_id' => $request->pond_detail_id,
