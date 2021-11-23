@@ -16,6 +16,7 @@ class ArticleRecipe extends Model
         'description', 
         'image',
         'type',
+        'file',
         'embed_link'
     ];
 

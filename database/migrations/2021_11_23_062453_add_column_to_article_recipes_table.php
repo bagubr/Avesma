@@ -15,6 +15,7 @@ class AddColumnToArticleRecipesTable extends Migration
     {
         Schema::table('article_recipes', function (Blueprint $table) {
             $table->string('embed_link')->nullable();
+            $table->string('file')->nullable();
             $table->string('type')->default('VIDEO_EMBED');
         });
     }
@@ -27,6 +28,7 @@ class AddColumnToArticleRecipesTable extends Migration
     public function down()
     {
         Schema::table('article_recipes', function (Blueprint $table) {
+            $table->dropColumn('file');
             $table->dropColumn('embed_link');
             $table->dropColumn('type');
         });

@@ -17,6 +17,7 @@ class Article extends Model
         'article_category_id',
         'type',
         'image',
+        'file',
         'embed_link',
     ];
     
