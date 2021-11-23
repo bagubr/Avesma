@@ -49,4 +49,5 @@ Route::group([
     $router->resource('privacy-policies', PrivacyController::class);
     $router->resource('benefits', BenefitController::class);
     $router->resource('term-and-conditions', TermAndConditionController::class);
+    $router->resource('fish-prices', FishPriceController::class);
 });
