@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ArticleRecipeController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BuyerController;
 use App\Http\Controllers\Api\FishCategoryController;
+use App\Http\Controllers\Api\FishPriceController;
 use App\Http\Controllers\Api\FishSpeciesController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\IncomeController;
@@ -62,11 +63,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('article_recipes', [ArticleRecipeController::class, 'index']);
     Route::get('article_recipes/{id}', [ArticleRecipeController::class, 'show']);
 
+    Route::get('fish_prices', [FishPriceController::class, 'index']);
+    Route::get('fish_prices/{fish_price}', [FishPriceController::class, 'show']);
+
     Route::get('procedures', [ProcedureController::class, 'index']);
     Route::get('procedures/list', [ProcedureController::class, 'getProcedureList']);
     Route::get('procedures/list/{id}', [ProcedureController::class, 'getProcedureShow']);
-    Route::post('procedures',[ProcedureController::class, 'store']);
-    Route::get('procedures/form_procedure/{id}',[ProcedureController::class, 'getFormProcedure']);
+    Route::post('procedures', [ProcedureController::class, 'store']);
+    Route::get('procedures/form_procedure/{id}', [ProcedureController::class, 'getFormProcedure']);
 
     Route::get('home', [HomeController::class, 'index']);
 
