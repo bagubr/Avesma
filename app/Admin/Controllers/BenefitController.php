@@ -15,7 +15,7 @@ class BenefitController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Benefit';
+    protected $title = 'Kelebihan Avesma';
 
     /**
      * Make a grid builder.

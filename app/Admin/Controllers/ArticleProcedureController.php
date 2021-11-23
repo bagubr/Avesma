@@ -27,8 +27,12 @@ class ArticleProcedureController extends AdminController
     {
         $grid = new Grid(new ArticleProcedure());
 
-
-        $grid->column('procedure_id', __('Procedure id'));
+        $grid->disableFilter();
+        $grid->disableExport();
+        $grid->disableRowSelector();
+        $grid->disableColumnSelector();
+        $grid->quickSearch('title', 'description', 'type');
+        $grid->column('procedure.title', __('SOP'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
         $grid->column('file', __('File'));
@@ -49,8 +53,6 @@ class ArticleProcedureController extends AdminController
     protected function detail($id)
     {
         $show = new Show(ArticleProcedure::findOrFail($id));
-
-        $show->field('id', __('Id'));
         $show->field('procedure_id', __('Procedure id'));
         $show->field('title', __('Title'));
         $show->field('description', __('Description'));
@@ -59,6 +61,14 @@ class ArticleProcedureController extends AdminController
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
         $show->field('image', __('Image'));
+
+        
+        $show->panel()->tools(function ($tools)
+        {
+            $tools->disableList();
+            $tools->disableEdit();
+            $tools->disableDelete();
+        });
 
         return $show;
     }
@@ -76,9 +86,23 @@ class ArticleProcedureController extends AdminController
         $form->text('title', __('Title'));
         $form->summernote('description', __('Description'));
         $form->file('file', __('File'));
-        $form->text('type', __('Type'));
+        $form->select('type', __('Tipe'))->options([
+            ArticleProcedure::TYPE_FILE => 'File',
+            ArticleProcedure::TYPE_VIDEO_EMBED => 'Video Embed Youtube'
+        ])
+        ->when(ArticleProcedure::TYPE_FILE, function (Form $form)
+        {
+            $form->file('file', __('File'));
+        })
+        ->when(ArticleProcedure::TYPE_VIDEO_EMBED, function (Form $form)
+        {
+            $form->text('embed_link', __('Embed Link'));
+        })
+        ->required();
         $form->image('image', __('Image'));
-
+        $form->disableCreatingCheck();
+        $form->disableViewCheck();
+        $form->disableEditingCheck();
         return $form;
     }
 }
