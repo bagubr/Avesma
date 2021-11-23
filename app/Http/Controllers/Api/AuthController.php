@@ -38,9 +38,7 @@ class AuthController extends Controller {
     
     public function register(UserCreateRegisterFormRequest $request) {
         DB::beginTransaction();
-        $user = UserService::create($request->toArray());        
-        if($request->pokdakan_id)
-            UserPokdakan::create(['user_id'=>$user->id,'pokdakan_id'=>$request->pokdakan_id]);
+        $user = UserService::create($request->toArray());
         [$user, $token] = UserService::authenticate($user);
         DB::commit();
         $this->sendSuccessResponse([

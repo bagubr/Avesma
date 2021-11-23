@@ -14,7 +14,8 @@ class UserInformation extends Model
         'user_id',
         'nik',
         'ktp_photo',
-        'ktp_selfie_photo'
+        'ktp_selfie_photo',
+        'status'
     ];
     public function user()
     {
