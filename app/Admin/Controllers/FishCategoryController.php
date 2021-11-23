@@ -15,7 +15,7 @@ class FishCategoryController extends AdminController
      *
      * @var string
      */
-    protected $title = 'FishCategory';
+    protected $title = 'Jenis Kultivan';
 
     /**
      * Make a grid builder.

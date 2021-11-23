@@ -28,7 +28,8 @@ class User extends Authenticatable
         'is_verified',
         'pokdakan',
         'region_id',
-        'imei'
+        'imei',
+        'address'
     ];
 
     protected $appends = [
@@ -37,7 +38,12 @@ class User extends Authenticatable
 
     public function user_information()
     {
-        return $this->belongsTo(UserInformation::class, 'user_id');
+        return $this->belongsTo(UserInformation::class,'id',  'user_id');
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id',  'id');
     }
 
     public function ponds() {

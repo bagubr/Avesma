@@ -25,12 +25,17 @@ class RegionController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Region());
+        $grid->filter(function($filter){
+            $filter->disableIdFilter();
+            $filter->like('name', 'name');
+        });
 
+        $grid->quickSearch('name', 'Name');
         
         $grid->column('name', __('Name'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
-
+        $grid->disableExport();
         return $grid;
     }
 
@@ -43,12 +48,16 @@ class RegionController extends AdminController
     protected function detail($id)
     {
         $show = new Show(Region::findOrFail($id));
-
-        $show->field('id', __('Id'));
         $show->field('name', __('Name'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
+        $show->panel()->tools(function ($tools)
+        {
+            $tools->disableList();
+            $tools->disableEdit();
+            $tools->disableDelete();
+        });
         return $show;
     }
 

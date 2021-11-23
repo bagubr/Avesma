@@ -25,7 +25,12 @@ class PokdakanController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Pokdakan());
-
+        $grid->filter(function($filter){
+            $filter->disableIdFilter();
+            $filter->like('name', 'name');
+            $filter->like('address', 'address');
+        });
+        $grid->quickSearch('name', 'address');
         
         $grid->column('name', __('Name'));
         $grid->column('address', __('Address'));
@@ -33,6 +38,7 @@ class PokdakanController extends AdminController
         $grid->column('longitude', __('Longitude'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
+        $grid->disableExport();
 
         return $grid;
     }
@@ -69,7 +75,7 @@ class PokdakanController extends AdminController
 
         $form->text('name', __('Name'));
         $form->text('address', __('Address'));
-        $form->latlong('latitude', 'longitude', 'Lokasi')->default(['lat' => -6.974309, 'lng' => 110.426674])->zoom(11);
+        $form->latlong('latitude', 'longitude', 'Latitude - Longitude')->default(['lat' => -6.974309, 'lng' => 110.426674])->zoom(11);
 
         return $form;
     }

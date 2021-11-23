@@ -27,9 +27,18 @@ class FishSpeciesController extends AdminController
     {
         $grid = new Grid(new FishSpecies());
 
+        $grid->filter(function($filter){
+            $filter->disableIdFilter();
+            $filter->like('name', 'Name');
+            $filter->like('fish_category.name', 'Jenis Kultivan');
+        });
+
+        $grid->quickSearch('name', 'fish_category.name');
+
+        $grid->disableExport();
 
         $grid->column('name', __('Nama'));
-        $grid->column('fish_category.name', __('Kategori Ikan'));
+        $grid->column('fish_category.name', __('Jenis Kultivan'));
         $grid->column('image', __('Image'))->image();
 
         return $grid;
@@ -61,7 +70,7 @@ class FishSpeciesController extends AdminController
         $form = new Form(new FishSpecies());
 
         $form->text('name', __('Nama'));
-        $form->select('fish_category_id', __('Kategori Ikan'))->options(FishCategory::all()->pluck('name','id'));
+        $form->select('fish_category_id', __('Jenis Kultivan'))->options(FishCategory::all()->pluck('name','id'));
         $form->image('image', __('Image'));
 
         return $form;
