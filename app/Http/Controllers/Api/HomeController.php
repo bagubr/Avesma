@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\ArticleProcedure;
 use App\Models\ArticleRecipe;
+use App\Models\Disclaimer;
 use App\Models\FishCategory;
 use App\Models\Slider;
 use App\Services\UserService;
@@ -19,13 +20,15 @@ class HomeController extends Controller {
         $articles = Article::inRandomOrder()->limit(10)->get();
         $article_recipes = ArticleRecipe::inRandomOrder()->limit(10)->get();
         $article_procedures = ArticleProcedure::inRandomOrder()->limit(10)->get();
+        $disclaimer = Disclaimer::first();
 
         return $this->sendSuccessResponse([
             'sliders'=>$sliders,
             'fish_categories'=>$fish_categories,
             'articles'=>$articles,
             'article_recipes'=>$article_recipes,
-            'article_procedures'=>$article_procedures
+            'article_procedures'=>$article_procedures,
+            'disclaimer' => $disclaimer,
         ]);
     }
 }
