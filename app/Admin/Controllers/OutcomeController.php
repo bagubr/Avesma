@@ -66,26 +66,22 @@ class OutcomeController extends AdminController
 
         $form->column(1/2, function ($form) {
             $form->select('pond_detail_id', __('Kolam Ikan'))->options(PondDetail::get()->pluck('text', 'id'))->required();
-            $form->date('reported_at', __('Reported At'))->required()->default(date('Y-m-d H:i:s'));;
-            $form->currency('total_nominal', __('Total nominal'))->required();
+            $form->date('reported_at', __('Reported At'))->required()->default(date('Y-m-d H:i:s'));
+            // $form->currency('total_nominal', __('Total nominal'))->required();
         });
         $form->column(1/2, function ($form) {
-            $form2 = new Form(new OutcomeDetail());
-            $data = OutcomeSetting::get();
-            foreach ($data as $value) {
-                $label = $value->outcome_category.' - '.$value->name;
-                $form->currency('nominal', __($label));
-                $form->saving(function (Form $form) use ($value) {
-
-                    $form->outcome_id = $form->id;
-                    $form->outcome_setting_id = $value->id;
-                
-                });
-            }
+            $form->hasMany('outcome_detail', 'Pengeluaran', function (Form\NestedForm $form) {
+                $form->select('outcome_setting_id', __('Pengeluaran List'))->options(OutcomeSetting::get()->pluck('name', 'id'));
+                $form->currency('nominal', __('Nominal'));
+            });
+            
         });
-        // $form->hasMany('outcome_detail', 'Pengeluaran', function (Form\NestedForm $form) {
-        //     $form->text('name', __('Name'));
-        // });
+        $form->disableCreatingCheck();
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
+        $form->tools(function (Form\Tools $tools) {
+            $tools->disableDelete();
+        });
 
         return $form;
     }
