@@ -32,16 +32,6 @@ class OutcomeController extends Controller
         }
 
     }
-    // public function index(Request $request) {
-    //     $outcomes = OutcomeRepository::get();
-    //     $total = OutcomeRepository::total();
-
-    //     return $this->sendSuccessResponse([
-    //         'total'=>$total,
-    //         'outcomes'=>$outcomes,
-    //     ]);
-    // }
-
     public function store(OutcomeCreateRequest $request)
     {
         DB::beginTransaction();
@@ -63,14 +53,10 @@ class OutcomeController extends Controller
         ]);
     }
 
-    public function show(OutcomeShowRequest $request)
+    public function show(Outcome $outcome)
     {
-        $outcomes = OutcomeRepository::getByReportedAtAndPondDetail($request->reported_at, $request->pond_detail_id);
-        $total = OutcomeRepository::sumCountByReportedAtAndPondDetail($request->reported_at, $request->pond_detail_id);
-
         return $this->sendSuccessResponse([
-            'outcomes' => $outcomes,
-            'total' => $total
+            'outcome' => new OutcomeResource($outcome)
         ]);
     }
 }

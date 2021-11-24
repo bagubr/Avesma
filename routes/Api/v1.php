@@ -103,7 +103,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('outcomes/settings', [OutcomeSettingController::class, 'index']);
     Route::get('outcomes', [OutcomeController::class, 'index']);
     Route::post('outcomes', [OutcomeController::class, 'store']);
-    Route::get('outcomes/show', [OutcomeController::class, 'show']);
+    Route::get('outcomes/{outcome}', [OutcomeController::class, 'show']);
 
     Route::get('buyers', [BuyerController::class, 'index']);
     Route::get('buyers/{id}', [BuyerController::class, 'show']);

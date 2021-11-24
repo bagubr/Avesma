@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OutcomeResource extends JsonResource
+class OutcomeSettingResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,7 @@ class OutcomeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            "pond_detail_id" => $this->pond_detail_id,
-            "pond_detail_name" => $this->pond_detail->pond->name,
-            "total_nominal" => $this->total_nominal,
-            "reported_at" => $this->reported_at,
-            "outcome_detail" => OutcomeDetailResource::collection($this->outcome_detail)
+            'name' => $this->name,
         ];
     }
 }

@@ -17,8 +17,6 @@ class Outcome extends Model
 
     protected $appends = [
         'total_nominal',
-        'outcome_category_id',
-        'outcome_category_name'
     ];
 
     public function pond_detail()
@@ -29,14 +27,6 @@ class Outcome extends Model
     public function outcome_detail()
     {
         return $this->hasMany(OutcomeDetail::class, 'outcome_id', 'id');
-    }
-    public function getOutcomeCategoryIdAttribute()
-    {
-        return $this->outcome_detail[0]->outcome_setting?->outcome_category_id ?? "";
-    }
-    public function getOutcomeCategoryNameAttribute()
-    {
-        return $this->outcome_detail[0]->outcome_setting?->outcome_category ?? "";
     }
     public function getCreatedAtAttribute($value)
     {
