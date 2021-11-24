@@ -13,33 +13,46 @@ use Illuminate\Support\Facades\DB;
 
 class OutcomeController extends Controller
 {
-    public function index(Request $request) {
-        $outcomes = OutcomeRepository::get();
-        $total = OutcomeRepository::total();
-
+    public function index()
+    {
+        $outcomes = Outcome::all();
         return $this->sendSuccessResponse([
-            'total'=>$total,
-            'outcomes'=>$outcomes,
+            'outcomes' => $outcomes,
         ]);
     }
+    // public function index(Request $request) {
+    //     $outcomes = OutcomeRepository::get();
+    //     $total = OutcomeRepository::total();
 
-    public function store(OutcomeCreateRequest $request) {
+    //     return $this->sendSuccessResponse([
+    //         'total'=>$total,
+    //         'outcomes'=>$outcomes,
+    //     ]);
+    // }
+
+    public function store(OutcomeCreateRequest $request)
+    {
         DB::beginTransaction();
-        $outcomes = OutcomeService::create($request->reported_at, $request->pond_detail_id, $request->data);       
+        $outcome = Outcome::create([
+            'pond_detail_id' => $request->pond_detail_id,
+            'reported_at' => $request->reported_at
+        ]);
+        // $outcomes = OutcomeService::create($request->reported_at, $request->pond_detail_id, $request->data);       
         DB::commit();
 
         return $this->sendSuccessResponse([
-            'outcomes'=>$outcomes
+            'outcomes' => $outcome
         ]);
     }
 
-    public function show(OutcomeShowRequest $request) {
+    public function show(OutcomeShowRequest $request)
+    {
         $outcomes = OutcomeRepository::getByReportedAtAndPondDetail($request->reported_at, $request->pond_detail_id);
         $total = OutcomeRepository::sumCountByReportedAtAndPondDetail($request->reported_at, $request->pond_detail_id);
 
         return $this->sendSuccessResponse([
-            'outcomes'=>$outcomes,
-            'total'=>$total
+            'outcomes' => $outcomes,
+            'total' => $total
         ]);
     }
 }
