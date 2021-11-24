@@ -12,7 +12,6 @@ class Outcome extends Model
     protected $table = 'outcomes';
     protected $fillable = [
         'pond_detail_id',
-        'total_nominal',
         'reported_at'
     ];
 

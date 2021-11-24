@@ -14,4 +14,16 @@ class OutcomeDetail extends Model
         'outcome_setting_id',
         'nominal'
     ];
+
+    public function outcome_setting()
+    {
+        return $this->belongsTo(OutcomeSetting::class, 'outcome_setting_id');
+    }
+
+    public function outcome()
+    {
+        return $this->belongsTo(Outcome::class, 'outcome_id');
+    }
+
+    
 }

@@ -32,8 +32,11 @@ class OutcomeCategoryController extends AdminController
         $grid->disableRowSelector();
         $grid->quickSearch('name');
         $grid->column('name', __('Name'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+
+        $grid->disableCreateButton();
+        $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $actions->disableDelete();
+        });
 
         return $grid;
     }
@@ -53,8 +56,6 @@ class OutcomeCategoryController extends AdminController
         $show->panel()->tools(function (Show\Tools $tool)
         {
             $tool->disableDelete();
-            $tool->disableEdit();
-            $tool->disableList();
         });
 
         return $show;
@@ -73,6 +74,9 @@ class OutcomeCategoryController extends AdminController
         $form->disableCreatingCheck();
         $form->disableEditingCheck();
         $form->disableViewCheck();
+        $form->tools(function (Form\Tools $tools) {
+            $tools->disableDelete();
+        });
 
         return $form;
     }
