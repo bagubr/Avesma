@@ -15,6 +15,10 @@ class Outcome extends Model
         'reported_at'
     ];
 
+    protected $appends = [
+        'total_nominal'
+    ];
+
     public function pond_detail()
     {
         return $this->belongsTo(PondDetail::class, 'pond_detail_id');
@@ -33,5 +37,10 @@ class Outcome extends Model
     public function getUpdatedAtAttribute($value)
     {
         return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getTotalNominalAttribute()
+    {
+        return $this->outcome_detail()->get()?->sum('nominal')??0;
     }
 }
