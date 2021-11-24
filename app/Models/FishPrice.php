@@ -20,4 +20,14 @@ class FishPrice extends Model
     {
         return $this->belongsTo(FishSpecies::class, 'fish_species_id');
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
 }

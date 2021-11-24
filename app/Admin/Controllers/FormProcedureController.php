@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\FormProcedureDetailFormula\Create;
 use App\Models\FishSpecies;
 use App\Models\FormProcedure;
 use App\Models\Procedure;
@@ -81,6 +82,7 @@ class FormProcedureController extends AdminController
                 $tools->disableDelete();
             });
         });
+        
         $show->form_procedure_formula('Formula', function (Grid $procedure_formula) {
 
             $procedure_formula->resource('/admin/form-procedure-formulas');
@@ -95,23 +97,27 @@ class FormProcedureController extends AdminController
             $procedure_formula->disablePagination();
             $procedure_formula->disableRowSelector();
         });
-        $show->form_procedure_detail('Formulir', function (Grid $procedure_formula) {
+        $show->form_procedure_detail('Formulir', function (Grid $form_procedure_detail) {
 
-            $procedure_formula->setResource('/admin/form-procedure-details');
-            $procedure_formula->name();
-            $procedure_formula->disableCreateButton();
-            $procedure_formula->disableFilter();
-            $procedure_formula->disableExport();
-            $procedure_formula->disableColumnSelector();
-            $procedure_formula->disableActions();
-            $procedure_formula->disablePagination();
-            $procedure_formula->disableRowSelector();
+            $form_procedure_detail->setResource('/admin/form-procedure-details');
+            $form_procedure_detail->name();
+            $form_procedure_detail->disableCreateButton();
+            $form_procedure_detail->disableFilter();
+            $form_procedure_detail->disableExport();
+            $form_procedure_detail->disableColumnSelector();
+            $form_procedure_detail->disablePagination();
+            $form_procedure_detail->disableRowSelector();
+            $form_procedure_detail->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->disableDelete();
+                $actions->disableView();
+                $actions->add(new Create());
+            });
+            
         });
 
         $show->panel()->tools(function ($tools)
         {
             $tools->disableList();
-            $tools->disableEdit();
             $tools->disableDelete();
         });
 

@@ -3,6 +3,8 @@
 namespace App\Admin\Controllers;
 
 use App\Models\FishPrice;
+use App\Models\FishSpecies;
+use App\Models\Region;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -15,7 +17,7 @@ class FishPriceController extends AdminController
      *
      * @var string
      */
-    protected $title = 'FishPrice';
+    protected $title = 'Informasi Harga Ikan';
 
     /**
      * Make a grid builder.
@@ -25,15 +27,17 @@ class FishPriceController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new FishPrice());
-
-        $grid->column('id', __('Id'));
-        $grid->column('fish_species_id', __('Fish species id'));
+        $grid->column('fish_species.name', __('Fish species'));
         $grid->column('price', __('Price'));
         $grid->column('reported_at', __('Reported at'));
-        $grid->column('region_id', __('Region id'));
-        $grid->column('is_verified', __('Is verified'));
+        $grid->column('region.name', __('Wilayah'));
+        $grid->column('is_verified', __('Is verified'))->bool();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
+        $grid->disableColumnSelector();
+        $grid->disableExport();
+        $grid->disableFilter();
+        $grid->disableRowSelector();
 
         return $grid;
     }
@@ -48,12 +52,10 @@ class FishPriceController extends AdminController
     {
         $show = new Show(FishPrice::findOrFail($id));
 
-        $show->field('id', __('Id'));
-        $show->field('fish_species_id', __('Fish species id'));
+        $show->field('fish_species.name', __('Fish species'));
         $show->field('price', __('Price'));
         $show->field('reported_at', __('Reported at'));
-        $show->field('region_id', __('Region id'));
-        $show->field('is_verified', __('Is verified'));
+        $show->field('region.name', __('Wilayah'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -69,10 +71,10 @@ class FishPriceController extends AdminController
     {
         $form = new Form(new FishPrice());
 
-        $form->number('fish_species_id', __('Fish species id'));
+        $form->select('fish_species_id', __('Fish species'))->options(FishSpecies::get()->pluck('name', 'id'));
         $form->number('price', __('Price'));
-        $form->text('reported_at', __('Reported at'));
-        $form->number('region_id', __('Region id'));
+        $form->date('reported_at', __('Reported at'));
+        $form->select('region_id', __('Wilayah'))->options(Region::get()->pluck('name', 'id'));
         $form->switch('is_verified', __('Is verified'));
 
         return $form;

@@ -51,4 +51,5 @@ Route::group([
     $router->resource('term-and-conditions', TermAndConditionController::class);
     $router->resource('fish-prices', FishPriceController::class);
     $router->resource('disclaimers', DisclaimerController::class);
+    $router->resource('outcome-details', OutcomeDetailController::class);
 });

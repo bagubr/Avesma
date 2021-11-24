@@ -2,20 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\OutcomeCategory;
+use App\Models\OutcomeDetail;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class OutcomeCategoryController extends AdminController
+class OutcomeDetailController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'Kategori Pengeluaran';
+    protected $title = 'OutcomeDetail';
 
     /**
      * Make a grid builder.
@@ -24,14 +24,11 @@ class OutcomeCategoryController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new OutcomeCategory());
+        $grid = new Grid(new OutcomeDetail());
 
-        $grid->disableFilter();
-        $grid->disableColumnSelector();
-        $grid->disableExport();
-        $grid->disableRowSelector();
-        $grid->quickSearch('name');
-        $grid->column('name', __('Name'));
+        $grid->column('id', __('Id'));
+        $grid->column('outcome_setting_id', __('Outcome setting id'));
+        $grid->column('nominal', __('Nominal'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -46,16 +43,13 @@ class OutcomeCategoryController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(OutcomeCategory::findOrFail($id));
-        $show->field('name', __('Name'));
+        $show = new Show(OutcomeDetail::findOrFail($id));
+
+        $show->field('id', __('Id'));
+        $show->field('outcome_setting_id', __('Outcome setting id'));
+        $show->field('nominal', __('Nominal'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->panel()->tools(function (Show\Tools $tool)
-        {
-            $tool->disableDelete();
-            $tool->disableEdit();
-            $tool->disableList();
-        });
 
         return $show;
     }
@@ -67,12 +61,10 @@ class OutcomeCategoryController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new OutcomeCategory());
+        $form = new Form(new OutcomeDetail());
 
-        $form->text('name', __('Name'));
-        $form->disableCreatingCheck();
-        $form->disableEditingCheck();
-        $form->disableViewCheck();
+        $form->number('outcome_setting_id', __('Outcome setting id'));
+        $form->number('nominal', __('Nominal'));
 
         return $form;
     }

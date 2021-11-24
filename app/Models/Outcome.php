@@ -12,9 +12,7 @@ class Outcome extends Model
     protected $table = 'outcomes';
     protected $fillable = [
         'pond_detail_id',
-        'outcome_setting_id',
-        'name',
-        'total_price',
+        'total_nominal',
         'reported_at'
     ];
 
@@ -23,9 +21,9 @@ class Outcome extends Model
         return $this->belongsTo(PondDetail::class, 'pond_detail_id');
     }
 
-    public function outcome_setting()
+    public function outcome_detail()
     {
-        return $this->belongsTo(OutcomeSetting::class, 'outcome_setting_id');
+        return $this->hasMany(OutcomeDetail::class, 'outcome_id', 'id');
     }
 
     public function getCreatedAtAttribute($value)

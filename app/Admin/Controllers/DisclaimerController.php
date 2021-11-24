@@ -36,7 +36,10 @@ class DisclaimerController extends AdminController
             $actions->disableView();
         });
         $grid->disableBatchActions();
-        $grid->column('description', __('Description'));
+        $grid->column('description', __('Description'))->display(function ($description)
+        {
+            return $description;
+        });
 
         return $grid;
     }

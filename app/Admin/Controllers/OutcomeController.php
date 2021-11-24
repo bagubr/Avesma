@@ -3,6 +3,9 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Outcome;
+use App\Models\OutcomeDetail;
+use App\Models\OutcomeSetting;
+use App\Models\PondDetail;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -27,12 +30,10 @@ class OutcomeController extends AdminController
         $grid = new Grid(new Outcome());
 
         
-        $grid->column('pond_detail_id', __('Pond detail id'));
-        $grid->column('outcome_setting_id', __('Outcome setting id'));
-        $grid->column('name', __('Name'));
+        $grid->column('pond_detail.pond_spesies', __('Kolam Ikan'));
+        $grid->column('total_nominal', __('Total nominal'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
-        $grid->column('total_price', __('Total price'));
 
         return $grid;
     }
@@ -46,14 +47,10 @@ class OutcomeController extends AdminController
     protected function detail($id)
     {
         $show = new Show(Outcome::findOrFail($id));
-
-        $show->field('id', __('Id'));
-        $show->field('pond_detail_id', __('Pond detail id'));
-        $show->field('outcome_setting_id', __('Outcome setting id'));
-        $show->field('name', __('Name'));
+        $show->field('pond_detail.pond_spesies', __('Kolam Ikan'));
+        $show->field('total_nominal', __('Total nominal'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->field('total_price', __('Total price'));
 
         return $show;
     }
@@ -67,10 +64,28 @@ class OutcomeController extends AdminController
     {
         $form = new Form(new Outcome());
 
-        $form->number('pond_detail_id', __('Pond detail id'));
-        $form->number('outcome_setting_id', __('Outcome setting id'));
-        $form->text('name', __('Name'));
-        $form->number('total_price', __('Total price'));
+        $form->column(1/2, function ($form) {
+            $form->select('pond_detail_id', __('Kolam Ikan'))->options(PondDetail::get()->pluck('text', 'id'))->required();
+            $form->date('reported_at', __('Reported At'))->required()->default(date('Y-m-d H:i:s'));;
+            $form->currency('total_nominal', __('Total nominal'))->required();
+        });
+        $form->column(1/2, function ($form) {
+            $form2 = new Form(new OutcomeDetail());
+            $data = OutcomeSetting::get();
+            foreach ($data as $value) {
+                $label = $value->outcome_category.' - '.$value->name;
+                $form->currency('nominal', __($label));
+                $form->saving(function (Form $form) use ($value) {
+
+                    $form->outcome_id = $form->id;
+                    $form->outcome_setting_id = $value->id;
+                
+                });
+            }
+        });
+        // $form->hasMany('outcome_detail', 'Pengeluaran', function (Form\NestedForm $form) {
+        //     $form->text('name', __('Name'));
+        // });
 
         return $form;
     }

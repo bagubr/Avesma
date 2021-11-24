@@ -14,6 +14,15 @@ class OutcomeSetting extends Model
         'name',
     ];
 
+    protected $appends = [
+        'outcome_category'
+    ];
+
+    public function getOutcomeCategoryAttribute()
+    {
+        return $this->outcome_category()->first()?->name;
+    }
+
     public function outcome_category()
     {
         return $this->belongsTo(OutcomeCategory::class, 'outcome_category_id');
