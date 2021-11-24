@@ -20,13 +20,37 @@ class OutcomeController extends Controller
         $outcome_tetap = Outcome::where('pond_detail_id', $request->pond_detail_id)
             ->whereHas('outcome_detail.outcome_setting', function ($sq) {
                 $sq->where('outcome_category_id', 1);
-            })->orderBy('id', 'desc')->first();
+            })->orderBy('id', 'desc');
         $outcomes_lain = Outcome::where('pond_detail_id', $request->pond_detail_id)
             ->orderBy('reported_at', 'desc')->get();
+
+        if ($outcome_tetap->get()->count() != 0 && $outcomes_lain->count() != 0) {
+            $outcome_tetap_total = $outcome_tetap->total_nominal ?? 0;
+            return $this->sendSuccessResponse([
+                'outcome_total' => $outcome_tetap_total + $outcomes_lain->sum('total_nominal') ?? 0,
+                'outcome_tetap' => new OutcomeResource($outcome_tetap->get()),
+                'outcomes_lain' => OutcomeResource::collection($outcomes_lain),
+            ]);
+        }
+        if ($outcome_tetap->get()->count() != 0) {
+            $outcome_tetap_total = $outcome_tetap->total_nominal ?? 0;
+            return $this->sendSuccessResponse([
+                'outcome_total' => $outcome_tetap_total ?? 0,
+                'outcome_tetap' => new OutcomeResource($outcome_tetap->get()),
+                'outcomes_lain' => "",
+            ]);
+        }
+        if ($outcomes_lain->count() != 0) {
+            return $this->sendSuccessResponse([
+                'outcome_total' => $outcomes_lain->sum('total_nominal') ?? 0,
+                'outcome_tetap' => "",
+                'outcomes_lain' => OutcomeResource::collection($outcomes_lain),
+            ]);
+        }
         return $this->sendSuccessResponse([
-            'outcome_total' => $outcome_tetap->total_nominal + $outcomes_lain->sum('total_nominal'),
-            'outcome_tetap' => new OutcomeResource($outcome_tetap),
-            'outcomes_lain' => OutcomeResource::collection($outcomes_lain),
+            'outcome_total' => 0,
+            'outcome_tetap' => "",
+            'outcomes_lain' => "",
         ]);
     }
     public function store(OutcomeCreateRequest $request)
