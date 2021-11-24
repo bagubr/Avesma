@@ -24,4 +24,8 @@ class OutcomeCategory extends Model
     {
         return date("d-m-Y H:i:s", strtotime($value));
     }
+    public function outcome_settings()
+    {
+        return $this->hasMany(OutcomeSetting::class, 'outcome_category_id');
+    }
 }
