@@ -20,11 +20,13 @@ class OutcomeController extends Controller
         $outcome_tetap = Outcome::where('pond_detail_id', $request->pond_detail_id)
             ->whereHas('outcome_detail.outcome_setting', function ($sq) {
                 $sq->where('outcome_category_id', 1);
-            });
-        $outcomes_lain = Outcome::where('pond_detail_id', $request->pond_detail_id);
+            })->orderBy('id', 'desc')->first();
+        $outcomes_lain = Outcome::where('pond_detail_id', $request->pond_detail_id)
+            ->orderBy('reported_at', 'desc')->get();
         return $this->sendSuccessResponse([
-            'outcome_tetap' => new OutcomeResource($outcome_tetap->orderBy('id', 'desc')->first()),
-            'outcomes_lain' => OutcomeResource::collection($outcomes_lain->orderBy('reported_at', 'desc')->get()),
+            'outcome_total' => $outcome_tetap->total_nominal + $outcomes_lain->sum('total_nominal'),
+            'outcome_tetap' => new OutcomeResource($outcome_tetap),
+            'outcomes_lain' => OutcomeResource::collection($outcomes_lain),
         ]);
     }
     public function store(OutcomeCreateRequest $request)
