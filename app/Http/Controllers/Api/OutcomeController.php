@@ -17,20 +17,10 @@ class OutcomeController extends Controller
 {
     public function index(Request $request)
     {
-        $outcomes = Outcome::where('pond_detail_id', $request->pond_detail_id)
-            ->whereHas('outcome_detail.outcome_setting', function ($sq) use ($request) {
-                $sq->where('outcome_category_id', $request->outcome_category_id);
-            });
-        if ($request->outcome_category_id == 1) {
-            return $this->sendSuccessResponse([
-                'outcomes' => new OutcomeResource($outcomes->orderBy('id', 'desc')->first()),
-            ]);
-        }else{
-            return $this->sendSuccessResponse([
-                'outcomes' => OutcomeResource::collection($outcomes->orderBy('reported_at', 'desc')->get()),
-            ]);
-        }
-
+        $outcomes = Outcome::where('pond_detail_id', $request->pond_detail_id);
+        return $this->sendSuccessResponse([
+            'outcomes' => OutcomeResource::collection($outcomes->orderBy('reported_at', 'desc')->get()),
+        ]);
     }
     public function store(OutcomeCreateRequest $request)
     {

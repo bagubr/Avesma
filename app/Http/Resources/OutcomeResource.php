@@ -16,6 +16,8 @@ class OutcomeResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            "outcome_category_id" => $this->outcome_detail[0]?->outcome_setting->outcome_category_id,
+            "outcome_category_name" => $this->outcome_detail[0]?->outcome_setting->outcome_category,
             "pond_detail_id" => $this->pond_detail_id,
             "pond_detail_name" => $this->pond_detail->pond->name,
             "total_nominal" => $this->total_nominal,
