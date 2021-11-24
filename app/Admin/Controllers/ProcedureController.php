@@ -30,6 +30,7 @@ class ProcedureController extends AdminController
         $grid->quickSearch('title');
         $grid->column('title', __('Title'));
         $grid->column('image', __('Image'))->image();
+        $grid->column('is_procedure', __('Is Procedure'))->bool();
 
         $grid->disableRowSelector();
         $grid->disableCreateButton();
@@ -39,6 +40,7 @@ class ProcedureController extends AdminController
 
         $grid->actions(function (Grid\Displayers\Actions $actions) {
             $actions->disableDelete();
+            $actions->disableView();
         });
 
         return $grid;
@@ -56,6 +58,7 @@ class ProcedureController extends AdminController
 
         $show->field('title', __('Title'));
         $show->field('image', __('Image'))->image();
+        $show->field('is_procedure', __('Image'))->bool();
         $show->panel()->tools(function ($tools)
         {
             $tools->disableList();
@@ -76,6 +79,7 @@ class ProcedureController extends AdminController
 
         $form->text('title', __('Title'));
         $form->image('image', __('Image'));
+        $form->switch('is_procedure', __('Is Procedure'));
         $form->disableCreatingCheck();
         $form->disableEditingCheck();
         $form->disableViewCheck();

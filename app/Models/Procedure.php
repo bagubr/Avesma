@@ -11,7 +11,8 @@ class Procedure extends Model
     protected $table = 'procedures';
     protected $fillable = [
         'title',
-        'image' 
+        'image',
+        'is_procedure'
     ];
 
     protected $appends = [
