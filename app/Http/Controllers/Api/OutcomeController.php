@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\OutcomeCreateRequest;
 use App\Http\Requests\Api\OutcomeShowRequest;
 use App\Models\Outcome;
+use App\Models\OutcomeDetail;
 use App\Repositories\OutcomeRepository;
 use App\Services\OutcomeService;
 use Illuminate\Http\Request;
@@ -37,11 +38,17 @@ class OutcomeController extends Controller
             'pond_detail_id' => $request->pond_detail_id,
             'reported_at' => $request->reported_at
         ]);
+        foreach ($request->data as $i) {
+            OutcomeDetail::create([
+                'outcome_id' => $outcome->id,
+                'outcome_setting_id' => $i['outcome_setting_id'],
+                'price' => $i['price'],
+            ]);
+        }
         DB::commit();
-        // $outcomes = OutcomeService::create($request->reported_at, $request->pond_detail_id, $request->data);       
 
         return $this->sendSuccessResponse([
-            'outcomes' => $outcome
+            'outcomes' => $outcome->load('outcome_detail')
         ]);
     }
 
