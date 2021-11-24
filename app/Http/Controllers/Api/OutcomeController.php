@@ -37,8 +37,8 @@ class OutcomeController extends Controller
             'pond_detail_id' => $request->pond_detail_id,
             'reported_at' => $request->reported_at
         ]);
-        // $outcomes = OutcomeService::create($request->reported_at, $request->pond_detail_id, $request->data);       
         DB::commit();
+        // $outcomes = OutcomeService::create($request->reported_at, $request->pond_detail_id, $request->data);       
 
         return $this->sendSuccessResponse([
             'outcomes' => $outcome

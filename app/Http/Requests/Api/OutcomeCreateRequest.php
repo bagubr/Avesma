@@ -16,12 +16,11 @@ class OutcomeCreateRequest extends ApiRequest
     public function rules()
     {
         return [
-            'pond_detail_id'=>'required|exists:pond_details,id',
-            'reported_at'=>'required|date',
-            'data.*.outcome_setting_id'=>'required|numeric',
-            'data.*.name'=>'sometimes|nullable',
-            'data.*.total_price'=>'required|numeric',
+            'pond_detail_id' => 'required|exists:pond_details,id',
+            'reported_at' => 'required|date',
+            // 'data.*.outcome_setting_id'=>'required|numeric',
+            // 'data.*.name'=>'sometimes|nullable',
+            // 'data.*.total_price'=>'required|numeric',
         ];
     }
 }
-        
