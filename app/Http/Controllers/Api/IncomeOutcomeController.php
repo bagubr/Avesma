@@ -28,13 +28,13 @@ class IncomeOutcomeController extends Controller
 
         if ($calculation > 1) {
             $calculation_message = "Diatas";
-            $calculation_status = ">";
+            $calculation_status = `>`;
         } else if ($calculation < 1) {
             $calculation_message = "Dibawah";
-            $calculation_status = "<";
+            $calculation_status = `<`;
         } else {
             $calculation_message = "Sama";
-            $calculation_status = "=";
+            $calculation_status = `=`;
         }
         return $this->sendSuccessResponse([
             'income_total' => $income_total,

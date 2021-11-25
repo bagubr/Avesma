@@ -18,7 +18,7 @@ class FishSpeciesResource extends JsonResource
         return [
             "id" => $this->id,
             "fish_category_id" => $this->fish_category_id,
-            "pond_details_count" => $this->getCount($request->user_id, $this->id),
+            "pond_details_count" => $this->getCount($request->user()->id, $this->id),
             "name" => $this->name,
             "image" => $this->image,
             "image_url" => $this->image_url,

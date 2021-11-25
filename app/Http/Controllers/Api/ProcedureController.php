@@ -72,7 +72,7 @@ class ProcedureController extends Controller
             return $this->sendFailedResponse(['errors' => $validator->errors()]);
         }
         $form_procedure_input_user = FormProcedureInputUser::create([
-            'user_id' => $request->user_id,
+            'user_id' => $request->user()->id,
             'pond_detail_id' => $request->pond_detail_id,
             'reported_at' => $request->reported_at,
             'form_procedure_id' => $request->form_procedure_id,
