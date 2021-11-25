@@ -9,9 +9,9 @@ class Contact extends Model
 {
     use HasFactory;
     const TYPE = [
-        "WHATSAPP",
-        "PHONE",
-        "EMAIL"
+        "WHATSAPP" => "WHATSAPP",
+        "PHONE" => "PHONE",
+        "EMAIL" => "EMAIL"
     ];
 
     protected $fillable = ['name', 'content', 'icon', 'type'];
