@@ -73,6 +73,27 @@ class OutcomeController extends Controller
             'outcomes' => $outcome->load('outcome_detail')
         ]);
     }
+    public function update(OutcomeCreateRequest $request, Outcome $outcome)
+    {
+        DB::beginTransaction();
+        $data_outcome = $request->only('pond_detail_id', 'reported_at');
+        $outcome->update($data_outcome);
+        $outcome->refresh();
+        foreach ($outcome->outcome_detail as $key) {
+            OutcomeDetail::destroy($key->id);
+        }
+        foreach ($request->data as $i) {
+            OutcomeDetail::create([
+                'outcome_id' => $outcome->id,
+                'outcome_setting_id' => $i['outcome_setting_id'],
+                'price' => $i['price'],
+            ]);
+        };
+        DB::commit();
+        return $this->sendSuccessResponse([
+            'income' => $outcome->load('outcome_detail')
+        ]);
+    }
 
     public function show(Outcome $outcome)
     {
