@@ -37,20 +37,20 @@ class OutcomeController extends Controller
             return $this->sendSuccessResponse([
                 'outcome_total' => $outcome_tetap_total ?? 0,
                 'outcome_tetap' => new OutcomeResource($outcome_tetap->get()),
-                'outcomes_lain' => "",
+                'outcomes_lain' => [],
             ]);
         }
         if ($outcomes_lain->count() != 0) {
             return $this->sendSuccessResponse([
                 'outcome_total' => $outcomes_lain->sum('total_nominal') ?? 0,
-                'outcome_tetap' => "",
+                'outcome_tetap' => [],
                 'outcomes_lain' => OutcomeResource::collection($outcomes_lain),
             ]);
         }
         return $this->sendSuccessResponse([
             'outcome_total' => 0,
-            'outcome_tetap' => "",
-            'outcomes_lain' => "",
+            'outcome_tetap' => [],
+            'outcomes_lain' => [],
         ]);
     }
     public function store(OutcomeCreateRequest $request)
