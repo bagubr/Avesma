@@ -11,7 +11,7 @@ class Contact extends Model
     protected $fillable = ['name', 'link', 'value', 'icon'];
 
     protected $appends = [
-        'icon_url', 'link_value'
+        'icon_url'
     ];
 
     // public function getLinkValueAttribute()
