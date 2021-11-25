@@ -50,7 +50,7 @@ class OutcomeController extends Controller
         DB::commit();
 
         return $this->sendSuccessResponse([
-            'outcomes' => $outcome->load('outcome_detail')
+            'outcome' => $outcome->load('outcome_detail')
         ]);
     }
     public function update(OutcomeCreateRequest $request, Outcome $outcome)
