@@ -34,7 +34,7 @@ class BuyerController extends Controller
         $buyer->refresh();
 
         return $this->sendSuccessResponse([
-            'buyer' => $buyer
+            'buyer' => $buyer->load('pond_Detail')
         ]);
     }
 }
