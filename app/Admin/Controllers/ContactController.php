@@ -27,8 +27,9 @@ class ContactController extends AdminController
         $grid = new Grid(new Contact());
 
         $grid->column('name', __('Nama'));
-        $grid->column('content', __('Kontent'));
+        $grid->column('content', __('Konten'));
         $grid->column('icon', __('Icon'))->image();
+        $grid->column('type', __('Tipe'));
 
         return $grid;
     }
@@ -44,9 +45,9 @@ class ContactController extends AdminController
         $show = new Show(Contact::findOrFail($id));
 
         $show->field('name', __('Nama'));
-        $show->field('content', __('Kontent'));
+        $show->field('content', __('Konten'));
         $show->field('icon', __('Icon'));
-
+        $show->field('type', __('Tipe'));
         return $show;
     }
 
@@ -60,7 +61,8 @@ class ContactController extends AdminController
         $form = new Form(new Contact());
 
         $form->text('name', __('Nama'))->required();
-        $form->text('content', __('Kontent'))->required();
+        $form->text('type', __('Tipe'))->required();
+        $form->text('content', __('Konten'))->required();
         $form->file('icon', __('Icon'))->required();
 
         return $form;

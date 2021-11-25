@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'content', 'icon'];
+    const WHATSAPP = "WHATSAPP";
+    const PHONE = "PHONE";
+    const EMAIL = "EMAIL";
+    
+    protected $fillable = ['name', 'content', 'icon', 'type'];
 
     protected $appends = [
         'icon_url'
