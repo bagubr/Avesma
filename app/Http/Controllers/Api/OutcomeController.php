@@ -23,7 +23,9 @@ class OutcomeController extends Controller
                 $sq->where('outcome_category_id', 1);
             })->orderBy('id', 'desc');
         $outcomes_lain = Outcome::where('pond_detail_id', $request->pond_detail_id)
-            ->orderBy('reported_at', 'desc')->get();
+            ->orderBy('reported_at', 'desc')->whereHas('outcome_detail.outcome_setting', function ($sq) {
+                $sq->where('outcome_category_id', 2);
+            })->get();
 
         return $this->sendSuccessResponse([
             'outcome_total' => $outcome_tetap->first()->total_nominal ?? 0 + $outcomes_lain->sum('total_nominal') ?? 0,
