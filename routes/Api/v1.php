@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\FishPriceController;
 use App\Http\Controllers\Api\FishSpeciesController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\IncomeController;
+use App\Http\Controllers\Api\IncomeOutcomeController;
 use App\Http\Controllers\Api\OutcomeCategoryController;
 use App\Http\Controllers\Api\OutcomeController;
 use App\Http\Controllers\Api\OutcomeSettingController;
@@ -105,6 +106,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('outcomes', [OutcomeController::class, 'store']);
     Route::get('outcomes/{outcome}', [OutcomeController::class, 'show']);
     Route::post('outcomes/{outcome}', [OutcomeController::class, 'update']);
+
+    Route::get('incomes_outcomes', [IncomeOutcomeController::class, 'index']);
+
 
     Route::get('buyers', [BuyerController::class, 'index']);
     Route::get('buyers/{id}', [BuyerController::class, 'show']);

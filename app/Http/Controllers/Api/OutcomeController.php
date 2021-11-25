@@ -25,33 +25,10 @@ class OutcomeController extends Controller
         $outcomes_lain = Outcome::where('pond_detail_id', $request->pond_detail_id)
             ->orderBy('reported_at', 'desc')->get();
 
-        if ($outcome_tetap->get()->count() != 0 && $outcomes_lain->count() != 0) {
-            $outcome_tetap_total = $outcome_tetap->total_nominal ?? 0;
-            return $this->sendSuccessResponse([
-                'outcome_total' => $outcome_tetap_total + $outcomes_lain->sum('total_nominal') ?? 0,
-                'outcome_tetap' => new OutcomeResource($outcome_tetap->get()),
-                'outcomes_lain' => OutcomeResource::collection($outcomes_lain),
-            ]);
-        }
-        if ($outcome_tetap->get()->count() != 0) {
-            $outcome_tetap_total = $outcome_tetap->total_nominal ?? 0;
-            return $this->sendSuccessResponse([
-                'outcome_total' => $outcome_tetap_total ?? 0,
-                'outcome_tetap' => new OutcomeResource($outcome_tetap->get()),
-                'outcomes_lain' => [],
-            ]);
-        }
-        if ($outcomes_lain->count() != 0) {
-            return $this->sendSuccessResponse([
-                'outcome_total' => $outcomes_lain->sum('total_nominal') ?? 0,
-                'outcome_tetap' => new stdClass(),
-                'outcomes_lain' => OutcomeResource::collection($outcomes_lain),
-            ]);
-        }
         return $this->sendSuccessResponse([
-            'outcome_total' => 0,
-            'outcome_tetap' => new stdClass(),
-            'outcomes_lain' => [],
+            'outcome_total' => $outcome_tetap->first()->total_nominal ?? 0 + $outcomes_lain->sum('total_nominal') ?? 0,
+            'outcome_tetap' => $outcome_tetap->first() ?? new stdClass(),
+            'outcomes_lain' => $outcomes_lain,
         ]);
     }
     public function store(OutcomeCreateRequest $request)
