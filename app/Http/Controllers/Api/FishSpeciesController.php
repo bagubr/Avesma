@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FishSpeciesResource;
 use App\Models\FishSpecies;
 use Illuminate\Http\Request;
 
 class FishSpeciesController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
+        $fish_specieses = FishSpecies::when($request->fish_category_id, function ($query) use ($request) {
+            $query->where('fish_category_id', $request->fish_category_id);
+        })->get();
+        if (empty($request->user())) $this->sendFailedResponse([], 'Maaf, sepertinya anda harus login ulang');
         $this->sendSuccessResponse([
-            'fish_specieses'=>FishSpecies::withCount('pond_details')->when($request->name, function($query) use ($request) {
-                $query->where('name', 'ilike', '%'.$request->name.'%');
-            })
-            ->when($request->fish_category_id, function($query) use($request) {
-                $query->where('fish_category_id', $request->fish_category_id);
-            })
-            ->get()
+            'fish_specieses' => FishSpeciesResource::collection($fish_specieses)
         ]);
     }
 }

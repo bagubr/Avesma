@@ -20,6 +20,7 @@ class ProcedureResourceFishSpecies extends JsonResource
             'title' => $this->title,
             'image' => $this->image,
             'image_url' => $this->image_url,
+            'is_procedure' => $this->is_procedure,
             'form_procedure' => $this->form_procedures->whereIn('fish_species_id', $request->fish_species_id)->first(),
         ];
     }

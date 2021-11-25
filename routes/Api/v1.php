@@ -8,12 +8,15 @@ use App\Http\Controllers\Api\ArticleProcedureController;
 use App\Http\Controllers\Api\ArticleRecipeController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BuyerController;
+use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\DisclaimerController;
+use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\FishCategoryController;
 use App\Http\Controllers\Api\FishPriceController;
 use App\Http\Controllers\Api\FishSpeciesController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\IncomeController;
+use App\Http\Controllers\Api\IncomeOutcomeController;
 use App\Http\Controllers\Api\OutcomeCategoryController;
 use App\Http\Controllers\Api\OutcomeController;
 use App\Http\Controllers\Api\OutcomeSettingController;
@@ -64,6 +67,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('article_recipes', [ArticleRecipeController::class, 'index']);
     Route::get('article_recipes/{id}', [ArticleRecipeController::class, 'show']);
 
+    Route::get('contacts', [ContactController::class, 'index']);
+
+    Route::get('faqs', [FaqController::class, 'index']);
 
     Route::get('fish_prices', [FishPriceController::class, 'index']);
     Route::get('fish_prices/{fish_price}', [FishPriceController::class, 'show']);
@@ -103,11 +109,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('outcomes/settings', [OutcomeSettingController::class, 'index']);
     Route::get('outcomes', [OutcomeController::class, 'index']);
     Route::post('outcomes', [OutcomeController::class, 'store']);
-    Route::get('outcomes/show', [OutcomeController::class, 'show']);
+    Route::get('outcomes/{outcome}', [OutcomeController::class, 'show']);
+    Route::post('outcomes/{outcome}', [OutcomeController::class, 'update']);
+
+    Route::get('incomes_outcomes', [IncomeOutcomeController::class, 'index']);
+
 
     Route::get('buyers', [BuyerController::class, 'index']);
     Route::get('buyers/{id}', [BuyerController::class, 'show']);
-    Route::post('buyers/update/{id}', [BuyerController::class, 'update']);
+    Route::post('buyers/update/{buyer}', [BuyerController::class, 'update']);
 
     Route::get('about', [AboutController::class, 'index']);
 

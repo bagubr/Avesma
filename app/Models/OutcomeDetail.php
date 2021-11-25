@@ -9,10 +9,10 @@ class OutcomeDetail extends Model
 {
     use HasFactory;
 
-    protected $fillaable = [
+    protected $fillable = [
         'outcome_id',
         'outcome_setting_id',
-        'nominal'
+        'price'
     ];
 
     public function outcome_setting()
@@ -24,6 +24,4 @@ class OutcomeDetail extends Model
     {
         return $this->belongsTo(Outcome::class, 'outcome_id');
     }
-
-    
 }

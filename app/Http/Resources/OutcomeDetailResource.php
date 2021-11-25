@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProcedureResource extends JsonResource
+class OutcomeDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,13 +14,12 @@ class ProcedureResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        return[
             'id' => $this->id,
-            'title' => $this->title,
-            'image' => $this->image,
-            'image_url' => $this->image_url,
-            'is_procedure' => $this->is_procedure
-            // 'fish_species_id' => $this->form_procedures,
+            'outcome_id' => $this->outcome_id,
+            "outcome_setting_id" => $this->outcome_setting_id,
+            "outcome_setting" => new OutcomeSettingResource($this->outcome_setting),
+            "price" => $this->price,
         ];
     }
 }
