@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BuyerController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\DisclaimerController;
+use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\FishCategoryController;
 use App\Http\Controllers\Api\FishPriceController;
 use App\Http\Controllers\Api\FishSpeciesController;
@@ -67,6 +68,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('article_recipes/{id}', [ArticleRecipeController::class, 'show']);
 
     Route::get('contacts', [ContactController::class, 'index']);
+
+    Route::get('faqs', [FaqController::class, 'index']);
 
     Route::get('fish_prices', [FishPriceController::class, 'index']);
     Route::get('fish_prices/{fish_price}', [FishPriceController::class, 'show']);
