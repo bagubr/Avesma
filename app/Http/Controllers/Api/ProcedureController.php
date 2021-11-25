@@ -62,7 +62,6 @@ class ProcedureController extends Controller
     {
         $data = $request->all();
         $validator = Validator::make($data, [
-            'user_id' => 'required|exists:users,id',
             'pond_detail_id' => 'required|exists:pond_details,id',
             'reported_at' => 'required',
             'form_procedure_id' => 'required|exists:form_procedures,id',

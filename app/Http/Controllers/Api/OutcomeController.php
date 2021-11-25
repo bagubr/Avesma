@@ -71,7 +71,7 @@ class OutcomeController extends Controller
         };
         DB::commit();
         return $this->sendSuccessResponse([
-            'income' => $outcome->load('outcome_detail')
+            'outcome' => $outcome->load('outcome_detail')
         ]);
     }
 
