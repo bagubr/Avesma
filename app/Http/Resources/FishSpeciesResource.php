@@ -18,7 +18,7 @@ class FishSpeciesResource extends JsonResource
         return [
             "id" => $this->id,
             "fish_category_id" => $this->fish_category_id,
-            "pond_details_count" => $this->getCount($request->user_id, $this->fish_category_id),
+            "pond_details_count" => $this->getCount($request->user_id, $this->id),
             "name" => $this->name,
             "image" => $this->image,
             "image_url" => $this->image_url,
@@ -26,14 +26,11 @@ class FishSpeciesResource extends JsonResource
             "updated_at" => $this->updated_at,
         ];
     }
-    public function getCount($user_id, $fish_category_id)
+    public function getCount($user_id, $id)
     {
         $count = FishSpecies::whereHas('pond_details.pond', function ($q) use ($user_id) {
             $q->where('user_id', $user_id);
-        })->when($fish_category_id, function ($query) use ($fish_category_id) {
-            $query->where('fish_category_id', $fish_category_id);
-        })->count();
+        })->where('id', $id)->count();
         return $count;
-
     }
 }
