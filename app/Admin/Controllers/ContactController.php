@@ -61,7 +61,7 @@ class ContactController extends AdminController
         $form = new Form(new Contact());
 
         $form->text('name', __('Nama'))->required();
-        $form->text('type', __('Tipe'))->required();
+        $form->select('type', __('Tipe'))->options(Contact::TYPE)->required();
         $form->text('content', __('Konten'))->required();
         $form->file('icon', __('Icon'))->required();
 
