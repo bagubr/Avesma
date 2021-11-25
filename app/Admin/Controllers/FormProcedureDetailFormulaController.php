@@ -8,6 +8,8 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Request;
 
 class FormProcedureDetailFormulaController extends AdminController
 {
@@ -72,5 +74,12 @@ class FormProcedureDetailFormulaController extends AdminController
             return redirect('/admin/form-procedure-details/'.$form->form_procedure_detail_id);
         });
         return $form;
+    }
+
+    public function getByFormProcedureDetail(HttpRequest $request)
+    {
+        $id = $request->get('q');
+        
+        return FormProcedureDetailFormula::where('form_procedure_detail_id', $id)->get(['id', 'form_procedure_detail_id', 'parameter', 'score']);
     }
 }

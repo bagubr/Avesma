@@ -16,6 +16,17 @@ class FormProcedureDetailInput extends Model
         'score'
     ];
 
+    
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model)
+        {
+            $model->score = FormProcedureDetailFormula::find($model->form_procedure_detail_formula_id)->score;
+        });
+    }
+
     public function form_procedure_detail()
     {
         return $this->belongsTo(FormProcedureDetail::class, 'form_procedure_detail_id');

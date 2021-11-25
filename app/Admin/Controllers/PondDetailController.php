@@ -79,7 +79,7 @@ class PondDetailController extends AdminController
         return $form;
     }
 
-    public function getData(Request $request)
+    public function byUserId(Request $request)
     {
         $user_id = $request->get('q');
 

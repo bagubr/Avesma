@@ -15,9 +15,18 @@ class FormProcedureDetailFormula extends Model
     'score',
     ];
 
+    protected $appends = [
+        'text'
+    ];
+
     public function form_procedure_detail()
     {
         return $this->belongsTo(FormProcedureDetail::class, 'form_procedure_detail_id');
+    }
+
+    public function getTextAttribute()
+    {
+        return $this->parameter.' - '.$this->score;
     }
 
     public function getCreatedAtAttribute($value)

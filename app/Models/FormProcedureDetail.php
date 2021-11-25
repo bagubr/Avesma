@@ -16,7 +16,8 @@ class FormProcedureDetail extends Model
     ];
 
     protected $appends = [
-        'fish_and_procedure'
+        'fish_and_procedure',
+        'text'
     ];
 
     public function form_procedure()
@@ -27,6 +28,11 @@ class FormProcedureDetail extends Model
     public function getFishAndProcedureAttribute()
     {
         return $this->form_procedure()->first()?->fish_and_procedure;
+    }
+
+    public function getTextAttribute()
+    {
+        return $this->name;
     }
 
     public function form_procedure_detail_formulas()

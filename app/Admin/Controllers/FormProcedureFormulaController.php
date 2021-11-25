@@ -18,7 +18,7 @@ class FormProcedureFormulaController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Form Procedure Formula';
+    protected $title = 'Formula SOP';
 
     /**
      * Make a grid builder.
@@ -30,10 +30,15 @@ class FormProcedureFormulaController extends AdminController
         $grid = new Grid(new FormProcedureFormula());
 
         
+        $grid->quickSearch('fish_and_procedure', 'note', 'min_range', 'max_range');
         $grid->column('fish_and_procedure', __('Procedure'));
         $grid->column('note', __('Note'));
         $grid->column('min_range', __('Min range'));
         $grid->column('max_range', __('Max range'));
+        $grid->disableRowSelector();
+        $grid->disableColumnSelector();
+        $grid->disableExport();
+        $grid->disableFilter();
 
         return $grid;
     }
@@ -48,13 +53,18 @@ class FormProcedureFormulaController extends AdminController
     {
         $show = new Show(FormProcedureFormula::findOrFail($id));
 
-        $show->field('id', __('Id'));
         $show->field('fish_and_procedure', __('Procedure'));
         $show->field('note', __('Note'));
         $show->field('min_range', __('Min range'));
         $show->field('max_range', __('Max range'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
+
+        $show->panel()->tools(function (Show\Tools $tool)
+        {
+            $tool->disableDelete();
+            $tool->disableEdit();
+        });
 
         return $show;
     }
@@ -74,7 +84,13 @@ class FormProcedureFormulaController extends AdminController
         $form->decimal('min_range', __('Min range'));
         $form->decimal('max_range', __('Max range'))->rules('required|gt:min_range');
 
-        return $form->saving(function (Form $form) {
+        $form->disableEditingCheck();
+        $form->disableViewCheck();
+        $form->disableCreatingCheck();
+
+        return $form;
+
+        // return $form->saving(function (Form $form) {
             // $max_range = FormProcedureFormula::whereFormProcedureId($form->form_procedure_id)->orderBy('id', 'desc')->first()?->max_range??0;
             // if($max_range >= $form->min_range){
             //     $error = new MessageBag([
@@ -91,6 +107,6 @@ class FormProcedureFormulaController extends AdminController
             //     ]);
             //     return back()->with(compact('error'));
             // }
-         });
+        //  });
     }
 }
