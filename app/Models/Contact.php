@@ -11,13 +11,15 @@ class Contact extends Model
     protected $fillable = ['name', 'link', 'value', 'icon'];
 
     protected $appends = [
-        'icon_url'
+        'icon_url', 'link_value'
     ];
 
-    // public function getLinkValueAttribute()
-    // {
-    //     return $this->link + $this->value;
-    // }
+    public function getLinkValueAttribute()
+    {
+        $link = $this->link ?? "";
+        $value = $this->value ?? "";
+        return $link . $value;
+    }
 
     public function getIconUrlAttribute()
     {
