@@ -52,4 +52,5 @@ Route::group([
     $router->resource('fish-prices', FishPriceController::class);
     $router->resource('disclaimers', DisclaimerController::class);
     $router->resource('outcome-details', OutcomeDetailController::class);
+    $router->resource('contacts', ContactController::class);
 });

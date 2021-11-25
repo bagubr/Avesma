@@ -65,7 +65,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('article_recipes', [ArticleRecipeController::class, 'index']);
     Route::get('article_recipes/{id}', [ArticleRecipeController::class, 'show']);
 
-
     Route::get('fish_prices', [FishPriceController::class, 'index']);
     Route::get('fish_prices/{fish_price}', [FishPriceController::class, 'show']);
 
