@@ -12,6 +12,7 @@ use App\Repositories\OutcomeRepository;
 use App\Services\OutcomeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class OutcomeController extends Controller
 {
@@ -43,13 +44,13 @@ class OutcomeController extends Controller
         if ($outcomes_lain->count() != 0) {
             return $this->sendSuccessResponse([
                 'outcome_total' => $outcomes_lain->sum('total_nominal') ?? 0,
-                'outcome_tetap' => [],
+                'outcome_tetap' => new stdClass(),
                 'outcomes_lain' => OutcomeResource::collection($outcomes_lain),
             ]);
         }
         return $this->sendSuccessResponse([
             'outcome_total' => 0,
-            'outcome_tetap' => [],
+            'outcome_tetap' => new stdClass(),
             'outcomes_lain' => [],
         ]);
     }
