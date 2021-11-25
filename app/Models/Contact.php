@@ -14,10 +14,10 @@ class Contact extends Model
         'icon_url', 'link_value'
     ];
 
-    public function getLinkValueAttribute()
-    {
-        return $this->link + $this->value;
-    }
+    // public function getLinkValueAttribute()
+    // {
+    //     return $this->link + $this->value;
+    // }
 
     public function getIconUrlAttribute()
     {
