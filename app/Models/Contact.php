@@ -8,18 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'link', 'value', 'icon'];
+    protected $fillable = ['name', 'content', 'icon'];
 
     protected $appends = [
-        'icon_url', 'link_value'
+        'icon_url'
     ];
-
-    public function getLinkValueAttribute()
-    {
-        $link = $this->link ?? "";
-        $value = $this->value ?? "";
-        return $link . $value;
-    }
 
     public function getIconUrlAttribute()
     {
