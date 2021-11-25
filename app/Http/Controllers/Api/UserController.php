@@ -5,30 +5,35 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UploadUserInformationRequest;
 use App\Http\Requests\UserCreateRegisterFormRequest;
+use App\Models\FishSpecies;
+use App\Models\Pond;
+use App\Models\PondDetail;
 use App\Models\User;
 use App\Models\UserInformation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function index(Request $request)
     {
         $user = $request->user();
-
-        $user = User::withCount('ponds')
-            ->select()
-            ->selectRaw("
-                (
-                    select count(fish_specieses.*) from fish_specieses
-                    left join pond_details on pond_details.fish_species_id = fish_specieses.id
-                    left join ponds on ponds.id = pond_details.pond_id
-                    where ponds.user_id = users.id
-                ) as fish_species_count
-            ")
-            ->find($user->id);
-
+        $user = User::find($user->id);
+        $ponds_hatchery = User::whereHas('ponds', function ($q) use ($user) {
+            $q->where('user_id', $user->id)->where('status', Pond::STATUS1);
+        })->count();
+        $ponds_harvest = User::whereHas('ponds', function ($q) use ($user) {
+            $q->where('user_id', $user->id)->where('status', Pond::STATUS2);
+        })->count();
+        $fish_species_total = PondDetail::whereHas('pond', function ($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })->select('fish_species_id', DB::raw('count(*) as total'))
+            ->groupBy('fish_species_id')->get()->count();
         return $this->sendSuccessResponse([
-            'user' => $user
+            'user' => $user,
+            'ponds_hatchery_total' => $ponds_hatchery,
+            'ponds_harvest_total' => $ponds_harvest,
+            'fish_species_total' => $fish_species_total
         ]);
     }
 
