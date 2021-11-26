@@ -89,7 +89,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('ponds/store', [PondController::class, 'store']);
     Route::get('ponds/{id}', [PondController::class, 'show'])->where('id', '[0-9]+');
     Route::get('ponds/status', [PondController::class, 'statuses']);
-    Route::post('ponds/update/{id}', [PondController::class, 'update']);
+    Route::post('ponds/update/{pond}', [PondController::class, 'update']);
     Route::get('ponds/products', [PondDetailProductController::class, 'index']);
     Route::post('ponds/products', [PondDetailProductController::class, 'store']);
 
@@ -103,6 +103,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('fish_categories', [FishCategoryController::class, 'index']);
 
     Route::get('incomes', [IncomeController::class, 'index']);
+    Route::get('incomes/statistic', [IncomeController::class, 'income_statistic']);
     Route::post('incomes', [IncomeController::class, 'store']);
     Route::get('incomes/{id}', [IncomeController::class, 'show']);
     Route::post('incomes/{income}', [IncomeController::class, 'update']);

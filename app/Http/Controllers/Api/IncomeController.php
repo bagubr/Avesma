@@ -60,7 +60,7 @@ class IncomeController extends Controller
             'income' => $income->load('income_detail')
         ]);
     }
-    public function Update(CreateIncomeRequest $request, Income $income)
+    public function update(CreateIncomeRequest $request, Income $income)
     {
         DB::beginTransaction();
         $data_income = $request->only('pond_detail_id', 'reported_at');
@@ -81,6 +81,14 @@ class IncomeController extends Controller
         DB::commit();
         return $this->sendSuccessResponse([
             'income' => $income->load('income_detail')
+        ]);
+    }
+    public function income_statistic(Request $request)
+    {
+        $incomes = Income::where('pond_detail_id', $request->pond_detail_id)
+            ->orderBy('reported_at', 'desc')->get();
+        return $this->sendSuccessResponse([
+            'incomes' => $incomes
         ]);
     }
 }

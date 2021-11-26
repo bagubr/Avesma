@@ -17,14 +17,14 @@ class PondResource extends JsonResource
         return [
             'id' => $this->id,
             "user_id" =>  $this->user->id,
-            'name' => $this->name,
-            'area' => $this->area,
-            'latitude' => $this->latitude,
-            'longitude' => $this->longitude,
-            'address' => $this->address,
+            'name' => $this->name ?? "",
+            'area' => $this->area ?? "",
+            'latitude' => $this->latitude ?? "",
+            'longitude' => $this->longitude ?? "",
+            'address' => $this->address ?? "",
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
-            "status" => $this->status,
+            "status" => $this->status ?? "",
             "pond_detail" => new PondDetailResouce($this->pond_detail),
         ];
     }
