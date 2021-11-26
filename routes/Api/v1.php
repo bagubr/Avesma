@@ -84,7 +84,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('procedures/statistic', [FormProcedureController::class, 'procedure_graphics']);
 
     Route::get('home', [HomeController::class, 'index']);
-    Route::get('fcm_token', [HomeController::class, 'store']);
+    Route::post('fcm_token', [HomeController::class, 'store']);
 
     Route::get('ponds', [PondController::class, 'index']);
     Route::post('ponds/store', [PondController::class, 'store']);
