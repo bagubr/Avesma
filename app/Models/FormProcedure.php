@@ -30,20 +30,24 @@ class FormProcedure extends Model
     {
         return $this->procedure()->first()->title;
     }
-    
+
     public function fish_species()
     {
         return $this->belongsTo(FishSpecies::class, 'fish_species_id');
     }
-    
+    public function form_procedure_input_users()
+    {
+        return $this->hasMany(FormProcedureInputUser::class, 'form_procedure_id');
+    }
+
     public function getFishSpeciesNameAttribute()
     {
         return $this->fish_species()->first()->name;
     }
-    
+
     public function getFishAndProcedureAttribute()
     {
-        return $this->procedure()->first()->title.' - '.$this->fish_species()->first()->name;
+        return $this->procedure()->first()->title . ' - ' . $this->fish_species()->first()->name;
     }
 
     public function form_procedure_detail()
@@ -65,5 +69,4 @@ class FormProcedure extends Model
     {
         return date("d-m-Y H:i:s", strtotime($value));
     }
-
 }

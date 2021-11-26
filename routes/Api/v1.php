@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\FishCategoryController;
 use App\Http\Controllers\Api\FishPriceController;
 use App\Http\Controllers\Api\FishSpeciesController;
+use App\Http\Controllers\Api\FormProcedureController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\IncomeController;
 use App\Http\Controllers\Api\IncomeOutcomeController;
@@ -80,6 +81,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('procedures', [ProcedureController::class, 'store']);
     Route::post('procedures/edit/{form_procedure_input_user}', [ProcedureController::class, 'update']);
     Route::get('procedures/form_procedure/{id}', [ProcedureController::class, 'getFormProcedure']);
+    Route::get('procedures/statistic', [FormProcedureController::class, 'procedure_graphics']);
 
     Route::get('home', [HomeController::class, 'index']);
 

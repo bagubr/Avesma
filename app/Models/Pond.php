@@ -23,7 +23,6 @@ class Pond extends Model
         'longitude',
         'address',
     ];
-
     public function pond_detail()
     {
         return $this->hasOne(PondDetail::class, 'pond_id', 'id');
