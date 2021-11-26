@@ -73,7 +73,8 @@ class UserController extends Controller
             'user_id' => $user_id,
             'nik' => $request->nik,
             'ktp_photo' => $ktp_photo,
-            'ktp_selfie_photo' => $ktp_selfie_photo
+            'ktp_selfie_photo' => $ktp_selfie_photo,
+            'status' => 'PENDING'
         ]);
 
         return $this->sendSuccessResponse([], 'Berhasil mengupload data verifikasi');
