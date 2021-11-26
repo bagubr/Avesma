@@ -66,16 +66,17 @@ class PondController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Pond $pond)
     {
-        $pond = PondRepository::find($id);
         $fillable = $pond->getFillable();
-
+        $pond_detail = PondDetail::where('pond_id', $pond->id);
         $pond->update($request->only($fillable));
-        $pond->refresh();
+        $pond_detail->update([
+            'seed_count' => $request->seed_count
+        ]);        
 
         $this->sendSuccessResponse([
-            'pond' => $pond
+            'pond' => $pond->load('pond_detail')
         ]);
     }
 }
