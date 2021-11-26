@@ -20,7 +20,7 @@ class FormProcedureController extends Controller
     public function procedure_graphics(Request $request)
     {
         $form_procedures = FormProcedure::with(['form_procedure_input_users' => function ($q) use ($request){
-            $q->where('pond_detail_id', $request->pond_detail_id);
+            $q->where('pond_detail_id', $request->pond_detail_id)->orderBy('reported_at', 'desc');
         }])->get();
         return $this->sendSuccessResponse([
             'form_procedures' => FormProcedureStatisticResource::collection($form_procedures)
