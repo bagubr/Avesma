@@ -35,14 +35,14 @@ class ProcedureController extends Controller
         $procedure_users = FormProcedureInputUser::where('pond_detail_id', $request->pond_detail_id)
             ->where('form_procedure_id', $request->form_procedure_id)->get();
         return $this->sendSuccessResponse([
-            'procedures' => ProcedureUserResource::collection($procedure_users)
+            'form_procedure_input_users' => ProcedureUserResource::collection($procedure_users)
         ]);
     }
     public function getProcedureShow($id)
     {
         $procedure_user = FormProcedureInputUser::find($id);
         return $this->sendSuccessResponse([
-            'procedure' => new ProcedureUserResource($procedure_user)
+            'form_procedure_input_user' => new ProcedureUserResource($procedure_user)
         ]);
     }
     public function getFormProcedure($id)
@@ -104,7 +104,7 @@ class ProcedureController extends Controller
             'reported_at' => $request->reported_at,
         ]);
         foreach ($form_procedure_input_user->form_procedure_detail_input as $key) {
-            $key->destroy($key->id);
+            FormProcedureDetailInput::destroy($key->id);
         }
         foreach ($request->data as $i) {
             FormProcedureDetailInput::create([

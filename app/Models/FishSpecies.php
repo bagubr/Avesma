@@ -25,11 +25,13 @@ class FishSpecies extends Model
         return url('uploads/' . $this->image);
     }
 
-    public function fish_category() {
+    public function fish_category()
+    {
         return $this->belongsTo(FishCategory::class);
     }
 
-    public function pond_details() {
+    public function pond_details()
+    {
         return $this->hasMany(PondDetail::class);
     }
 
