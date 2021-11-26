@@ -33,12 +33,12 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'avatar_url'
+        'avatar_url', 'status_verification'
     ];
 
     public function user_information()
     {
-        return $this->belongsTo(UserInformation::class,'id',  'user_id');
+        return $this->belongsTo(UserInformation::class, 'id',  'user_id');
     }
 
     public function region()
@@ -46,11 +46,17 @@ class User extends Authenticatable
         return $this->belongsTo(Region::class, 'region_id',  'id');
     }
 
-    public function ponds() {
+    public function ponds()
+    {
         return $this->hasMany(Pond::class);
     }
+    public function getStatusVerificationAttribute()
+    {
+        return $this->user_information?->status ?? "";
+    }
 
-    public function getAvatarUrlAttribute() {
+    public function getAvatarUrlAttribute()
+    {
         return asset($this->attributes['avatar']);
     }
 

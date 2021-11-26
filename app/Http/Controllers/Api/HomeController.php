@@ -12,9 +12,11 @@ use App\Models\Slider;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller {
-    public function index(Request $request) {
-        UserService::updateFcmToken($request->user(),$request->fcm_token);
+class HomeController extends Controller
+{
+    public function index(Request $request)
+    {
+        UserService::updateFcmToken($request->user(), $request->fcm_token);
         $sliders = Slider::inRandomOrder()->get();
         $fish_categories = FishCategory::all();
         $articles = Article::inRandomOrder()->limit(10)->get();
@@ -23,11 +25,11 @@ class HomeController extends Controller {
         $disclaimer = Disclaimer::first();
 
         return $this->sendSuccessResponse([
-            'sliders'=>$sliders,
-            'fish_categories'=>$fish_categories,
-            'articles'=>$articles,
-            'article_recipes'=>$article_recipes,
-            'article_procedures'=>$article_procedures,
+            'sliders' => $sliders,
+            'fish_categories' => $fish_categories,
+            'articles' => $articles,
+            'article_recipes' => $article_recipes,
+            'article_procedures' => $article_procedures,
             'disclaimer' => $disclaimer,
         ]);
     }
