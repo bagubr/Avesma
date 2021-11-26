@@ -103,6 +103,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('fish_categories', [FishCategoryController::class, 'index']);
 
     Route::get('incomes', [IncomeController::class, 'index']);
+    Route::get('incomes/statistic', [IncomeController::class, 'income_statistic']);
     Route::post('incomes', [IncomeController::class, 'store']);
     Route::get('incomes/{id}', [IncomeController::class, 'show']);
     Route::post('incomes/{income}', [IncomeController::class, 'update']);
