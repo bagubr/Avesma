@@ -93,13 +93,13 @@ class ProcedureController extends Controller
     public function update(Request $request, FormProcedureInputUser $form_procedure_input_user)
     {
         $data = $request->all();
-        $validator = Validator::make($data, [
-            'reported_at' => 'required',
-        ]);
+        // $validator = Validator::make($data, [
+        //     'reported_at' => 'required',
+        // ]);
         DB::beginTransaction();
-        if ($validator->fails()) {
-            return $this->sendFailedResponse(['errors' => $validator->errors()]);
-        }
+        // if ($validator->fails()) {
+        //     return $this->sendFailedResponse(['errors' => $validator->errors()]);
+        // }
         $form_procedure_input_user->update([
             'reported_at' => $request->reported_at,
         ]);
