@@ -29,7 +29,8 @@ class User extends Authenticatable
         'pokdakan',
         'region_id',
         'imei',
-        'address'
+        'address',
+        'fcm_token'
     ];
 
     protected $appends = [

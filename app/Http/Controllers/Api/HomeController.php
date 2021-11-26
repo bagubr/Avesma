@@ -33,4 +33,11 @@ class HomeController extends Controller
             'disclaimer' => $disclaimer,
         ]);
     }
+    public function store (Request $request)
+    {
+        $fcm_token = UserService::updateFcmToken($request->user(), $request->fcm_token);
+        return $this->sendSuccessResponse([
+            'fcm_token' => $fcm_token,
+        ]);
+    }
 }

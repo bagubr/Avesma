@@ -8,8 +8,6 @@ use App\Http\Requests\Api\OutcomeShowRequest;
 use App\Http\Resources\OutcomeResource;
 use App\Models\Outcome;
 use App\Models\OutcomeDetail;
-use App\Repositories\OutcomeRepository;
-use App\Services\OutcomeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use stdClass;
@@ -17,6 +15,23 @@ use stdClass;
 class OutcomeController extends Controller
 {
     public function index(Request $request)
+    {
+        $outcome_tetap = Outcome::where('pond_detail_id', $request->pond_detail_id)
+            ->whereHas('outcome_detail.outcome_setting', function ($sq) {
+                $sq->where('outcome_category_id', 1);
+            })->orderBy('id', 'desc');
+        $outcomes_lain = Outcome::where('pond_detail_id', $request->pond_detail_id)
+            ->orderBy('reported_at', 'desc')->whereHas('outcome_detail.outcome_setting', function ($sq) {
+                $sq->where('outcome_category_id', 2);
+            })->get();
+
+        return $this->sendSuccessResponse([
+            'outcome_total' => $outcome_tetap->first()->total_nominal + $outcomes_lain->sum('total_nominal') ?? 0,
+            'outcome_tetap' => $outcome_tetap->first() ?? new stdClass(),
+            'outcomes_lain' => $outcomes_lain,
+        ]);
+    }
+    public function outcome_statistic(Request $request)
     {
         $outcome_tetap = Outcome::where('pond_detail_id', $request->pond_detail_id)
             ->whereHas('outcome_detail.outcome_setting', function ($sq) {
