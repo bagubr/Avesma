@@ -87,7 +87,11 @@ class IncomeController extends Controller
     {
         $incomes = Income::where('pond_detail_id', $request->pond_detail_id)
             ->orderBy('reported_at', 'desc')->get();
+        $income_total = IncomeDetail::whereHas('income', function ($q) use ($request) {
+            $q->where('pond_detail_id', $request->pond_detail_id);
+        })->sum('total_price');
         return $this->sendSuccessResponse([
+            'income_total' => $income_total,
             'incomes' => $incomes
         ]);
     }
