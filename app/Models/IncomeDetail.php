@@ -17,6 +17,10 @@ class IncomeDetail extends Model
         'total_price',
     ];
 
+    protected $appends = [
+        'product_name'
+    ];
+
     public function income()
     {
         return $this->belongsTo(Income::class, 'income_id');
@@ -35,5 +39,10 @@ class IncomeDetail extends Model
     public function getUpdatedAtAttribute($value)
     {
         return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getProductNameAttribute()
+    {
+        return $this->pond_detail_products()->first()?->name??'';
     }
 }

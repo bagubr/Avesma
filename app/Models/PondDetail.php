@@ -12,9 +12,7 @@ class PondDetail extends Model
     protected $fillable = [
         'pond_id',
         'fish_species_id',
-        'seed_count',
-        'seed_size',
-        'feed_type',
+        'seed_count'
     ];
 
     protected $appends = [
