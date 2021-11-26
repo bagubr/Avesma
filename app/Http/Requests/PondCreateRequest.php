@@ -20,9 +20,7 @@ class PondCreateRequest extends ApiRequest
             'name'=>'required',
             'address'=>'sometimes|nullable|string',
             'fish_species_id'=>'required|numeric',
-            'seed_count'=>'required|numeric',
-            'seed_size'=>'nullable|sometimes|numeric',
-            'feed_type'=>'nullable|sometimes|string'
+            'seed_count'=>'required|sometimes|numeric',
         ];
     }
 }

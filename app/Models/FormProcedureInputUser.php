@@ -16,9 +16,8 @@ class FormProcedureInputUser extends Model
     protected $appends = [
         'form_procedure_name',
         'form_procedure_formula',
-        'total_score'
+        'total_score',
     ];
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
