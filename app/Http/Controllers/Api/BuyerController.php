@@ -12,8 +12,11 @@ class BuyerController extends Controller
 {
     public function index(Request $request)
     {
+        $buyers = Buyer::whereHas('pond_detail.pond', function ($q) use ($request) {
+            $q->where('user_id', $request->user()->id);
+        })->get();
         return $this->sendSuccessResponse([
-            'buyers' => BuyerRepository::get($request->toArray())
+            'buyers' => $buyers
         ]);
     }
 
