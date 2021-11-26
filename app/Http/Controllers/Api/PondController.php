@@ -44,7 +44,7 @@ class PondController extends Controller
         $pond = $pond->query()->with('pond_detail.fish_species')->find($pond->id);
         $this->sendSuccessResponse([
             'pond' => $pond
-        ]);
+        ], 'Berhasil, Menambahkan Data Kolam');
     }
 
     public function show($id)
@@ -73,10 +73,20 @@ class PondController extends Controller
         $pond->update($request->only($fillable));
         $pond_detail->update([
             'seed_count' => $request->seed_count
-        ]);        
+        ]);
 
         $this->sendSuccessResponse([
             'pond' => $pond->load('pond_detail')
+        ], 'Berhasil, Mengubah Data Kolam');
+    }
+
+    public function update_status(Request $request, Pond $pond)
+    {
+        $pond->update([
+            'status' => $request->status
         ]);
+        $this->sendSuccessResponse([
+            'pond' => $pond->load('pond_detail')
+        ], 'Berhasil, Mengubah Status Kolam');
     }
 }
