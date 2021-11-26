@@ -104,7 +104,7 @@ class ProcedureController extends Controller
             'reported_at' => $request->reported_at,
         ]);
         foreach ($form_procedure_input_user->form_procedure_detail_input as $key) {
-            $key->destroy($key->id);
+            FormProcedureDetailInput::destroy($key->id);
         }
         foreach ($request->data as $i) {
             FormProcedureDetailInput::create([
