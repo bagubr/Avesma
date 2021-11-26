@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FormProcedureStatisticResource;
 use App\Models\FormProcedure;
 use App\Models\FormProcedureInputUser;
 use App\Repositories\ProcedureRepository;
@@ -18,11 +19,11 @@ class FormProcedureController extends Controller
     }
     public function procedure_graphics(Request $request)
     {
-        $form_procedures = FormProcedure::whereHas('form_procedure_input_users', function ($q) use ($request){
+        $form_procedures = FormProcedure::with(['form_procedure_input_users' => function ($q) use ($request){
             $q->where('pond_detail_id', $request->pond_detail_id);
-        })->with('form_procedure_input_users')->get();
+        }])->get();
         return $this->sendSuccessResponse([
-            'procedures_statistic' => $form_procedures
+            'form_procedures' => FormProcedureStatisticResource::collection($form_procedures)
         ]);
     }
 }
