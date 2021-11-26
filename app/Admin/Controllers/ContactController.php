@@ -25,7 +25,12 @@ class ContactController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Contact());
-
+        $grid->disableFilter();
+        $grid->disableRowSelector();
+        $grid->disableExport();
+        $grid->disableColumnSelector();
+        $grid->disablePagination();
+        $grid->quickSearch('name', 'content');
         $grid->column('name', __('Nama'));
         $grid->column('content', __('Konten'));
         $grid->column('icon', __('Icon'))->image();

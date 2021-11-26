@@ -14,6 +14,15 @@ class PondDetailProduct extends Model
         'name'
     ];
 
+    protected $appends = [
+        'text'
+    ];
+
+    public function getTextAttribute()
+    {
+        return $this->name;
+    }
+
     public function pond_detail() {
         return $this->belongsTo(PondDetail::class);
     }

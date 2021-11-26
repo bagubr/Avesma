@@ -4,18 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Income extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'incomes';
     protected $fillable = [
         'pond_detail_id',
         'reported_at',
     ];
+
+    protected $appends = [
+        'pond_spesies',
+        'total_price'
+    ];
+    
     public function pond_detail()
     {
         return $this->belongsTo(PondDetail::class, 'pond_detail_id');
+    }
+
+    public function getPondSpesiesAttribute()
+    {
+        return $this->pond_detail()->first()?->pond_spesies??'';
+    }
+
+    public function getTotalPriceAttribute()
+    {
+        return $this->income_detail()->get()->sum('total_price');
     }
     
     public function income_detail()

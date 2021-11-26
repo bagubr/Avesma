@@ -25,7 +25,11 @@ class FaqController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Faq());
-
+        $grid->disableFilter();
+        $grid->disableColumnSelector();
+        $grid->disableExport();
+        $grid->disablePagination();
+        $grid->disableRowSelector();
         $grid->column('question', __('Question'));
         $grid->column('answer', __('Answer'));
 
@@ -44,7 +48,12 @@ class FaqController extends AdminController
 
         $show->field('question', __('Question'));
         $show->field('answer', __('Answer'));
-
+        $show->panel()->tools(function (Show\Tools $tool)
+        {
+            $tool->disableDelete();
+            $tool->disableEdit();
+            $tool->disableList();
+        });
         return $show;
     }
 

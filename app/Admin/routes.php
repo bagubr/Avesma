@@ -38,6 +38,8 @@ Route::group([
     $router->resource('ponds', PondController::class);
     $router->get('pond-details/by_user_id', 'PondDetailController@byUserId');
     $router->resource('pond-details', PondDetailController::class);
+    $router->resource('pond-detail-products', PondDetailProductController::class);
+    $router->get('pond-detail-product/get_by_pond_detail', 'PondDetailProductController@getByPondDetail');
     $router->resource('incomes', IncomeController::class);
     $router->resource('income-details', IncomeDetailController::class);
     $router->resource('outcomes', OutcomeController::class);

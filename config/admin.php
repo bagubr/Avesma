@@ -409,7 +409,7 @@ return [
             'enable' => true,
 
             // Specify the default provider
-            'default' => 'amap',
+            'default' => 'google',
 
             // According to the selected provider above, fill in the corresponding api_key
             'providers' => [
