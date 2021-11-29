@@ -22,6 +22,10 @@ class MarketController extends Controller
                     $q->where('fish_category_id', $request->fish_category_id);
                 });
             })->get();
+        if ($ponds->isEmpty()) {
+            $this->sendFailedResponse([], 'Maaf, Data Yang Anda Cari Tidak Ada...');
+        }
+
         $this->sendSuccessResponse([
             'ponds' => PondResource::collection($ponds)
         ]);

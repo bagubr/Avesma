@@ -15,15 +15,16 @@ var app = new Vue({
     methods: {
         getMarkets() {
             this.loading = true,
+            this.markets = [],
                 axios
-                    .get(this.live, {
+                    .get(this.local, {
                         params: {
                             fish_name: this.fish_name,
                             fish_category_id: this.fish_category_id,
                         }
                     })
                     .then(response => {
-                        this.markets = response.data.ponds;
+                        this.markets = response.data;
                         this.loading = false;
                     })
         }
