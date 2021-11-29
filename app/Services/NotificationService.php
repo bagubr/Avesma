@@ -17,18 +17,20 @@ class NotificationService {
             'body'  => $body,
             'user_id' => $user->id
         ];
-        $message = CloudMessage::withTarget('token', $user->fcm_token)
-        ->withNotification($data) // optional
-            ->withData($payload) // optional
-        ;
-        $messaging->send($message);
+        if($user->fcm_token){
+            $message = CloudMessage::withTarget('token', $user->fcm_token)
+            ->withNotification($data)
+                ->withData($payload)
+            ;
+            $messaging->send($message);
+        }
         return Notification::create($data);
     }
     
     public static function sendSome($title, $body, Collection $user, $payload = [])
     {
         // $data = [
-        //     'title' => $title,
+            //     'title' => $title,
         //     'body'  => $body,
         // ];
         // $users = $user->pluck('fcm_token')->toArray();
@@ -42,16 +44,33 @@ class NotificationService {
         // return $data;
     }
 
-    public static function sendAll($title, $body, User $user, $payload = [])
+    public static function sendToTopic($title, $body, $topic, $payload = [])
     {
-        // $messages = [
+        $messaging = app('firebase.messaging');
+        $user = User::whereNotNull('fcm_token')->get()->pluck('id');
+        $data = [];
+        foreach ($user as $value) {
+            $data[] = [
+                'title'     => $title,
+                'body'      => $body,
+                'user_id'   => $value,
+                'created_at'=> now()->toDateTimeString(),
+                'updated_at'=> now()->toDateTimeString(),
+            ];
+        }
+        $chunks = array_chunk($data, 5000);
+        foreach ($chunks as $value) {
+            Notification::insert($value);
+        }
 
-        // ];
-
-        // $message = CloudMessage::new(); // Any instance of Kreait\Messaging\Message
-
-        // /** @var Kreait\Firebase\Messaging\MulticastSendReport $sendReport **/
-        // $sendReport = $messaging->sendAll($messages);
+        $message = CloudMessage::withTarget('topic', $topic)
+            ->withNotification([
+                'title' => $title,
+                'body'  => $body
+            ]) // optional
+            ->withData($payload) // optional
+        ;
+        $messaging->send($message);
     }
 }
         

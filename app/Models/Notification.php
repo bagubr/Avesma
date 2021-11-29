@@ -10,6 +10,9 @@ class Notification extends Model
 {
     use HasFactory;
 
+    const BROADCAST = 'broadcast';
+    const NEW_ARTICLE = 'new-article';
+    const NEW_PROCEDURE = 'new-procedure';
     protected $fillable = [
         'user_id', 'title', 'body'
     ];

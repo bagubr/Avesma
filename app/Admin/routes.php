@@ -58,4 +58,5 @@ Route::group([
     $router->resource('contacts', ContactController::class);
     $router->resource('faqs', FaqController::class);
     $router->resource('slider-markets', SliderMarketController::class);
+    $router->resource('broadcasts', BroadcastController::class);
 });

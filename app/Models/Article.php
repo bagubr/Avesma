@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\NotificationService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,6 +26,15 @@ class Article extends Model
         'image_url',
         'category_name'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model)
+        {
+            NotificationService::sendToTopic('New article', 'New Article has been release', 'new-article');
+        });
+    }
 
     public function getFileAttribute($value)
     {
