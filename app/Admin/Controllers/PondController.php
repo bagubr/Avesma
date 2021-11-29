@@ -39,6 +39,10 @@ class PondController extends AdminController
         {
             return $area. ' m<sup>2</sup>';
         });
+        $grid->column('description', __('Description'))->display(function ($description)
+        {
+            return $description;
+        });
         $grid->column('latitude', __('Latitude'));
         $grid->column('longitude', __('Longitude'));
         $grid->column('address', __('Address'));
@@ -88,6 +92,7 @@ class PondController extends AdminController
         $form->decimal('area', __('Lusa Area'))->rules('required');
         $form->latlong('latitude', 'longitude', 'Latitude - Longitude')->default(['lat' => -6.974309, 'lng' => 110.426674])->zoom(11)->rules('required');
         $form->text('address', __('Address'))->rules('required');
+        $form->text('description', __('Description'))->rules('required');
         $form->number('pond_detail.seed_count', __('Jumlah Pakan'))->rules('required');
 
         // $form->saved(function (Form $form) use ()
