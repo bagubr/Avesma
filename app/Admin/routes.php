@@ -57,4 +57,5 @@ Route::group([
     $router->resource('outcome-details', OutcomeDetailController::class);
     $router->resource('contacts', ContactController::class);
     $router->resource('faqs', FaqController::class);
+    $router->resource('slider-markets', SliderMarketController::class);
 });
