@@ -6,6 +6,8 @@ var app = new Vue({
         region_id: "",
         markets: [],
         loading: false,
+        local: "http://localhost:8000/api/v1/markets",
+        live: "https://avesma.dev.can.co.id/api/v1/markets"
     },
     mounted() {
         this.getMarkets();
@@ -14,7 +16,7 @@ var app = new Vue({
         getMarkets() {
             this.loading = true,
                 axios
-                    .get('https://avesma.dev.can.co.id/api/v1/markets', {
+                    .get(this.live, {
                         params: {
                             fish_name: this.fish_name,
                             fish_category_id: this.fish_category_id,

@@ -131,7 +131,7 @@
                     </div>
                     <div class="col-6 col-md-3 mb-4" v-else v-for="market in markets">
                         <div class="card w-100 bg-blue">
-                            <img class="card-img-top" :src="market.pond_detail.fish_category_image">
+                            <img class="card-img-top" :src="market.pond_detail.fish_species_image">
                             <div class="card-body">
                                 <h5 class="card-title text-center">
                                     @{{market.pond_detail.spesies_name}}
@@ -140,7 +140,7 @@
                                     @{{market.pond_detail.fish_category}}
                                 </p>
                                 <div class="text-center">
-                                    <a href="{{route('detail_pasar_virtual')}}"
+                                    <a :href="'/pasar_virtual/' + market.id"
                                         class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
                                 </div>
                             </div>

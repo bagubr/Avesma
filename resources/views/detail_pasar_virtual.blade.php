@@ -12,15 +12,15 @@
 @section('content')
 <section class="detail_pasar_virtual mt-5">
     <div class="container">
-        <h1 class="font-weight-bold text-center">Ikan Nila</h1>
+        <h1 class="font-weight-bold text-center">{{$pond->pond_detail?->fish_species?->name}}</h1>
         <div class="row mt-5">
             <div class="col-md-4 mb-3">
                 <div class="text-center">
-                    <img class="rounded-circle fish-detail" src="{{asset('asset/fakta-ikan-nila-2_169.jpeg')}}">
+                    <img class="rounded-circle fish-detail" src="{{$pond->pond_detail->fish_species->image_url}}">
                 </div>
             </div>
             <div class="col-md-8 my-auto">
-                <h5 class="font-weight-bold">Nama Petani / Area / 10 Kg</h5>
+                <h5 class="font-weight-bold">{{$pond->user->name}} / {{$pond->region_name}}</h5>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae alias nulla voluptatibus soluta
                     nobis, saepe impedit. Nostrum nemo enim dolores saepe sint, illum rem magnam laboriosam ab! Rem,
                     aliquam voluptatibus.</p>

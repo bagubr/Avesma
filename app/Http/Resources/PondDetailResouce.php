@@ -22,6 +22,7 @@ class PondDetailResouce extends JsonResource
             'feed_type' => $this->feed_type,
             'seed_size' => $this->seed_size,
             'pond_name' => $this->pond_name,
+            'fish_species_image' => $this->fish_species?->image_url ?? "",
             'fish_category_id' => $this->fish_species?->fish_category?->id ?? '',
             'fish_category' => $this->fish_species?->fish_category?->name ?? '',
             'fish_category_image' => $this->fish_species?->fish_category?->image_url ?? '',

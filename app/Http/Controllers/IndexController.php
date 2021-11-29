@@ -38,9 +38,9 @@ class IndexController extends Controller
         $ponds = Pond::where('status', Pond::STATUS2)->get();
         return view('pasar_virtual', compact('fish_categories', 'regions', 'ponds', 'sliders'));
     }
-    public function detail_pasar_virtual()
+    public function detail_pasar_virtual(Pond $pond)
     {
-        return view('detail_pasar_virtual');
+        return view('detail_pasar_virtual', compact('pond'));
     }
     public function kontak()
     {
