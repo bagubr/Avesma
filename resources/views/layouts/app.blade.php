@@ -59,6 +59,8 @@
             easing: 'ease' // values from 0 to 3000, with step 50ms
         });
     </script>
+    @stack('js')
+    
 </body>
 
 </html>
