@@ -17,7 +17,7 @@ var app = new Vue({
             this.loading = true,
             this.markets = [],
                 axios
-                    .get(this.local, {
+                    .get(this.live, {
                         params: {
                             fish_name: this.fish_name,
                             fish_category_id: this.fish_category_id,

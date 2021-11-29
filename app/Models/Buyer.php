@@ -9,6 +9,8 @@ class Buyer extends Model
 {
     use HasFactory;
 
+    const STATUS1 = 'PENDING';
+    const STATUS2 = 'CONTACTED';
     protected $fillable = [
         'pond_detail_id',
         'name',

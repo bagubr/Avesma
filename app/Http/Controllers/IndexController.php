@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FormPengajuanRequest;
 use App\Http\Resources\PondResource;
 use App\Models\About;
 use App\Models\Benefit;
+use App\Models\Buyer;
 use App\Models\FishCategory;
 use App\Models\IncomeDetail;
 use App\Models\Pond;
@@ -13,6 +15,7 @@ use App\Models\Slider;
 use App\Models\SliderMarket;
 use App\Models\SocialMedia;
 use App\Models\Testimonial;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -41,6 +44,28 @@ class IndexController extends Controller
     public function detail_pasar_virtual(Pond $pond)
     {
         return view('detail_pasar_virtual', compact('pond'));
+    }
+    public function form_pengajuan(FormPengajuanRequest $request, Pond $pond)
+    {
+        $number = $request->phone;
+        $country_code = '62';
+        $isZero = substr($number, 0, 1);
+        if ($isZero == '0') {
+            $number = substr_replace($number, '+' . $country_code, 0, ($number[0] == '0'));
+        } else {
+            $data['phone'] = $number;
+        }
+
+        Buyer::create([
+            'pond_detail_id' => $pond->pond_detail->id,
+            'name' => $request->name,
+            'phone' => $number,
+            'status' => Buyer::STATUS1,
+            'question' => $request->question
+        ]);
+        NotificationService::sendTo($pond->pond_detail->pond_spesies . ' Ada Peminat Baru', $request->question, $pond->user);
+        session()->flash('success', 'Terimakasih, Pengajuan Anda Sedang Diproses Oleh Pembudidaya');
+        return back();
     }
     public function kontak()
     {

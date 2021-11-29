@@ -19,4 +19,5 @@ use Symfony\Component\HttpFoundation\Response;
 Route::get('/', [IndexController::class, 'home'])->name('home');
 Route::get('/pasar_virtual', [IndexController::class, 'pasar_virtual'])->name('pasar_virtual');
 Route::get('/pasar_virtual/{pond}', [IndexController::class, 'detail_pasar_virtual'])->name('detail_pasar_virtual');
+Route::post('/pasar_virtual/{pond}', [IndexController::class, 'form_pengajuan'])->name('form_pengajuan');
 Route::get('/kontak', [IndexController::class, 'kontak'])->name('kontak');

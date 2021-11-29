@@ -52,6 +52,7 @@
     </script>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         AOS.init({
             disable: 'phone',
@@ -60,7 +61,11 @@
         });
     </script>
     @stack('js')
-    
+    @if (session()->has('success'))
+    <script>
+        swal("Terima Kasih", "{{session()->get('success')}}", "success");
+    </script>
+    @endif
 </body>
 
 </html>
