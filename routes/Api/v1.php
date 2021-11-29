@@ -29,6 +29,7 @@ use App\Http\Controllers\Api\ProcedureController;
 use App\Http\Controllers\Api\RegionController;
 use App\Http\Controllers\Api\TermAndConditionController;
 use App\Http\Controllers\Api\Website\MarketController;
+use App\Http\Controllers\Api\ShareController;
 use App\Models\Buyer;
 use App\Models\TermAndCondition;
 use Illuminate\Support\Facades\Route;
