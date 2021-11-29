@@ -8,6 +8,7 @@ use App\Models\ArticleProcedure;
 use App\Models\ArticleRecipe;
 use App\Models\Disclaimer;
 use App\Models\FishCategory;
+use App\Models\Notification;
 use App\Models\Slider;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class HomeController extends Controller
         $article_recipes = ArticleRecipe::inRandomOrder()->limit(10)->get();
         $article_procedures = ArticleProcedure::inRandomOrder()->limit(10)->get();
         $disclaimer = Disclaimer::first();
+        $un_seen_notification = Notification::whereIsSeen(false)->count();
 
         return $this->sendSuccessResponse([
             'sliders' => $sliders,
@@ -31,6 +33,7 @@ class HomeController extends Controller
             'article_recipes' => $article_recipes,
             'article_procedures' => $article_procedures,
             'disclaimer' => $disclaimer,
+            'un_seen_notification' => $un_seen_notification,
         ]);
     }
     public function store (Request $request)
