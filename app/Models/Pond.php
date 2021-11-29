@@ -24,15 +24,21 @@ class Pond extends Model
         'longitude',
         'address',
     ];
+    protected $appends = ['region_name'];
     public function pond_detail()
     {
         return $this->hasOne(PondDetail::class, 'pond_id', 'id');
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
+    public function getRegionName()
+    {
+        return $this->user->region->name;
+    }
     public function getCreatedAtAttribute($value)
     {
         return date("d-m-Y H:i:s", strtotime($value));

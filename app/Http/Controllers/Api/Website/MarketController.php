@@ -11,10 +11,15 @@ class MarketController extends Controller
 {
     public function index(Request $request)
     {
-        $ponds = Pond::where('status', '!=', Pond::STATUS1)
-            ->when($request->fish_species_id, function ($query) use ($request) {
-                $query->whereHas('pond_detail', function ($q) use ($request) {
-                    $q->where('fish_species_id', $request->fish_species_id);
+        $ponds = Pond::where('status', Pond::STATUS2)
+            ->when($request->fish_name, function ($query) use ($request) {
+                $query->whereHas('pond_detail.fish_species', function ($q) use ($request) {
+                    $q->where('name', 'ilike', "%" . $request->fish_name . "%");
+                });
+            })
+            ->when($request->fish_category_id, function ($query) use ($request) {
+                $query->whereHas('pond_detail.fish_species', function ($q) use ($request) {
+                    $q->where('fish_category_id', $request->fish_category_id);
                 });
             })->get();
         $this->sendSuccessResponse([

@@ -49,7 +49,7 @@
         object-fit: cover;
     }
 
-    img.ikan {
+    .filter_ikan {
         filter: drop-shadow(-7px 4px 14px #2689DA);
     }
 
@@ -85,7 +85,8 @@
                 <div class="row mt-4">
                     @foreach ($fish_categories as $fish_category)
                     <div class="col-md-4">
-                        <img src="{{$fish_category->image_url}}" class="ikan rounded-circle" width="150rem"
+                        <img src="{{$fish_category->image_url}}" class="ikan rounded-circle"
+                            :class="{ 'filter_ikan': fish_category_id == {{$fish_category->id}} }" width="150rem"
                             height="150rem" @click="fish_category_id = {{$fish_category->id}}">
                         <h4 class="font-weight-bold mt-4">{{$fish_category->name}}</h4>
                     </div>
@@ -98,7 +99,8 @@
         <div class="container">
             <div class="form-row mt-4">
                 <div class="col-md-6 form-group">
-                    <input type="text" class="form-control font-weight-bold" v-model="name" placeholder="Cari Spesies">
+                    <input type="text" class="form-control font-weight-bold" v-model="fish_name"
+                        placeholder="Cari Spesies">
                 </div>
                 <div class="col-md-6 form-group">
                     <select class="form-control font-weight-bold" v-model="region_id">
@@ -110,24 +112,24 @@
                 </div>
             </div>
             <div class="text-right">
-                <button class="btn btn-primary font-weight-bold rounded-custom btn-cari">
+                <button class="btn btn-primary font-weight-bold rounded-custom btn-cari" @click="getMarkets">
                     <i class="fas fa-search"></i>
                     Cari
                 </button>
             </div>
             <div class="row mt-5">
-                @foreach ($ponds as $pond)
-                <div class="col-6 col-md-3 mb-4">
+                <div class="spinner-border" role="status" v-if="loading">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="col-6 col-md-3 mb-4" v-else v-for="market in markets">
                     <div class="card w-100 bg-blue">
-                        <img class="card-img-top"
-                            src="{{$pond->pond_detail?->fish_species?->image_url ?? asset('asset/empty-asset.png')}}"
-                            alt="{{$pond->pond_detail?->fish_species?->name}}">
+                        <img class="card-img-top" :src="market.pond_detail.fish_category_image">
                         <div class="card-body">
                             <h5 class="card-title text-center">
-                                {{$pond->pond_detail?->fish_species?->name}}
+                                @{{market.pond_detail.spesies_name}}
                             </h5>
-                            <p class="card-text">{{$pond->user?->region?->name ?? ""}} /
-                                {{$pond->pond_detail?->fish_species?->fish_category?->name}}
+                            <p class="card-text">@{{market.region_name}}
+                                @{{market.pond_detail.fish_category}}
                             </p>
                             <div class="text-center">
                                 <a href="{{route('detail_pasar_virtual')}}"
@@ -136,7 +138,6 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
             </div>
         </div>
     </section>
@@ -148,25 +149,6 @@
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-    var app = new Vue({
-        el: '#app',
-        data: {
-            fish_category_id: "",
-            name: "",
-            region_id: "",
-            markets: [],
-        },
-        mounted() {
-            this.getMarkets();
-        },
-        methods: {
-            getMarkets() {
-                axios
-                    .get('http://localhost:8000/api/v1/markets')
-                    .then(response => (this.markets = response.data))
-            }
-        },
-    })
+<script src="{{asset('js/pasar_virtual.js')}}">
 </script>
 @endpush
