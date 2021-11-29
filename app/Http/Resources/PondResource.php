@@ -26,6 +26,7 @@ class PondResource extends JsonResource
             "updated_at" => $this->updated_at,
             "status" => $this->status ?? "",
             "pond_detail" => new PondDetailResouce($this->pond_detail),
+            "region_name" => $this->region_name,
         ];
     }
 }
