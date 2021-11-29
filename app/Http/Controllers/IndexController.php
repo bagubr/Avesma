@@ -10,6 +10,7 @@ use App\Models\IncomeDetail;
 use App\Models\Pond;
 use App\Models\Region;
 use App\Models\Slider;
+use App\Models\SliderMarket;
 use App\Models\SocialMedia;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
@@ -31,10 +32,11 @@ class IndexController extends Controller
     }
     public function pasar_virtual()
     {
+        $sliders = SliderMarket::all();
         $fish_categories = FishCategory::all();
         $regions = Region::all();
         $ponds = Pond::where('status', Pond::STATUS2)->get();
-        return view('pasar_virtual', compact('fish_categories', 'regions', 'ponds'));
+        return view('pasar_virtual', compact('fish_categories', 'regions', 'ponds', 'sliders'));
     }
     public function detail_pasar_virtual()
     {
