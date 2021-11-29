@@ -19,6 +19,7 @@ class PondResource extends JsonResource
             "user_id" =>  $this->user->id,
             'name' => $this->name ?? "",
             'area' => $this->area ?? "",
+            'description' => $this->description ?? "",
             'latitude' => $this->latitude ?? "",
             'longitude' => $this->longitude ?? "",
             'address' => $this->address ?? "",

@@ -23,6 +23,7 @@ class Pond extends Model
         'latitude',
         'longitude',
         'address',
+        'description',
     ];
     protected $appends = ['region_name'];
     public function pond_detail()

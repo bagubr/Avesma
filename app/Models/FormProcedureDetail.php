@@ -37,7 +37,8 @@ class FormProcedureDetail extends Model
 
     public function form_procedure_detail_formulas()
     {
-        return $this->hasMany(FormProcedureDetailFormula::class, 'form_procedure_detail_id', 'id');
+        return $this->hasMany(FormProcedureDetailFormula::class, 'form_procedure_detail_id', 'id')
+            ->orderBy('score', 'desc');
     }
 
     public function getCreatedAtAttribute($value)

@@ -18,6 +18,7 @@ class PondCreateRequest extends ApiRequest
             'longitude'=>'required|numeric',
             'area'=>'required|numeric',
             'name'=>'required',
+            'description' => 'nullable',
             'address'=>'sometimes|nullable|string',
             'fish_species_id'=>'required|numeric',
             'seed_count'=>'required|sometimes|numeric',
