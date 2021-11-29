@@ -3,6 +3,7 @@
 namespace App\Admin\Actions\UserInformation;
 
 use App\Models\UserInformation;
+use App\Services\NotificationService;
 use Encore\Admin\Actions\RowAction;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,7 @@ class Decline extends RowAction
     {
         $model->status = 'DECLINE';
         $model->save();
+        NotificationService::sendTo('Konfirmasi Admin', 'Data anda telah di tolak', $model->user);
         return $this->response()->success('Success message.')->refresh();
     }
 
