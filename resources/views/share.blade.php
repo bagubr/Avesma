@@ -27,6 +27,6 @@
             window.location = {{ $url }};
         }
     </script>
-    <script>location.replace({{ $url }})</script>;
+    <script>location.replace({{ $url }})</script>
 </body>
 </html>
