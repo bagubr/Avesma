@@ -21,6 +21,10 @@ class MarketController extends Controller
                 $query->whereHas('pond_detail.fish_species', function ($q) use ($request) {
                     $q->where('fish_category_id', $request->fish_category_id);
                 });
+            })->when($request->region_id, function ($query) use ($request) {
+                $query->whereHas('user', function ($q) use ($request) {
+                    $q->where('region_id', $request->region_id);
+                });
             })->get();
         if ($ponds->isEmpty()) {
             $this->sendFailedResponse([], 'Maaf, Data Yang Anda Cari Tidak Ada...');

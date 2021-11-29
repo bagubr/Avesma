@@ -21,6 +21,7 @@ var app = new Vue({
                         params: {
                             fish_name: this.fish_name,
                             fish_category_id: this.fish_category_id,
+                            region_id: this.region_id
                         }
                     })
                     .then(response => {
