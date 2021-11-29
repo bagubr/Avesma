@@ -21,9 +21,7 @@
             </div>
             <div class="col-md-8 my-auto">
                 <h5 class="font-weight-bold">{{$pond->user->name}} / {{$pond->region_name}}</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae alias nulla voluptatibus soluta
-                    nobis, saepe impedit. Nostrum nemo enim dolores saepe sint, illum rem magnam laboriosam ab! Rem,
-                    aliquam voluptatibus.</p>
+                <p>{{$pond->description}}</p>
                 <div class="text-right">
                     <a href="https://g.page/cancreative?share" target="_blank" class="btn btn-primary">
                         <i class="fas fa-map-marker-alt"></i>
