@@ -35,9 +35,9 @@ class Pond extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getRegionName()
+    public function getRegionNameAttribute()
     {
-        return $this->user->region->name;
+        return $this->user->region->name ?? "";
     }
     public function getCreatedAtAttribute($value)
     {
