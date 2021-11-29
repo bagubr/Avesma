@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\NotificationService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,6 +19,15 @@ class Procedure extends Model
     protected $appends = [
         'image_url'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model)
+        {
+            NotificationService::sendToTopic('New procedure', 'New Procedure has been release', 'new-procedure');
+        });
+    }
 
     public function getImageUrlAttribute()
     {

@@ -10,6 +10,9 @@ class Notification extends Model
 {
     use HasFactory;
 
+    const BROADCAST = 'broadcast';
+    const NEW_ARTICLE = 'new-article';
+    const NEW_PROCEDURE = 'new-procedure';
     protected $fillable = [
         'user_id', 'title', 'body'
     ];
@@ -17,5 +20,15 @@ class Notification extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
     }
 }
