@@ -23,7 +23,7 @@
                 <h5 class="font-weight-bold">{{$pond->user->name}} / {{$pond->region_name}}</h5>
                 <p>{{$pond->description}}</p>
                 <div class="text-right">
-                    <a href="google.com/maps/?q={{$pond->latitude}},{{$pond->longitude}}" target="_blank"
+                    <a href="https://google.com/maps/?q={{$pond->latitude}},{{$pond->longitude}}" target="_blank"
                         class="btn btn-primary">
                         <i class="fas fa-map-marker-alt"></i>
                         Cari Lokasi
