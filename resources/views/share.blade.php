@@ -23,10 +23,7 @@
 </head>
 <body>
     <script>
-        function open() {
-            window.location = {{ $url }};
-        }
+        window.location.href = "{{ $url }}";
     </script>
-    <script>location.replace({{ $url }})</script>
 </body>
 </html>
