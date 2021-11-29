@@ -37,26 +37,35 @@
 <section class="form-pengajuan mt-5">
     <div class="container">
         <h2 class="text-center font-weight-bold">Form Pengajuan</h2>
-        <form>
+        <form action="{{route('form_pengajuan', $pond->id)}}" method="POST">
+            @csrf
             <div class="form-group">
                 <label class="font-weight-bold">Nama <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="Masukkan Nama Anda" required>
+                <input type="text" name="name" class="form-control" placeholder="Masukkan Nama Anda" required>
             </div>
             <div class="form-group">
                 <label class="font-weight-bold">Email</label>
-                <input type="text" class="form-control" placeholder="Masukkan Email Anda">
+                <input type="text" name="email" class="form-control" placeholder="Masukkan Email Anda">
             </div>
             <div class="form-group">
                 <label class="font-weight-bold">Nomor Handphone <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="Masukkan Nomor Handphone Anda" required>
+                <input type="text" class="form-control" name="phone" placeholder="Masukkan Nomor Handphone Anda"
+                    required>
                 <small class="form-text text-muted">Contoh +62812345678</small>
+            </div>
+            <div class="form-group">
+                <label class="font-weight-bold">Pertanyaan <span class="text-danger">*</span></label>
+                <textarea name="question" class="form-control" id="" cols="30" rows="10"
+                    placeholder="Masukkan Petanyaan Anda" required></textarea>
             </div>
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="Whatsapp">
                 <label class="form-check-label" for="Whatsapp">Nomor Whatsapp ?</label>
             </div>
             <div class="text-right">
-                <div class="btn btn-primary"><i class="fas fa-paper-plane"></i> Kirim</div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Kirim
+                </button>
             </div>
         </form>
     </div>

@@ -22,7 +22,7 @@ class PondController extends Controller
 {
     public function index(Request $request)
     {
-        $ponds = Pond::where('status', Pond::STATUS1)->where('user_id', $request->user()->id)
+        $ponds = Pond::where('status','!=', Pond::STATUS3)->where('user_id', $request->user()->id)
             ->when($request->fish_species_id, function ($query) use ($request) {
                 $query->whereHas('pond_detail', function ($q) use ($request) {
                     $q->where('fish_species_id', $request->fish_species_id);
@@ -35,9 +35,9 @@ class PondController extends Controller
             'ponds' => PondResource::collection($ponds)
         ]);
     }
-    public function index_harvest(Request $request)
+    public function index_done(Request $request)
     {
-        $ponds = Pond::where('status', '!=', Pond::STATUS1)->where('user_id', $request->user()->id)
+        $ponds = Pond::where('status', Pond::STATUS3)->where('user_id', $request->user()->id)
             ->when($request->fish_species_id, function ($query) use ($request) {
                 $query->whereHas('pond_detail', function ($q) use ($request) {
                     $q->where('fish_species_id', $request->fish_species_id);

@@ -126,8 +126,10 @@
                     </button>
                 </div>
                 <div class="row mt-5">
-                    <div class="spinner-border" role="status" v-if="loading">
-                        <span class="sr-only">Loading...</span>
+                    <div class="mx-auto" v-if="loading">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
                     </div>
                     <div class="col-6 col-md-3 mb-4" v-else v-for="market in markets.ponds">
                         <div class="card w-100 bg-blue">
@@ -146,7 +148,9 @@
                             </div>
                         </div>
                     </div>
-                    <h5 v-if="markets.code == 400">@{{markets.message}}</h5>
+                    <div class="mx-auto" v-if="markets.code == 400">
+                        <h5>@{{markets.message}}</h5>
+                    </div>
                 </div>
             </div>
         </section>
