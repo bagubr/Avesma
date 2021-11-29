@@ -15,6 +15,7 @@ class AddColumnToNotificationsTable extends Migration
     {
         Schema::table('notifications', function (Blueprint $table) {
             $table->json('payload')->nullable();
+            $table->string('type')->nullable();
         });
     }
     
@@ -27,6 +28,7 @@ class AddColumnToNotificationsTable extends Migration
     {
         Schema::table('notifications', function (Blueprint $table) {
             $table->dropColumn('payload');
+            $table->dropColumn('type');
         });
     }
 }

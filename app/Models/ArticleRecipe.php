@@ -30,7 +30,7 @@ class ArticleRecipe extends Model
         parent::boot();
         static::creating(function ($model)
         {
-            NotificationService::sendToTopic('New article', 'New Article has been release', 'new-article');
+            NotificationService::sendToTopic('New article', 'New Article has been release', 'new-article', $model);
         });
     }
 

@@ -63,7 +63,7 @@ class IndexController extends Controller
             'status' => Buyer::STATUS1,
             'question' => $request->question
         ]);
-        NotificationService::sendTo($pond->pond_detail->pond_spesies . ' Ada Peminat Baru', $request->question, $pond->user);
+        NotificationService::sendTo($pond->pond_detail->pond_spesies . ' Ada Peminat Baru', $request->question, $pond->user, $pond);
         session()->flash('success', 'Terimakasih, Pengajuan Anda Sedang Diproses Oleh Pembudidaya');
         return back();
     }

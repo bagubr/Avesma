@@ -14,7 +14,7 @@ class Confirmation extends RowAction
     {
         $model->status = 'CONFIRMED';
         $model->save();
-        NotificationService::sendTo('Konfirmasi Admin', 'Data anda telah di verifikasi', $model->user);
+        NotificationService::sendTo('Konfirmasi Admin', 'Data anda telah di verifikasi', $model->user, $model->user);
         return $this->response()->success('Success message.')->refresh();
     }
 

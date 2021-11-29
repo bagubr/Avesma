@@ -20,7 +20,17 @@ class Broadcast extends Model
         parent::boot();
         static::creating(function ($model)
         {
-            NotificationService::sendToTopic($model->title, $model->body, 'broadcast');
+            NotificationService::sendToTopic($model->title, $model->body, 'broadcast', $model);
         });
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
     }
 }

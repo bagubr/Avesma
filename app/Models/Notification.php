@@ -14,12 +14,17 @@ class Notification extends Model
     const NEW_ARTICLE = 'new-article';
     const NEW_PROCEDURE = 'new-procedure';
     protected $fillable = [
-        'user_id', 'title', 'body', 'payload'
+        'user_id', 'title', 'body', 'payload', 'type'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getPayloadAttribute($value)
+    {
+        return json_decode($value);
     }
 
     public function getCreatedAtAttribute($value)
