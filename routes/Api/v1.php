@@ -55,6 +55,7 @@ Route::post('imei', [AuthController::class, 'imeiCheck']);
 
 Route::get('pokdakans', [PokdakanController::class, 'index']);
 Route::get('regions', [RegionController::class, 'index']);
+Route::get('share', [ShareController::class, 'index']);
 
 Route::get('markets', [MarketController::class, 'index']);
 
