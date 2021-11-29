@@ -55,7 +55,7 @@ class AuthController extends Controller {
             $user->update(['imei'=>$request->imei]);
             $this->sendFailedResponse([], 'IMEI tidak cocok');
         }
-        $token = $user->createToken($this->generateToken($user));
+        $token = $user->createToken($user->name);
         $this->sendSuccessResponse([
             'token'=>$token->plainTextToken,
             'user'=>$user,
