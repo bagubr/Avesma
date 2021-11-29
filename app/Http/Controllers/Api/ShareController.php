@@ -20,7 +20,7 @@ class ShareController extends Controller
         }elseif($request->get('type') == 'article-procedure'){
             $article = ArticleProcedure::findOrFail($request->get('id'));
         }
-        $url = 'intent://view?id=123#Intent;package=com.cancreative.avesma;scheme=http;launchFlags=268435456;end;';
+        $url = 'https://play.google.com/store/apps/details?id=com.cancreative.avesma';
         return view('share', compact('url', 'article', 'site'));
     }
 }
