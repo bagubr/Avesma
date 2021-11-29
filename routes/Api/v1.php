@@ -87,6 +87,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('fcm_token', [HomeController::class, 'store']);
 
     Route::get('ponds', [PondController::class, 'index']);
+    Route::get('ponds/get_harvest', [PondController::class, 'index_harvest']);
     Route::post('ponds/store', [PondController::class, 'store']);
     Route::get('ponds/{id}', [PondController::class, 'show'])->where('id', '[0-9]+');
     Route::get('ponds/status', [PondController::class, 'statuses']);

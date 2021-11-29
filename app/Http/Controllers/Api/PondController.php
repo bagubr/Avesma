@@ -22,13 +22,26 @@ class PondController extends Controller
 {
     public function index(Request $request)
     {
-        $ponds = Pond::where('user_id', $request->user()->id)
+        $ponds = Pond::where('status', Pond::STATUS1)->where('user_id', $request->user()->id)
             ->when($request->fish_species_id, function ($query) use ($request) {
                 $query->whereHas('pond_detail', function ($q) use ($request) {
                     $q->where('fish_species_id', $request->fish_species_id);
                 });
             })->when($request->status, function ($q) use ($request) {
                 $q->where('status', 'ilike', '%' . $request->status . '%');
+            })->get();
+        if (empty($request->user()->id)) $this->sendFailedResponse([], 'Maaf, sepertinya anda harus login ulang');
+        $this->sendSuccessResponse([
+            'ponds' => PondResource::collection($ponds)
+        ]);
+    }
+    public function index_harvest(Request $request)
+    {
+        $ponds = Pond::where('status', '!=', Pond::STATUS1)->where('user_id', $request->user()->id)
+            ->when($request->fish_species_id, function ($query) use ($request) {
+                $query->whereHas('pond_detail', function ($q) use ($request) {
+                    $q->where('fish_species_id', $request->fish_species_id);
+                });
             })->get();
         if (empty($request->user()->id)) $this->sendFailedResponse([], 'Maaf, sepertinya anda harus login ulang');
         $this->sendSuccessResponse([
