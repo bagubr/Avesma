@@ -86,7 +86,7 @@
                     @foreach ($fish_categories as $fish_category)
                     <div class="col-md-4">
                         <img src="{{$fish_category->image_url}}" class="ikan rounded-circle" width="150rem"
-                            height="150rem" @click="@{{fish_category_id = $fish_category->id}}">
+                            height="150rem" @click="fish_category_id = {{$fish_category->id}}">
                         <h4 class="font-weight-bold mt-4">{{$fish_category->name}}</h4>
                     </div>
                     @endforeach
@@ -98,21 +98,22 @@
         <div class="container">
             <div class="form-row mt-4">
                 <div class="col-md-6 form-group">
-                    <input type="text" class="form-control font-weight-bold" placeholder="Cari Spesies">
+                    <input type="text" class="form-control font-weight-bold" v-model="name" placeholder="Cari Spesies">
                 </div>
                 <div class="col-md-6 form-group">
-                    <select class="form-control font-weight-bold">
+                    <select class="form-control font-weight-bold" v-model="region_id">
                         <option value="">Pilih Area</option>
                         @foreach ($regions as $region)
                         <option value="{{$region->id}}">{{$region->name}}</option>
                         @endforeach
                     </select>
-                    {{-- <input type="text" class="form-control font-weight-bold" placeholder="Pilih Wilayah"> --}}
                 </div>
             </div>
             <div class="text-right">
-                <button class="btn btn-primary font-weight-bold rounded-custom btn-cari"><i class="fas fa-search"></i>
-                    Cari</button>
+                <button class="btn btn-primary font-weight-bold rounded-custom btn-cari">
+                    <i class="fas fa-search"></i>
+                    Cari
+                </button>
             </div>
             <div class="row mt-5">
                 @foreach ($ponds as $pond)
@@ -125,10 +126,9 @@
                             <h5 class="card-title text-center">
                                 {{$pond->pond_detail?->fish_species?->name}}
                             </h5>
-                            <p class="card-text">{{$pond->user?->name}} /
+                            <p class="card-text">{{$pond->user?->region?->name ?? ""}} /
                                 {{$pond->pond_detail?->fish_species?->fish_category?->name}}
                             </p>
-                            <p class="card-text">10/Kg</p>
                             <div class="text-center">
                                 <a href="{{route('detail_pasar_virtual')}}"
                                     class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
@@ -147,12 +147,26 @@
 @endsection
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     var app = new Vue({
         el: '#app',
         data: {
             fish_category_id: "",
-        }
+            name : "",
+            region_id : "",
+            markets: [],
+        },
+        mounted() {
+            this.getMarkets();
+        },
+        methods: {
+            getMarkets(){
+                axios
+                    .get('http://localhost:8000/api/v1/markets')
+                    .then(response => (this.markets = response.data.bpi))
+            }
+        },
     })
 </script>
 @endpush

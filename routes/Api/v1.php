@@ -28,6 +28,7 @@ use App\Http\Controllers\Api\PrivacyPolicyController;
 use App\Http\Controllers\Api\ProcedureController;
 use App\Http\Controllers\Api\RegionController;
 use App\Http\Controllers\Api\TermAndConditionController;
+use App\Http\Controllers\Api\Website\MarketController;
 use App\Models\Buyer;
 use App\Models\TermAndCondition;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,8 @@ Route::post('imei', [AuthController::class, 'imeiCheck']);
 
 Route::get('pokdakans', [PokdakanController::class, 'index']);
 Route::get('regions', [RegionController::class, 'index']);
+
+Route::get('markets', [MarketController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
