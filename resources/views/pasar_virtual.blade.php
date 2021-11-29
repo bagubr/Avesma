@@ -153,18 +153,18 @@
         el: '#app',
         data: {
             fish_category_id: "",
-            name : "",
-            region_id : "",
+            name: "",
+            region_id: "",
             markets: [],
         },
         mounted() {
             this.getMarkets();
         },
         methods: {
-            getMarkets(){
+            getMarkets() {
                 axios
                     .get('http://localhost:8000/api/v1/markets')
-                    .then(response => (this.markets = response.data.bpi))
+                    .then(response => (this.markets = response.data))
             }
         },
     })
