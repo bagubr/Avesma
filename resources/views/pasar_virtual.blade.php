@@ -77,67 +77,82 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-<section class="pasar-virtual">
-    <div class="container">
-        <div class="text-center mt-5">
-            <h1 class="font-weight-bold">Pasar Virtual</h1>
-            <div class="row mt-4">
-                @foreach ($fish_categories as $fish_category)
-                <div class="col-md-4">
-                    <img src="{{$fish_category->image_url}}" class="ikan rounded-circle" width="150rem" height="150rem">
-                    <h4 class="font-weight-bold mt-4">{{$fish_category->name}}</h4>
+<div id="app">
+    <section class="pasar-virtual">
+        <div class="container">
+            <div class="text-center mt-5">
+                <h1 class="font-weight-bold">Pasar Virtual</h1>
+                <div class="row mt-4">
+                    @foreach ($fish_categories as $fish_category)
+                    <div class="col-md-4">
+                        <img src="{{$fish_category->image_url}}" class="ikan rounded-circle" width="150rem"
+                            height="150rem" @click="@{{fish_category_id = $fish_category->id}}">
+                        <h4 class="font-weight-bold mt-4">{{$fish_category->name}}</h4>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="pasar my-5">
+        <div class="container">
+            <div class="form-row mt-4">
+                <div class="col-md-6 form-group">
+                    <input type="text" class="form-control font-weight-bold" placeholder="Cari Spesies">
+                </div>
+                <div class="col-md-6 form-group">
+                    <select class="form-control font-weight-bold">
+                        <option value="">Pilih Area</option>
+                        @foreach ($regions as $region)
+                        <option value="{{$region->id}}">{{$region->name}}</option>
+                        @endforeach
+                    </select>
+                    {{-- <input type="text" class="form-control font-weight-bold" placeholder="Pilih Wilayah"> --}}
+                </div>
+            </div>
+            <div class="text-right">
+                <button class="btn btn-primary font-weight-bold rounded-custom btn-cari"><i class="fas fa-search"></i>
+                    Cari</button>
+            </div>
+            <div class="row mt-5">
+                @foreach ($ponds as $pond)
+                <div class="col-6 col-md-3 mb-4">
+                    <div class="card w-100 bg-blue">
+                        <img class="card-img-top"
+                            src="{{$pond->pond_detail?->fish_species?->image_url ?? asset('asset/empty-asset.png')}}"
+                            alt="{{$pond->pond_detail?->fish_species?->name}}">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">
+                                {{$pond->pond_detail?->fish_species?->name}}
+                            </h5>
+                            <p class="card-text">{{$pond->user?->name}} /
+                                {{$pond->pond_detail?->fish_species?->fish_category?->name}}
+                            </p>
+                            <p class="card-text">10/Kg</p>
+                            <div class="text-center">
+                                <a href="{{route('detail_pasar_virtual')}}"
+                                    class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 @endforeach
             </div>
         </div>
-    </div>
-</section>
-<section class="pasar my-5">
-    <div class="container">
-        <div class="form-row mt-4">
-            <div class="col-md-6 form-group">
-                <input type="text" class="form-control font-weight-bold" placeholder="Cari Spesies">
-            </div>
-            <div class="col-md-6 form-group">
-                <select class="form-control font-weight-bold">
-                    <option value="">Pilih Area</option>
-                    @foreach ($regions as $region)
-                    <option value="{{$region->id}}">{{$region->name}}</option>
-                    @endforeach
-                </select>
-                {{-- <input type="text" class="form-control font-weight-bold" placeholder="Pilih Wilayah"> --}}
-            </div>
-        </div>
-        <div class="text-right">
-            <button class="btn btn-primary font-weight-bold rounded-custom btn-cari"><i class="fas fa-search"></i>
-                Cari</button>
-        </div>
-        <div class="row mt-5">
-            @foreach ($ponds as $pond)
-            <div class="col-6 col-md-3 mb-4">
-                <div class="card w-100 bg-blue">
-                    <img class="card-img-top"
-                        src="{{$pond->pond_detail?->fish_species?->image_url ?? asset('asset/empty-asset.png')}}"
-                        alt="{{$pond->pond_detail?->fish_species?->name}}">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">
-                            {{$pond->pond_detail?->fish_species?->name}}
-                        </h5>
-                        <p class="card-text">Deskripsi Singkat
-                        </p>
-                        <p class="card-text">10/Kg</p>
-                        <div class="text-center">
-                            <a href="{{route('detail_pasar_virtual')}}"
-                                class="btn btn-light font-weight-bold rounded-custom w-75">Detail</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
+    </section>
+</div>
 @endsection
 @section('imagefooter')
 <img class="w-100" src="{{asset('asset/footer-image.png')}}" />
 @endsection
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            fish_category_id: "",
+        }
+    })
+</script>
+@endpush

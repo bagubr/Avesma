@@ -65,8 +65,8 @@ class UserController extends Controller
     public function uploadInformation(UploadUserInformationRequest $request)
     {
         $user_id = $request->user()->id;
-        $ktp_photo = $request->file('ktp_photo')->store('storage/ktp_photo');
-        $ktp_selfie_photo = $request->file('ktp_selfie_photo')->store('storage/ktp_selfie_photo');
+        $ktp_photo = $request->file('ktp_photo')->store('images', ['disk' => 'public']);
+        $ktp_selfie_photo = $request->file('ktp_selfie_photo')->store('images', ['disk' => 'public']);
         UserInformation::updateOrCreate([
             'user_id' => $user_id,
         ], [
