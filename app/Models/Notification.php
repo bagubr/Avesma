@@ -14,7 +14,7 @@ class Notification extends Model
     const NEW_ARTICLE = 'new-article';
     const NEW_PROCEDURE = 'new-procedure';
     protected $fillable = [
-        'user_id', 'title', 'body'
+        'user_id', 'title', 'body', 'payload'
     ];
 
     public function user()
