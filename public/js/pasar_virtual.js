@@ -15,7 +15,7 @@ var app = new Vue({
     methods: {
         getMarkets() {
             this.loading = true,
-            this.markets = [],
+                this.markets = [],
                 axios
                     .get(this.live, {
                         params: {
