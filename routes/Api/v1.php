@@ -31,6 +31,7 @@ use App\Http\Controllers\Api\TermAndConditionController;
 use App\Http\Controllers\Api\Website\MarketController;
 use App\Http\Controllers\Api\ShareController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\PondHarvestController;
 use App\Models\Buyer;
 use App\Models\TermAndCondition;
 use Illuminate\Support\Facades\Route;
@@ -103,6 +104,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('ponds/update_status/{pond}', [PondController::class, 'update_status']);
     Route::get('ponds/products', [PondDetailProductController::class, 'index']);
     Route::post('ponds/products', [PondDetailProductController::class, 'store']);
+
+    Route::post('pond_harvests/store', [PondHarvestController::class, 'store']);
 
     Route::get('profile', [UserController::class, 'index']);
     Route::post('profile', [UserController::class, 'update']);
