@@ -19,6 +19,7 @@ class NotificationService {
             'body'  => $body,
             'type'  =>  str_replace('App\\Models\\', '', $type),
             'payload'  => $payload,
+            'reference_id'  => $payload->id,
             'user_id' => $user->id
         ];
         if($user->fcm_token){
@@ -60,6 +61,7 @@ class NotificationService {
                 'user_id'   => $value,
                 'type'      => str_replace('App\\Models\\', '', get_class($payload)),
                 'payload'   => $payload,
+                'reference_id'=> $payload->id,
                 'created_at'=> now()->toDateTimeString(),
                 'updated_at'=> now()->toDateTimeString(),
             ];
