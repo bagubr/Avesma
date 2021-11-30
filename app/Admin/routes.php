@@ -59,4 +59,5 @@ Route::group([
     $router->resource('faqs', FaqController::class);
     $router->resource('slider-markets', SliderMarketController::class);
     $router->resource('broadcasts', BroadcastController::class);
+    $router->resource('pond-harvests', PondHarvestController::class);
 });

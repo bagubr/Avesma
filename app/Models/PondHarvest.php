@@ -10,7 +10,7 @@ class PondHarvest extends Model
     use HasFactory;
     const STATUS1 = "READY_TO_SALE";
     const STATUS2 = "SOLD";
-    protected $fillable = ['pond_detail_id', 'harvest_at', 'weight', 'image', 'status'];
+    protected $fillable = ['pond_detail_id', 'harvest_at', 'weight', 'image', 'status', 'description'];
     protected $appends = [
         'image_url'
     ];
@@ -19,7 +19,7 @@ class PondHarvest extends Model
     {
         return url('uploads/' . $this->image);
     }
-    
+
     public function pond_detail()
     {
         return $this->belongsTo(PondDetail::class, 'pond_detail_id');

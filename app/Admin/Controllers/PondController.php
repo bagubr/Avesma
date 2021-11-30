@@ -39,10 +39,6 @@ class PondController extends AdminController
         {
             return $area. ' m<sup>2</sup>';
         });
-        $grid->column('description', __('Description'))->display(function ($description)
-        {
-            return $description;
-        });
         $grid->column('latitude', __('Latitude'));
         $grid->column('longitude', __('Longitude'));
         $grid->column('address', __('Address'));
@@ -73,6 +69,26 @@ class PondController extends AdminController
         $show->field('address', __('Address'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
+        $show->pond_harvest('Hasil Panen', function ($pond_harvests) {
+
+            $pond_harvests->setResource('/admin/pond-harvests');
+
+            $pond_harvests->weight();
+            $pond_harvests->image()->image();
+            $pond_harvests->harvest_at();
+            $pond_harvests->description();
+            $pond_harvests->status();
+            $pond_harvests->disableCreateButton();
+            $pond_harvests->disableFilter();
+            $pond_harvests->disableExport();
+            $pond_harvests->disableColumnSelector();
+            $pond_harvests->disablePagination();
+            $pond_harvests->disableRowSelector();
+            $pond_harvests->disableActions();
+            // $pond_harvests->actions(function (Grid\Displayers\Actions $actions) {
+            //     $actions->disableDelete();
+            // });
+        });
 
         return $show;
     }

@@ -27,6 +27,12 @@ class PondDetail extends Model
     {
         return $this->belongsTo(Pond::class, 'pond_id');
     }
+
+    public function pond_harvest()
+    {
+        return $this->hasMany(PondHarvest::class, 'pond_detail_id', 'id');
+    }
+
     public function getFishCategoryAttribute()
     {
         return $this->fish_species->fish_category?->name ?? '';

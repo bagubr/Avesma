@@ -23,12 +23,17 @@ class Pond extends Model
         'latitude',
         'longitude',
         'address',
-        'description',
     ];
     protected $appends = ['region_name'];
+
     public function pond_detail()
     {
         return $this->hasOne(PondDetail::class, 'pond_id', 'id');
+    }
+
+    public function pond_harvest()
+    {
+        return $this->hasManyThrough(PondHarvest::class, PondDetail::class);
     }
 
     public function user()
