@@ -15,7 +15,7 @@ class Decline extends RowAction
     {
         $model->status = 'DECLINE';
         $model->save();
-        NotificationService::sendTo('Konfirmasi Admin', 'Data anda telah di tolak', $model->user);
+        NotificationService::sendTo('Konfirmasi Admin', 'Data anda telah di tolak', $model->user, $model->user);
         return $this->response()->success('Success message.')->refresh();
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnToNotificationsTable extends Migration
+class AddColumn2ToNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,10 @@ class AddColumnToNotificationsTable extends Migration
     public function up()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->json('payload')->nullable();
-            $table->string('type')->nullable();
+            $table->boolean('is_seen')->default(false);
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *
@@ -27,8 +26,7 @@ class AddColumnToNotificationsTable extends Migration
     public function down()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->dropColumn('payload');
-            $table->dropColumn('type');
+            $table->dropColumn('is_seen');
         });
     }
 }

@@ -34,7 +34,10 @@ class ArticleProcedureController extends AdminController
         $grid->quickSearch('title', 'description', 'type');
         $grid->column('procedure.title', __('SOP'));
         $grid->column('title', __('Title'));
-        $grid->column('description', __('Description'));
+        $grid->column('description', __('Description'))->display(function ($description)
+        {
+            return $description;
+        });
         $grid->column('type', __('Type'));
         $grid->column('file', __('File'))->downloadable();
         $grid->column('image', __('Image'))->image();

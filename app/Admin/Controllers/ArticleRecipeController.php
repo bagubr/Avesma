@@ -31,11 +31,15 @@ class ArticleRecipeController extends AdminController
         $grid->disableColumnSelector();
         $grid->quickSearch('title', 'description', 'type');
         $grid->column('title', __('Title'));
-        $grid->column('description', __('Description'));
+        $grid->column('description', __('Description'))->display(function ($description)
+        {
+            return $description;
+        });
         $grid->column('image', __('Image'))->image();
         $grid->column('type', __('Type'));
         $grid->column('embed_link', __('Embed Link'))->link();
         $grid->column('file', __('File'));
+        $grid->column('created_at', __('Created'));
 
         return $grid;
     }

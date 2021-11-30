@@ -33,7 +33,10 @@ class ArticleController extends AdminController
         $grid->quickSearch('title', 'description', 'article_category.name', 'type');
         $grid->column('article_category.name', __('Kategori Artikel'));
         $grid->column('title', __('Title'));
-        $grid->column('description', __('Description'));
+        $grid->column('description', __('Description'))->display(function ($description)
+        {
+            return $description;
+        });
         $grid->column('image', __('Image'))->image();
         $grid->column('type', __('Type'));
         $grid->column('embed_link', __('Embed Link'))->link();

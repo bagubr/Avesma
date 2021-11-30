@@ -30,6 +30,7 @@ use App\Http\Controllers\Api\RegionController;
 use App\Http\Controllers\Api\TermAndConditionController;
 use App\Http\Controllers\Api\Website\MarketController;
 use App\Http\Controllers\Api\ShareController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Models\Buyer;
 use App\Models\TermAndCondition;
 use Illuminate\Support\Facades\Route;
@@ -90,6 +91,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('home', [HomeController::class, 'index']);
     Route::post('fcm_token', [HomeController::class, 'store']);
+    Route::get('notification', [NotificationController::class, 'index']);
+    Route::get('notification_reed', [NotificationController::class, 'is_seen']);
 
     Route::get('ponds', [PondController::class, 'index']);
     Route::get('ponds/get_done', [PondController::class, 'index_done']);

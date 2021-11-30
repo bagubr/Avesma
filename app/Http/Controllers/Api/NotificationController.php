@@ -16,4 +16,11 @@ class NotificationController extends Controller
             'notification' => $notification
         ]);
     }
+
+    public function is_seen(Request $request)
+    {
+        $notification = Notification::where('id', $request->get('id'))->update([
+            'is_seen' => true
+        ]);
+    }
 }

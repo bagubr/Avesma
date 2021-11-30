@@ -25,7 +25,7 @@ class Procedure extends Model
         parent::boot();
         static::creating(function ($model)
         {
-            NotificationService::sendToTopic('New procedure', 'New Procedure has been release', 'new-procedure');
+            NotificationService::sendToTopic('New procedure', 'New Procedure has been release', 'new-procedure', $model);
         });
     }
 
