@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class PondHarvest extends Model
 {
     use HasFactory;
-    protected $fillable = ['pond_detail_id', 'harvest_at', 'weight', 'image'];
+    const STATUS1 = "READY";
+    const STATUS2 = "SOLD";
+    protected $fillable = ['pond_detail_id', 'harvest_at', 'weight', 'image', 'status'];
 
     public function pond_detail()
     {
