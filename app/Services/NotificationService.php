@@ -20,6 +20,7 @@ class NotificationService {
             'type'  =>  str_replace('App\\Models\\', '', $type),
             'payload'  => $payload,
             'reference_id'  => $payload->id,
+            'channelId' => 'com.cancreative.avesma',
             'user_id' => $user->id
         ];
         if($user->fcm_token){
@@ -62,6 +63,7 @@ class NotificationService {
                 'type'      => str_replace('App\\Models\\', '', get_class($payload)),
                 'payload'   => $payload,
                 'reference_id'=> $payload->id,
+                'channelId' => 'com.cancreative.avesma',
                 'created_at'=> now()->toDateTimeString(),
                 'updated_at'=> now()->toDateTimeString(),
             ];

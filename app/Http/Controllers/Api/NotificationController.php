@@ -22,5 +22,6 @@ class NotificationController extends Controller
         $notification = Notification::where('id', $request->get('id'))->update([
             'is_seen' => true
         ]);
+        return $this->successResponse();
     }
 }
