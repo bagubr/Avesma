@@ -86,7 +86,6 @@ class ArticleProcedureController extends AdminController
         $form->select('procedure_id', __('Procedure'))->options(Procedure::all()->pluck('title', 'id'))->required();
         $form->text('title', __('Title'));
         $form->summernote('description', __('Description'));
-        $form->file('file', __('File'));
         $form->select('type', __('Tipe'))->options([
             ArticleProcedure::TYPE_FILE => 'File',
             ArticleProcedure::TYPE_VIDEO_EMBED => 'Video Embed Youtube'
