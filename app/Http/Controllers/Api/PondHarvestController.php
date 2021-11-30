@@ -20,10 +20,17 @@ class PondHarvestController extends Controller
             'statuses' => $filter
         ]);
     }
-    // public function index()
-    // {
-    //     $pond_harvests = PondHarvest
-    // }
+    public function index(Request $request)
+    {
+        $pond_harvests = PondHarvest::with('pond_detail.pond')->where('pond_detail_id', $request->pond_detail_id)
+            ->orderBy('harvest_at', 'desc')->get();
+        if (empty($request->pond_detail_id)) {
+            $this->sendFailedResponse([], 'Maaf, sepertinya anda harus memilih detail kolam terlebih dahulu');
+        }
+        return $this->sendSuccessResponse([
+            'pond_harvests' => $pond_harvests
+        ]);
+    }
     public function store(CreatePondHarvestRequest $request)
     {
         $pond_harvest = PondHarvest::updateOrCreate(
@@ -33,6 +40,7 @@ class PondHarvestController extends Controller
             [
                 'harvest_at' => $request->harvest_at,
                 'status' => PondHarvest::STATUS1,
+                'description' => $request->description,
                 'weight' => $request->weight,
                 'image' =>  $request->file('image')->store('images', ['disk' => 'public'])
             ]

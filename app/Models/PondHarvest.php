@@ -11,9 +11,17 @@ class PondHarvest extends Model
     const STATUS1 = "READY_TO_SALE";
     const STATUS2 = "SOLD";
     protected $fillable = ['pond_detail_id', 'harvest_at', 'weight', 'image', 'status'];
+    protected $appends = [
+        'image_url'
+    ];
 
+    public function getImageUrlAttribute()
+    {
+        return url('uploads/' . $this->image);
+    }
+    
     public function pond_detail()
     {
-        return $this->hasOne(PondDetail::class, 'pond_detail_id');
+        return $this->belongsTo(PondDetail::class, 'pond_detail_id');
     }
 }
