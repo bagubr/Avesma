@@ -50,10 +50,13 @@ class UserController extends AdminController
         $grid->column('created_at', __('Member Since'));
         $grid->column('updated_at', __('Updated at'));
         $grid->disableExport();
-        if ($request->get('_scope_') == 'trashed'){
-        $grid->actions(function ($actions){ 
-                $actions->add(new Restore());
-            });
+        if (request('_scope_') == 'trashed'){
+        $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $actions->disableDelete();
+            $actions->disableView();
+            $actions->disableEdit();
+            $actions->add(new Restore());
+        });
         }
         
         return $grid;
