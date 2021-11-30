@@ -14,7 +14,7 @@ class BuyerController extends Controller
     {
         $buyers = Buyer::whereHas('pond_detail.pond', function ($q) use ($request) {
             $q->where('user_id', $request->user()->id);
-        })->get();
+        })->orderBy('id', 'desc')->get();
         return $this->sendSuccessResponse([
             'buyers' => $buyers
         ]);
