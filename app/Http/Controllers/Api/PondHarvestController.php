@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePondHarvestRequest;
+use App\Http\Requests\UpdateStatusPondHarvestRequest;
 use App\Models\PondHarvest;
 use Illuminate\Http\Request;
 use ReflectionClass;
@@ -31,13 +32,17 @@ class PondHarvestController extends Controller
             'pond_harvests' => $pond_harvests
         ]);
     }
+    public function show(PondHarvest $pond_harvest)
+    {
+        return $this->sendSuccessResponse([
+            'pond_harvest' => $pond_harvest->load('pond_detail.pond')
+        ]);
+    }
     public function store(CreatePondHarvestRequest $request)
     {
-        $pond_harvest = PondHarvest::updateOrCreate(
+        $pond_harvest = PondHarvest::create(
             [
-                'pond_detail_id' => $request->pond_detail_id
-            ],
-            [
+                'pond_detail_id' => $request->pond_detail_id,
                 'harvest_at' => $request->harvest_at,
                 'status' => PondHarvest::STATUS1,
                 'description' => $request->description,
@@ -45,6 +50,14 @@ class PondHarvestController extends Controller
                 'image' =>  $request->file('image')->store('images', ['disk' => 'public'])
             ]
         );
+        return $this->sendSuccessResponse([
+            'pond_harvest' => $pond_harvest
+        ]);
+    }
+    public function update_status(UpdateStatusPondHarvestRequest $request, PondHarvest $pond_harvest)
+    {
+        $data = $request->all();
+        $pond_harvest->update($data);
         return $this->sendSuccessResponse([
             'pond_harvest' => $pond_harvest
         ]);
