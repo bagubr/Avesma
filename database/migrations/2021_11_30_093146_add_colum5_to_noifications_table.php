@@ -26,7 +26,7 @@ class AddColum5ToNoificationsTable extends Migration
     public function down()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            //
+            $table->dropColumn('channelId');
         });
     }
 }
