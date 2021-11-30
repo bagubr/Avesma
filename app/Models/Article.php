@@ -30,7 +30,7 @@ class Article extends Model
     public static function boot()
     {
         parent::boot();
-        static::creating(function ($model)
+        static::created(function ($model)
         {
             NotificationService::sendToTopic('New article', 'New Article has been release', 'new-article', $model);
         });

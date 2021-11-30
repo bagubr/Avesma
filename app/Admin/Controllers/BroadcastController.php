@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Broadcast;
+use App\Services\NotificationService;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -69,6 +70,10 @@ class BroadcastController extends AdminController
 
         $form->text('title', __('Title'));
         $form->textarea('body', __('Body'));
+        // $form->saved(function (Form $form)
+        // {
+        //     NotificationService::sendToTopic($form->model()->title, $form->model()->body, 'broadcast', $form->model());
+        // });
 
         return $form;
     }

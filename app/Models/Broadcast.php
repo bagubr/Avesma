@@ -18,7 +18,7 @@ class Broadcast extends Model
     public static function boot()
     {
         parent::boot();
-        static::creating(function ($model)
+        static::created(function ($model)
         {
             NotificationService::sendToTopic($model->title, $model->body, 'broadcast', $model);
         });
