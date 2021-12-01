@@ -24,4 +24,12 @@ class NotificationController extends Controller
         ]);
         return $this->successResponse();
     }
+    
+    public function all_seen(Request $request)
+    {
+        $notification = Notification::where('user_id', $request->user()->id)->update([
+            'is_seen' => true
+        ]);
+        return $this->successResponse();
+    }
 }
