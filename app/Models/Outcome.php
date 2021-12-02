@@ -51,6 +51,6 @@ class Outcome extends Model
     }
     public function getOutcomeCategoryNameAttribute()
     {
-        return $this->outcome_detail[0]?->outcome_setting->outcome_category;
+        return $this->outcome_category->name;
     }
 }
