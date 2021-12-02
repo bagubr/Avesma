@@ -23,10 +23,10 @@
             <div class="col-md-8 my-auto">
                 <h5 class="font-weight-bold">{{$pond_harvest->pond_detail->pond->user->name ?? ""}} /
                     {{$pond_harvest->region_name}}</h5>
-                    <h5>{{$pond_harvest->weight}} Kg</h5>
+                <h5>{{$pond_harvest->weight}} Kg</h5>
                 <p>{{$pond_harvest->description}}</p>
                 <div class="text-right">
-                    <a href="https://google.com/maps/?q={{$pond_harvest->latitude}},{{$pond_harvest->longitude}}"
+                    <a href="https://google.com/maps/?q={{$pond_harvest->pond_detail->pond->latitude}},{{$pond_harvest->pond_detail->pond->longitude}}"
                         target="_blank" class="btn btn-primary">
                         <i class="fas fa-map-marker-alt"></i>
                         Cari Lokasi
