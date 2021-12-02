@@ -17,7 +17,7 @@
             <div class="col-md-4 mb-3">
                 <div class="text-center">
                     <img class="rounded-circle fish-detail"
-                        src="{{$pond_harvest->pond_detail->fish_species->image_url ?? asset('asset/empty-asset.png')}}">
+                        src="{{$pond_harvest->image_url ?? asset('asset/empty-asset.png')}}">
                 </div>
             </div>
             <div class="col-md-8 my-auto">
