@@ -19,12 +19,8 @@ class UserController extends Controller
     {
         $user = $request->user();
         $user = User::find($user->id);
-        $ponds_hatchery = User::whereHas('ponds', function ($q) use ($user) {
-            $q->where('user_id', $user->id)->where('status', Pond::STATUS1);
-        })->count();
-        $ponds_harvest = User::whereHas('ponds', function ($q) use ($user) {
-            $q->where('user_id', $user->id)->where('status', Pond::STATUS2);
-        })->count();
+        $ponds_hatchery = Pond::where('user_id', $user->id)->where('status', Pond::STATUS1)->count();
+        $ponds_harvest = Pond::where('user_id', $user->id)->where('status', Pond::STATUS2)->count();
         $fish_species_total = PondDetail::whereHas('pond', function ($q) use ($user) {
             $q->where('user_id', $user->id);
         })->select('fish_species_id', DB::raw('count(*) as total'))
