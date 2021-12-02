@@ -86,7 +86,7 @@ class IncomeController extends Controller
     public function income_statistic(Request $request)
     {
         $incomes = Income::where('pond_detail_id', $request->pond_detail_id)
-            ->orderBy('reported_at', 'desc')->get();
+            ->orderBy('reported_at', 'asc')->get();
         $income_total = IncomeDetail::whereHas('income', function ($q) use ($request) {
             $q->where('pond_detail_id', $request->pond_detail_id);
         })->sum('total_price');

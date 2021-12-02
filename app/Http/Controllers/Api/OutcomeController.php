@@ -39,7 +39,7 @@ class OutcomeController extends Controller
                 $sq->where('outcome_category_id', 1);
             })->orderBy('id', 'desc');
         $outcomes_lain = Outcome::where('pond_detail_id', $request->pond_detail_id)
-            ->orderBy('reported_at', 'desc')->whereHas('outcome_detail.outcome_setting', function ($sq) {
+            ->orderBy('reported_at', 'asc')->whereHas('outcome_detail.outcome_setting', function ($sq) {
                 $sq->where('outcome_category_id', 2);
             })->get();
 
