@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CreateIncomeRequest;
+use App\Http\Requests\Api\UpdateIncomeRequest;
 use App\Http\Resources\IncomeIndexResource;
 use App\Http\Resources\IncomeTotalResource;
 use App\Models\Income;
@@ -60,7 +61,7 @@ class IncomeController extends Controller
             'income' => $income->load('income_detail')
         ]);
     }
-    public function update(CreateIncomeRequest $request, Income $income)
+    public function update(UpdateIncomeRequest $request, Income $income)
     {
         DB::beginTransaction();
         $data_income = $request->only('pond_detail_id', 'reported_at');
