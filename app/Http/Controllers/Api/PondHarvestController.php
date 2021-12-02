@@ -13,12 +13,11 @@ class PondHarvestController extends Controller
 {
     public function statuses()
     {
-        $filter = array_filter((new ReflectionClass(PondHarvest::class))->getConstants(), function ($i, $x) {
-            if (str_contains($x, "STATUS")) return true;
-        }, ARRAY_FILTER_USE_BOTH);
-        $filter = array_values($filter);
         return $this->sendSuccessResponse([
-            'statuses' => $filter
+            'statuses' => [
+                PondHarvest::STATUS1,
+                PondHarvest::STATUS2,
+            ]
         ]);
     }
     public function index(Request $request)
