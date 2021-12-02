@@ -7,6 +7,7 @@ use App\Http\Resources\PondResource;
 use App\Models\About;
 use App\Models\Benefit;
 use App\Models\Buyer;
+use App\Models\CustomerService;
 use App\Models\FishCategory;
 use App\Models\IncomeDetail;
 use App\Models\Pond;
@@ -71,5 +72,12 @@ class IndexController extends Controller
     public function kontak()
     {
         return view('contact');
+    }
+    
+    public function contact_store(Request $request)
+    {
+        CustomerService::create($request->all());
+        session()->flash('success', 'Terimakasih, Pesan anda sudah disimpan');
+        return back();
     }
 }
