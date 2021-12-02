@@ -12,19 +12,22 @@
 @section('content')
 <section class="detail_pasar_virtual mt-5">
     <div class="container">
-        <h1 class="font-weight-bold text-center">{{$pond->pond_detail?->fish_species?->name}}</h1>
+        <h1 class="font-weight-bold text-center">{{$pond_harvest->pond_detail?->fish_species?->name}}</h1>
         <div class="row mt-5">
             <div class="col-md-4 mb-3">
                 <div class="text-center">
-                    <img class="rounded-circle fish-detail" src="{{$pond->pond_detail->fish_species->image_url}}">
+                    <img class="rounded-circle fish-detail"
+                        src="{{$pond_harvest->pond_detail->fish_species->image_url ?? asset('asset/empty-asset.png')}}">
                 </div>
             </div>
             <div class="col-md-8 my-auto">
-                <h5 class="font-weight-bold">{{$pond->user->name}} / {{$pond->region_name}}</h5>
-                <p>{{$pond->description}}</p>
+                <h5 class="font-weight-bold">{{$pond_harvest->pond_detail->pond->user->name ?? ""}} /
+                    {{$pond_harvest->region_name}}</h5>
+                    <h5>{{$pond_harvest->weight}} Kg</h5>
+                <p>{{$pond_harvest->description}}</p>
                 <div class="text-right">
-                    <a href="https://google.com/maps/?q={{$pond->latitude}},{{$pond->longitude}}" target="_blank"
-                        class="btn btn-primary">
+                    <a href="https://google.com/maps/?q={{$pond_harvest->latitude}},{{$pond_harvest->longitude}}"
+                        target="_blank" class="btn btn-primary">
                         <i class="fas fa-map-marker-alt"></i>
                         Cari Lokasi
                     </a>
@@ -36,7 +39,7 @@
 <section class="form-pengajuan mt-5">
     <div class="container">
         <h2 class="text-center font-weight-bold">Form Pengajuan</h2>
-        <form action="{{route('form_pengajuan', $pond->id)}}" method="POST">
+        <form action="{{route('form_pengajuan', $pond_harvest->id)}}" method="POST">
             @csrf
             <div class="form-group">
                 <label class="font-weight-bold">Nama <span class="text-danger">*</span></label>

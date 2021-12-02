@@ -131,15 +131,16 @@
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3 mb-4" v-else v-for="market in markets.ponds">
+                    <div class="col-6 col-md-3 mb-4" v-else v-for="market in markets.pond_harvests">
                         <div class="card w-100 bg-blue">
-                            <img class="card-img-top" :src="market.pond_detail.fish_species_image">
+                            <img class="card-img-top" :src="market.image_url">
                             <div class="card-body">
                                 <h5 class="card-title text-center">
                                     @{{market.pond_detail.spesies_name}}
                                 </h5>
-                                <p class="card-text">@{{market.region_name}} /
-                                    @{{market.pond_detail.fish_category}}
+                                <p class="card-text">
+                                    @{{market.region_name}} / @{{market.pond_detail.fish_category}} <br>
+                                    @{{market.weight}} Kg
                                 </p>
                                 <div class="text-center">
                                     <a :href="'/pasar_virtual/' + market.id"
@@ -148,8 +149,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mx-auto" v-if="markets.code == 400">
-                        <h5>@{{markets.message}}</h5>
+                    <div class="text-center mx-auto" v-if="markets.code == 400">
+                        <img src="{{asset('asset/icon-kosong-avesma-tidak-ada-data-12.png')}}" style="height: 200px"
+                            class="img-fluid" alt="">
+                        <h5 class="mt-3">@{{markets.message}}</h5>
                     </div>
                 </div>
             </div>

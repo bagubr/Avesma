@@ -10,6 +10,7 @@ use App\Models\Buyer;
 use App\Models\FishCategory;
 use App\Models\IncomeDetail;
 use App\Models\Pond;
+use App\Models\PondHarvest;
 use App\Models\Region;
 use App\Models\Slider;
 use App\Models\SliderMarket;
@@ -41,9 +42,9 @@ class IndexController extends Controller
         $ponds = Pond::where('status', Pond::STATUS2)->get();
         return view('pasar_virtual', compact('fish_categories', 'regions', 'ponds', 'sliders'));
     }
-    public function detail_pasar_virtual(Pond $pond)
+    public function detail_pasar_virtual(PondHarvest $pond_harvest)
     {
-        return view('detail_pasar_virtual', compact('pond'));
+        return view('detail_pasar_virtual', compact('pond_harvest'));
     }
     public function form_pengajuan(FormPengajuanRequest $request, Pond $pond)
     {

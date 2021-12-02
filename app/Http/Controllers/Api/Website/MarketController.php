@@ -12,28 +12,28 @@ class MarketController extends Controller
 {
     public function index(Request $request)
     {
-        $ponds = Pond::where('status', Pond::STATUS2)
+        $pond_harvests = PondHarvest::with('pond_detail.pond')->where('status', PondHarvest::STATUS1)
             ->when($request->fish_name, function ($query) use ($request) {
                 $query->whereHas('pond_detail.fish_species', function ($q) use ($request) {
                     $q->where('name', 'ilike', "%" . $request->fish_name . "%");
                 });
-            })
-            ->when($request->fish_category_id, function ($query) use ($request) {
+            })->when($request->fish_category_id, function ($query) use ($request) {
                 $query->whereHas('pond_detail.fish_species', function ($q) use ($request) {
                     $q->where('fish_category_id', $request->fish_category_id);
                 });
             })->when($request->region_id, function ($query) use ($request) {
-                $query->whereHas('user', function ($q) use ($request) {
-                    $q->where('region_id', $request->region_id);
+                $query->whereHas('pond_detail.pond', function ($q) use ($request) {
+                    $q->whereHas('user', function ($sq) use ($request) {
+                        $sq->where('region_id', $request->region_id);
+                    });
                 });
-            })->get();
-        // $pond_harvests = PondHarvest::where('status', PondHarvest::STATUS1)->get();
-        if ($ponds->isEmpty()) {
+            })->orderBy('id', 'desc')->get();
+        if ($pond_harvests->isEmpty()) {
             $this->sendFailedResponse([], 'Maaf, Data Yang Anda Cari Tidak Ada...');
         }
 
         $this->sendSuccessResponse([
-            'ponds' => PondResource::collection($ponds)
+            'pond_harvests' => $pond_harvests
         ]);
     }
 }

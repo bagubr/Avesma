@@ -12,7 +12,7 @@ class PondHarvest extends Model
     const STATUS2 = "SOLD";
     protected $fillable = ['pond_detail_id', 'harvest_at', 'weight', 'image', 'status', 'description'];
     protected $appends = [
-        'image_url'
+        'image_url', 'region_name'
     ];
 
     public function getImageUrlAttribute()
@@ -23,5 +23,9 @@ class PondHarvest extends Model
     public function pond_detail()
     {
         return $this->belongsTo(PondDetail::class, 'pond_detail_id');
+    }
+    public function getRegionNameAttribute()
+    {
+        return $this->pond_detail->pond->user->region->name ?? "-";
     }
 }
