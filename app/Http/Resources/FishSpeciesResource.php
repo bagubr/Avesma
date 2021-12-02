@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\FishSpecies;
+use App\Models\Pond;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FishSpeciesResource extends JsonResource
@@ -28,9 +29,10 @@ class FishSpeciesResource extends JsonResource
     }
     public function getCount($user_id, $id)
     {
-        $count = FishSpecies::whereHas('pond_details.pond', function ($q) use ($user_id) {
-            $q->where('user_id', $user_id);
-        })->where('id', $id)->count();
+        $count = Pond::where('user_id', $user_id)->where('status', '!=', Pond::STATUS3)
+            ->whereHas('pond_detail', function ($q) use ($id) {
+                $q->where('fish_species_id', $id);
+            })->count();
         return $count;
     }
 }
