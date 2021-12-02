@@ -12,20 +12,20 @@ class BuyerController extends Controller
 {
     public function index(Request $request)
     {
-        $buyers = Buyer::whereHas('pond_detail.pond', function ($q) use ($request) {
-            $q->where('user_id', $request->user()->id);
+        $buyers = Buyer::with('pond_harvest.pond_detail')->whereHas('pond_harvest.pond_detail', function ($q) use ($request) {
+            $q->whereHas('pond', function ($sq) use ($request){
+                $sq->where('user_id', $request->user()->id);
+            });
         })->orderBy('id', 'desc')->get();
         return $this->sendSuccessResponse([
             'buyers' => $buyers
         ]);
     }
 
-    public function show(Request $request, $id)
+    public function show(Request $request, Buyer $buyer)
     {
-        $buyer = BuyerRepository::find($id);
-
         return $this->sendSuccessResponse([
-            'buyer' => $buyer
+            'buyer' => $buyer->load('pond_harvest.pond_detail.pond')
         ]);
     }
 
@@ -37,7 +37,7 @@ class BuyerController extends Controller
         $buyer->refresh();
 
         return $this->sendSuccessResponse([
-            'buyer' => $buyer->load('pond_Detail')
+            'buyer' => $buyer->load('pond_harvest')
         ]);
     }
 }

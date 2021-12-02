@@ -139,7 +139,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::get('buyers', [BuyerController::class, 'index']);
-    Route::get('buyers/{id}', [BuyerController::class, 'show']);
+    Route::get('buyers/{buyer}', [BuyerController::class, 'show']);
     Route::post('buyers/update/{buyer}', [BuyerController::class, 'update']);
 
     Route::get('about', [AboutController::class, 'index']);

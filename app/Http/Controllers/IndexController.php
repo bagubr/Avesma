@@ -46,7 +46,7 @@ class IndexController extends Controller
     {
         return view('detail_pasar_virtual', compact('pond_harvest'));
     }
-    public function form_pengajuan(FormPengajuanRequest $request, Pond $pond)
+    public function form_pengajuan(FormPengajuanRequest $request, PondHarvest $pond_harvest)
     {
         $number = $request->phone;
         $country_code = '62';
@@ -58,13 +58,13 @@ class IndexController extends Controller
         }
 
         Buyer::create([
-            'pond_detail_id' => $pond->pond_detail->id,
+            'pond_harvest_id' => $pond_harvest->id,
             'name' => $request->name,
             'phone' => $number,
             'status' => Buyer::STATUS1,
             'question' => $request->question
         ]);
-        NotificationService::sendTo($pond->pond_detail->pond_spesies . ' Ada Peminat Baru', $request->question, $pond->user, $pond);
+        // NotificationService::sendTo($pond->pond_detail->pond_spesies . ' Ada Peminat Baru', $request->question, $pond->user, $pond);
         session()->flash('success', 'Terimakasih, Pengajuan Anda Sedang Diproses Oleh Pembudidaya');
         return back();
     }

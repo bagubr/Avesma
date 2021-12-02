@@ -14,7 +14,8 @@ class ChangeColumnPondHarvestIdFromBuyers extends Migration
     public function up()
     {
         Schema::table('buyers', function (Blueprint $table) {
-            $table->renameColumn('pond_detail_id','pond_harvest_id');
+            $table->unsignedInteger('pond_harvest_id');
+            $table->dropColumn('pond_detail_id');
         });
     }
 
@@ -26,7 +27,9 @@ class ChangeColumnPondHarvestIdFromBuyers extends Migration
     public function down()
     {
         Schema::table('buyers', function (Blueprint $table) {
-            $table->renameColumn('pond_harvest_id', 'pond_detail_id');
+            $table->dropColumn('pond_harvest_id');
+            $table->integer('pond_detail_id');
+            $table->foreign('pond_detail_id')->references('id')->on('pond_details');
         });
     }
 }

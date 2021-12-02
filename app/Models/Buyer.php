@@ -12,15 +12,15 @@ class Buyer extends Model
     const STATUS1 = 'PENDING';
     const STATUS2 = 'CONTACTED';
     protected $fillable = [
-        'pond_detail_id',
+        'pond_harvest_id',
         'name',
         'phone',
         'status',
         'question'
     ];
 
-    public function pond_detail() {
-        return $this->belongsTo(PondDetail::class);
+    public function pond_harvest() {
+        return $this->belongsTo(PondHarvest::class);
     }
 
     public function getCreatedAtAttribute($value)
