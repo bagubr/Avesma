@@ -64,8 +64,8 @@ class IncomeController extends Controller
     public function update(UpdateIncomeRequest $request, Income $income)
     {
         DB::beginTransaction();
-        $data_income = $request->only('pond_detail_id', 'reported_at');
-        $income->update($data_income);
+        $data = $request->only('pond_detail_id', 'reported_at');
+        $income->update($data);
         $income->refresh();
         foreach ($income->income_detail as $key) {
             IncomeDetail::destroy($key->id);
