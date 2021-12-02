@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Website;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PondResource;
 use App\Models\Pond;
+use App\Models\PondHarvest;
 use Illuminate\Http\Request;
 
 class MarketController extends Controller
@@ -26,6 +27,7 @@ class MarketController extends Controller
                     $q->where('region_id', $request->region_id);
                 });
             })->get();
+        // $pond_harvests = PondHarvest::where('status', PondHarvest::STATUS1)->get();
         if ($ponds->isEmpty()) {
             $this->sendFailedResponse([], 'Maaf, Data Yang Anda Cari Tidak Ada...');
         }

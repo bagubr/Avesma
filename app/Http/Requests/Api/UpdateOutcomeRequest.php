@@ -3,18 +3,12 @@
 namespace App\Http\Requests\Api;
 
 use App\Http\Requests\ApiRequest;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class OutcomeCreateRequest extends ApiRequest
+class UpdateOutcomeRequest extends ApiRequest
 {
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules(Request $request)
     {
         return [
@@ -22,8 +16,10 @@ class OutcomeCreateRequest extends ApiRequest
             'reported_at' => [
                 'required',
                 'date',
-                Rule::unique('outcomes')->where('outcome_category_id', 2)
-                    ->where('pond_detail_id', $request->pond_detail_id),
+                Rule::unique('outcomes', 'reported_at')
+                    ->where('outcome_category_id', 2)
+                    ->where('pond_detail_id', $request->pond_detail_id)
+                    ->ignore($this->outcome->id),
             ],
             'outcome_category_id' => 'required|exists:outcome_categories,id',
 

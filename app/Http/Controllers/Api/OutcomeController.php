@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\OutcomeCreateRequest;
 use App\Http\Requests\Api\OutcomeShowRequest;
+use App\Http\Requests\Api\UpdateOutcomeRequest;
 use App\Http\Resources\OutcomeResource;
 use App\Models\Outcome;
 use App\Models\OutcomeDetail;
@@ -54,7 +55,8 @@ class OutcomeController extends Controller
         DB::beginTransaction();
         $outcome = Outcome::create([
             'pond_detail_id' => $request->pond_detail_id,
-            'reported_at' => $request->reported_at
+            'reported_at' => $request->reported_at,
+            'outcome_category_id' => $request->outcome_category_id
         ]);
         foreach ($request->data as $i) {
             OutcomeDetail::create([
@@ -69,10 +71,10 @@ class OutcomeController extends Controller
             'outcome' => $outcome->load('outcome_detail')
         ]);
     }
-    public function update(OutcomeCreateRequest $request, Outcome $outcome)
+    public function update(UpdateOutcomeRequest $request, Outcome $outcome)
     {
         DB::beginTransaction();
-        $data_outcome = $request->only('pond_detail_id', 'reported_at');
+        $data_outcome = $request->only('pond_detail_id', 'reported_at', 'outcome_category_id');
         $outcome->update($data_outcome);
         $outcome->refresh();
         foreach ($outcome->outcome_detail as $key) {
