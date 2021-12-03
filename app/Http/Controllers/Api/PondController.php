@@ -23,14 +23,14 @@ class PondController extends Controller
 {
     public function index(Request $request)
     {
-        $ponds = Pond::where('status','!=', Pond::STATUS3)->where('user_id', $request->user()->id)
+        $ponds = Pond::where('status', '!=', Pond::STATUS3)->where('user_id', $request->user()->id)
             ->when($request->fish_species_id, function ($query) use ($request) {
                 $query->whereHas('pond_detail', function ($q) use ($request) {
                     $q->where('fish_species_id', $request->fish_species_id);
                 });
             })->when($request->status, function ($q) use ($request) {
                 $q->where('status', 'ilike', '%' . $request->status . '%');
-            })->get();
+            })->orderBy('id', 'desc')->get();
         if (empty($request->user()->id)) $this->sendFailedResponse([], 'Maaf, sepertinya anda harus login ulang');
         $this->sendSuccessResponse([
             'ponds' => PondResource::collection($ponds)
