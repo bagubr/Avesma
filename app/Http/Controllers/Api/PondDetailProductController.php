@@ -33,6 +33,6 @@ class PondDetailProductController extends Controller
         $pond_detail_product = PondDetailProduct::create($data);
         return $this->sendSuccessResponse([
             'product' => $pond_detail_product
-        ]);
+        ],'Produk Anda Berhasil Ditambahkan');
     }
 }
