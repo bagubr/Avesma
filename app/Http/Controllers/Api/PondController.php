@@ -9,6 +9,7 @@ use App\Http\Resources\ProcedureResourceFishSpecies;
 use App\Models\FormProcedure;
 use App\Models\Pond;
 use App\Models\PondDetail;
+use App\Models\PondHarvest;
 use App\Models\Procedure;
 use App\Models\User;
 use App\Repositories\PondDetailRepository;
@@ -98,6 +99,13 @@ class PondController extends Controller
         $pond->update([
             'status' => $request->status
         ]);
+        if ($request->status == Pond::STATUS3) {
+            foreach ($pond->pond_harvest as $pond_harvest) {
+                $pond_harvest->update([
+                    'status' => PondHarvest::STATUS2,
+                ]);
+            }
+        }
         $this->sendSuccessResponse([
             'pond' => $pond->load('pond_detail')
         ], 'Berhasil, Mengubah Status Kolam');
