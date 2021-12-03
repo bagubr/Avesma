@@ -38,8 +38,10 @@
             </div>
         </div>
         <div class="mt-4 text-center">
-            <div class="container bg-white-black w-75 pt-3">
-                <p class="m-0">Designed By CAN Creative</p>
+            <div class="container bg-white-black w-75 pt-3 ">
+                <p class="m-0">Designed By <a href="https://can.co.id/" target="_blank" class="footer-can"
+                        style="text-decoration: none">CAN Creative</a>
+                </p>
             </div>
         </div>
     </footer>
