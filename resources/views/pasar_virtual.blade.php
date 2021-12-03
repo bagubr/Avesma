@@ -158,13 +158,13 @@
             </div>
         </section>
     </div>
-    @endsection
-    @section('imagefooter')
-    <img class="w-100" src="{{asset('asset/footer-image.png')}}" />
-    @endsection
-    @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{{asset('js/pasar_virtual.js')}}">
-    </script>
-    @endpush
+</div>
+@endsection
+@section('imagefooter')
+<img class="w-100" src="{{asset('asset/footer-image.png')}}" />
+@endsection
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{{asset('js/pasar_virtual.js')}}"></script>
+@endpush

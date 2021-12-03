@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @push('css')
+<link rel="stylesheet" href="{{asset('dist/magnific-popup.css')}}">
 <style>
     img.fish-detail {
         width: 15rem;
@@ -16,8 +17,10 @@
         <div class="row mt-5">
             <div class="col-md-4 mb-3">
                 <div class="text-center">
-                    <img class="rounded-circle fish-detail"
-                        src="{{$pond_harvest->image_url ?? asset('asset/empty-asset.png')}}">
+                    <a class="test-popup-link" href="{{$pond_harvest->image_url}}">
+                        <img class="rounded-circle fish-detail"
+                            src="{{$pond_harvest->image_url ?? asset('asset/empty-asset.png')}}">
+                    </a>
                 </div>
             </div>
             <div class="col-md-8 my-auto">
@@ -76,3 +79,11 @@
 @section('imagefooter')
 <img class="w-100" src="{{asset('asset/footer-image.png')}}" />
 @endsection
+@push('js')
+<script src="{{asset('dist/jquery.magnific-popup.js')}}"></script>
+<script>
+    $('.test-popup-link').magnificPopup({
+        type: 'image',
+    });
+</script>
+@endpush
