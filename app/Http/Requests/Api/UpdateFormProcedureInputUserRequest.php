@@ -20,4 +20,10 @@ class UpdateFormProcedureInputUserRequest extends ApiRequest
             ],
         ];
     }
+    public function messages()
+    {
+        return [
+            'reported_at.unique' => 'Tanggal Tersebut Sudah Anda Gunakan',
+        ];
+    }
 }
