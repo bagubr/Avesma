@@ -24,7 +24,7 @@ class IncomeOutcomeController extends Controller
                 $sq->where('outcome_category_id', 2);
             })->get();
         $outcome_total = $outcome_tetap->first()->total_nominal ?? 0 + $outcomes_lain->sum('total_nominal') ?? 0;
-        $calculation = $income_total / $outcome_total;
+        $calculation = $income_total ?? 0 / $outcome_total ?? 0;
 
         if ($calculation > 1) {
             $calculation_message = "Diatas";
