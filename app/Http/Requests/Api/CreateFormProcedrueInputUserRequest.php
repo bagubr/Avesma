@@ -25,7 +25,7 @@ class CreateFormProcedrueInputUserRequest extends ApiRequest
     public function messages()
     {
         return [
-            'reported_at.unique' => 'Tanggal Tersebut Sudah Anda Gunakan, Pada Data Lain',
+            'reported_at.unique' => 'Tanggal Tersebut Sudah Anda Gunakan Pada Data Lain',
         ];
     }
 }
