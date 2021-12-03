@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\CreateFormProcedrueInputUserRequest;
+use App\Http\Requests\Api\UpdateFormProcedureInputUserRequest;
 use App\Http\Requests\ProcedureRequest;
 use App\Http\Resources\ProcedureUserResource;
 use App\Models\FormProcedure;
@@ -58,18 +60,9 @@ class ProcedureController extends Controller
             'form_procedure' => $form_procedure
         ]);
     }
-    public function store(Request $request)
+    public function store(CreateFormProcedrueInputUserRequest $request)
     {
-        $data = $request->all();
-        $validator = Validator::make($data, [
-            'pond_detail_id' => 'required|exists:pond_details,id',
-            'reported_at' => 'required',
-            'form_procedure_id' => 'required|exists:form_procedures,id',
-        ]);
         DB::beginTransaction();
-        if ($validator->fails()) {
-            return $this->sendFailedResponse(['errors' => $validator->errors()]);
-        }
         $form_procedure_input_user = FormProcedureInputUser::create([
             'user_id' => $request->user()->id,
             'pond_detail_id' => $request->pond_detail_id,
@@ -90,16 +83,9 @@ class ProcedureController extends Controller
             'procedure' => $form_procedure_input_user->load('form_procedure_detail_input')
         ]);
     }
-    public function update(Request $request, FormProcedureInputUser $form_procedure_input_user)
+    public function update(UpdateFormProcedureInputUserRequest $request, FormProcedureInputUser $form_procedure_input_user)
     {
-        $data = $request->all();
-        $validator = Validator::make($data, [
-            'reported_at' => 'required',
-        ]);
         DB::beginTransaction();
-        if ($validator->fails()) {
-            return $this->sendFailedResponse(['errors' => $validator->errors()]);
-        }
         $form_procedure_input_user->update([
             'reported_at' => $request->reported_at,
         ]);
