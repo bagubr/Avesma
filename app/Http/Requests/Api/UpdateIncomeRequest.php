@@ -33,7 +33,7 @@ class UpdateIncomeRequest extends ApiRequest
     public function messages()
     {
         return [
-            'reported_at.unique' => 'Tanggal Tersebut Sudah Anda Gunakan',
+            'reported_at.unique' => 'Tanggal Tersebut Sudah Anda Gunakan, Pada Data Lain',
         ];
     }
 }
