@@ -51,7 +51,7 @@ class PondHarvestController extends Controller
         );
         return $this->sendSuccessResponse([
             'pond_harvest' => $pond_harvest
-        ]);
+        ], 'Panen Anda Berhasil Tersimpan');
     }
     public function update_status(UpdateStatusPondHarvestRequest $request, PondHarvest $pond_harvest)
     {
