@@ -8,6 +8,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Http\Request;
 
 class OutcomeSettingController extends AdminController
 {
@@ -78,5 +79,12 @@ class OutcomeSettingController extends AdminController
         $form->disableEditingCheck();
 
         return $form;
+    }
+
+    public function getByOutcomeCategoryId(Request $request)
+    {
+        $category_id =  $request->get('q');
+        $outcome_setting = OutcomeSetting::where('outcome_category_id', $category_id)->get();
+        return $outcome_setting;
     }
 }

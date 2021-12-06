@@ -15,12 +15,18 @@ class OutcomeSetting extends Model
     ];
 
     protected $appends = [
-        'outcome_category'
+        'outcome_category',
+        'text'
     ];
 
     public function getOutcomeCategoryAttribute()
     {
         return $this->outcome_category()->first()?->name;
+    }
+
+    public function getTextAttribute()
+    {
+        return $this->outcome_category()->first()?->name .' - '. $this->name;
     }
 
     public function outcome_category()

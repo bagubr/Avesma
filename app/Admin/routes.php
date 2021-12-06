@@ -44,6 +44,7 @@ Route::group([
     $router->resource('income-details', IncomeDetailController::class);
     $router->resource('outcomes', OutcomeController::class);
     $router->resource('outcome-categories', OutcomeCategoryController::class);
+    $router->get('outcome-settings/get_by_outcome_category_id', 'OutcomeSettingController@getByOutcomeCategoryId');
     $router->resource('outcome-settings', OutcomeSettingController::class);
     $router->resource('settings', SettingController::class);
     $router->resource('testimonials', TestimonialController::class);
@@ -60,4 +61,5 @@ Route::group([
     $router->resource('slider-markets', SliderMarketController::class);
     $router->resource('broadcasts', BroadcastController::class);
     $router->resource('pond-harvests', PondHarvestController::class);
+    $router->resource('customer-services', CustomerServiceController::class);
 });
