@@ -33,14 +33,13 @@ class ArticleController extends AdminController
         $grid->quickSearch('title', 'description', 'article_category.name', 'type');
         $grid->column('article_category.name', __('Kategori Artikel'));
         $grid->column('title', __('Title'));
-        $grid->column('description', __('Description'))->display(function ($description)
-        {
+        $grid->column('description', __('Description'))->display(function ($description) {
             return $description;
-        });
+        })->limit(30);
         $grid->column('image', __('Image'))->image();
         $grid->column('type', __('Type'));
-        $grid->column('embed_link', __('Embed Link'))->link();
-        $grid->column('file', __('File'));
+        $grid->column('embed_link', __('Embed Link'))->link() ?? "Tidak Ada Link";
+        $grid->column('file', __('File'))->link();
 
         return $grid;
     }
@@ -62,8 +61,7 @@ class ArticleController extends AdminController
         $show->field('image', __('Image'));
         $show->field('embed_link', __('Embed Link'));
         $show->field('file', __('File'));
-        $show->panel()->tools(function ($tools)
-        {
+        $show->panel()->tools(function ($tools) {
             $tools->disableList();
             $tools->disableEdit();
             $tools->disableDelete();
@@ -89,15 +87,13 @@ class ArticleController extends AdminController
             Article::TYPE_FILE => 'File',
             Article::TYPE_VIDEO_EMBED => 'Video Embed Youtube'
         ])
-        ->when(Article::TYPE_FILE, function (Form $form)
-        {
-            $form->file('file', __('File'));
-        })
-        ->when(Article::TYPE_VIDEO_EMBED, function (Form $form)
-        {
-            $form->text('embed_link', __('Embed Link'));
-        })
-        ->required();
+            ->when(Article::TYPE_FILE, function (Form $form) {
+                $form->file('file', __('File'));
+            })
+            ->when(Article::TYPE_VIDEO_EMBED, function (Form $form) {
+                $form->text('embed_link', __('Embed Link'));
+            })
+            ->required();
         $form->disableCreatingCheck();
         $form->disableViewCheck();
         $form->disableEditingCheck();

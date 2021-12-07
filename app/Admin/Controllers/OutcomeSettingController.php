@@ -17,7 +17,7 @@ class OutcomeSettingController extends AdminController
      *
      * @var string
      */
-    protected $title = 'List Pengeluaran';
+    protected $title = 'Jenis Pengeluaran';
 
     /**
      * Make a grid builder.

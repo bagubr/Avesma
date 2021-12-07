@@ -29,6 +29,7 @@ class FormProcedureInputUserController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new FormProcedureInputUser());
+        $grid->model()->orderBy('id', 'desc');
         $grid->disableFilter();
         $grid->quickSearch('user.name', 'fish_and_procedure', 'pond_detail.pond_spesies', 'reported_at');
         $grid->column('user.name', __('User Name'));

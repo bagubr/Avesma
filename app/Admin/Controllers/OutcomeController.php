@@ -19,7 +19,7 @@ class OutcomeController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Outcome';
+    protected $title = 'Pengeluaran';
 
     /**
      * Make a grid builder.
@@ -30,7 +30,7 @@ class OutcomeController extends AdminController
     {
         $grid = new Grid(new Outcome());
 
-        
+        $grid->model()->orderBy('id', 'desc');
         $grid->column('pond_detail.pond_spesies', __('Kolam Ikan'));
         $grid->column('total_nominal', __('Total nominal'));
         $grid->column('outcome_category_name', __('Kategory Pengeluaran'));
