@@ -45,7 +45,7 @@ class OutcomeController extends Controller
             })->get();
 
         return $this->sendSuccessResponse([
-            'outcome_total' => $outcome_tetap->first()->total_nominal + $outcomes_lain->sum('total_nominal') ?? 0,
+            'outcome_total' => $outcome_tetap->first()->total_nominal ?? 0 + $outcomes_lain->sum('total_nominal') ?? 0,
             'outcome_tetap' => $outcome_tetap->first() ?? new stdClass(),
             'outcomes_lain' => $outcomes_lain,
         ]);
