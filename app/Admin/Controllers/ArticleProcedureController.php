@@ -84,8 +84,8 @@ class ArticleProcedureController extends AdminController
         $form = new Form(new ArticleProcedure());
 
         $form->select('procedure_id', __('Procedure'))->options(Procedure::all()->pluck('title', 'id'))->required();
-        $form->text('title', __('Title'));
-        $form->summernote('description', __('Description'));
+        $form->text('title', __('Title'))->required();
+        $form->summernote('description', __('Description'))->required();
         $form->select('type', __('Tipe'))->options([
             ArticleProcedure::TYPE_FILE => 'File',
             ArticleProcedure::TYPE_VIDEO_EMBED => 'Video Embed Youtube'
@@ -99,7 +99,7 @@ class ArticleProcedureController extends AdminController
             $form->text('embed_link', __('Embed Link'));
         })
         ->required();
-        $form->image('image', __('Image'));
+        $form->image('image', __('Image'))->required();
         $form->disableCreatingCheck();
         $form->disableViewCheck();
         $form->disableEditingCheck();
