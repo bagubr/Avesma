@@ -25,6 +25,7 @@ class FishSpeciesResource extends JsonResource
             "image_url" => $this->image_url,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
+            "fish_category_name" => $this->fish_category->name,
         ];
     }
     public function getCount($user_id, $id)
