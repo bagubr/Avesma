@@ -35,7 +35,7 @@ class ProcedureController extends Controller
     public function getProcedureList(Request $request)
     {
         $procedure_users = FormProcedureInputUser::where('pond_detail_id', $request->pond_detail_id)
-            ->where('form_procedure_id', $request->form_procedure_id)->get();
+            ->where('form_procedure_id', $request->form_procedure_id)->orderBy('id')->get();
         return $this->sendSuccessResponse([
             'form_procedure_input_users' => ProcedureUserResource::collection($procedure_users)
         ]);

@@ -42,7 +42,7 @@ class ProcedureController extends AdminController
             $actions->disableDelete();
             $actions->disableView();
         });
-
+        $grid->model()->orderBy('id');
         return $grid;
     }
 
