@@ -14,7 +14,7 @@ class ProcedureRepository
             $query->whereHas('form_procedures', function ($q) use ($filter) {
                 $q->where('fish_species_id', $filter['fish_species_id']);
             });
-        });
+        })->orderBy('id');
     }
 
     public static function get()
