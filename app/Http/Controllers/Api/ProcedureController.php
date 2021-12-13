@@ -71,7 +71,7 @@ class ProcedureController extends Controller
             'form_procedure_id' => $request->form_procedure_id,
         ]);
         foreach ($request->data as $i) {
-            dd(FormProcedureFormula::where('id', $i['form_procedure_detail_formula_id'])->first());
+            dd($i['form_procedure_detail_formula_id'], FormProcedureFormula::where('id', $i['form_procedure_detail_formula_id'])->first());
             FormProcedureDetailInput::create([
                 'form_procedure_detail_id' => $i['form_procedure_detail_id'],
                 'form_procedure_detail_formula_id' => $i['form_procedure_detail_formula_id'],
