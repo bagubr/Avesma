@@ -62,7 +62,7 @@ class ProcedureController extends Controller
     }
     public function store(CreateFormProcedrueInputUserRequest $request)
     {
-        DB::beginTransaction();
+        // DB::beginTransaction();
         $form_procedure_input_user = FormProcedureInputUser::create([
             'user_id' => $request->user()->id,
             'pond_detail_id' => $request->pond_detail_id,
@@ -77,7 +77,7 @@ class ProcedureController extends Controller
                 'form_procedure_input_user_id' => $form_procedure_input_user->id,
             ]);
         };
-        DB::commit();
+        // DB::commit();
 
         return $this->sendSuccessResponse([
             'procedure' => $form_procedure_input_user->load('form_procedure_detail_input')
