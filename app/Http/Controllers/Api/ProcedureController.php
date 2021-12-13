@@ -11,6 +11,7 @@ use App\Models\FormProcedure;
 use App\Models\FormProcedureDetail;
 use App\Models\FormProcedureDetailFormula;
 use App\Models\FormProcedureDetailInput;
+use App\Models\FormProcedureFormula;
 use App\Models\FormProcedureInputUser;
 use App\Models\Procedure;
 use App\Repositories\ProcedureRepository;
@@ -73,7 +74,8 @@ class ProcedureController extends Controller
             FormProcedureDetailInput::create([
                 'form_procedure_detail_id' => $i['form_procedure_detail_id'],
                 'form_procedure_detail_formula_id' => $i['form_procedure_detail_formula_id'],
-                'score' => FormProcedureDetailFormula::findOrFail($i['form_procedure_detail_formula_id'])->score,
+                // 'score' => FormProcedureDetailFormula::findOrFail($i['form_procedure_detail_formula_id'])->score,
+                'score' => FormProcedureFormula::find($i['form_procedure_detail_formula_id'])->score,
                 'form_procedure_input_user_id' => $form_procedure_input_user->id,
             ]);
         };
