@@ -70,12 +70,11 @@ class ProcedureController extends Controller
             'reported_at' => $request->reported_at,
             'form_procedure_id' => $request->form_procedure_id,
         ]);
-        dd($form_procedure_input_user);
         foreach ($request->data as $i) {
             FormProcedureDetailInput::create([
                 'form_procedure_detail_id' => $i['form_procedure_detail_id'],
                 'form_procedure_detail_formula_id' => $i['form_procedure_detail_formula_id'],
-                'score' => FormProcedureFormula::find($i['form_procedure_detail_formula_id'])->score,
+                // 'score' => FormProcedureFormula::find($i['form_procedure_detail_formula_id'])->score,
                 'form_procedure_input_user_id' => $form_procedure_input_user->id,
             ]);
         };
