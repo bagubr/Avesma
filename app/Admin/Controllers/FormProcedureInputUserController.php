@@ -29,17 +29,26 @@ class FormProcedureInputUserController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new FormProcedureInputUser());
-        $grid->model()->orderBy('id', 'desc');
-        $grid->disableFilter();
+        // $grid->disableFilter();
+        // $grid->filter(function ($filter)
+        // {
+        //     $filter->scope('BAIK')->whereHas('form_procedure_formula', function ($query) use()
+        //     {
+                
+        //         // $query;
+        //         $query->where('form_procedure_id', $this->form_procedure_id)->where('min_range', '<=', $this->total_score)->where('max_range', '>=', $this->total_score)->where('note', 'BAIK');
+        //     });
+        // });
         $grid->quickSearch('user.name', 'fish_and_procedure', 'pond_detail.pond_spesies', 'reported_at');
         $grid->column('user.name', __('User Name'));
         $grid->column('pond_detail.pond_spesies', __('Kolam'));
         $grid->column('form_procedure.fish_and_procedure', __('SOP'));
         $grid->column('total_score', __('Score'));
-        $grid->column('form_procedure_formula', __('Hasil'));
+        $grid->column('form_procedure_formula_note', __('Hasil'));
         $grid->column('reported_at', __('Reported at'));
         $grid->column('created_at', __('Created at'));
-
+        
+        $grid->model()->orderBy('id', 'desc');
         return $grid;
     }
 

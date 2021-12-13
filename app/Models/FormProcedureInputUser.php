@@ -15,7 +15,7 @@ class FormProcedureInputUser extends Model
 
     protected $appends = [
         'form_procedure_name',
-        'form_procedure_formula',
+        'form_procedure_formula_note',
         'total_score',
     ];
     public function user()
@@ -32,9 +32,15 @@ class FormProcedureInputUser extends Model
         return $this->belongsTo(FormProcedure::class, 'form_procedure_id');
     }
 
+    public function form_procedure_formula()
+    {
+        return $this->hasMany(FormProcedureFormula::class, 'form_procedure_id', 'form_procedure_id');
+    }
+
     public function form_procedure_detail_input()
     {
-        return $this->hasMany(FormProcedureDetailInput::class, 'form_procedure_input_user_id', 'id');
+        return $this->hasMany(FormProcedureDetailInput::class, 'form_procedure_input_user_id', 'id')->where('min_range', '<=', $this->getTotalScoreAttribute())
+        ->where('max_range', '>=', $this->getTotalScoreAttribute());
     }
 
     public function getCreatedAtAttribute($value)
@@ -51,13 +57,17 @@ class FormProcedureInputUser extends Model
         return $this->form_procedure?->procedure_name ?? "";
     }
 
-    public function getFormProcedureFormulaAttribute()
+    public function getFormProcedureFormulaNoteAttribute()
     {
-        return FormProcedureFormula::where('form_procedure_id', $this->form_procedure_id)->where('min_range', '<=', $this->total_score)
-            ->where('max_range', '>=', $this->total_score)->first()->note;
+        return $this->form_procedure_formula()->first()->note;
     }
 
     public function getTotalScoreAttribute()
+    {
+        return $this->total_score();
+    }
+
+    public function total_score()
     {
         return $this->form_procedure_detail_input()->get()?->sum('score') ?? 0;
     }

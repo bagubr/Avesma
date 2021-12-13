@@ -25,7 +25,14 @@ class FishCategoryController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new FishCategory());
-
+        $grid->disableActions();
+        $grid->disableExport();
+        $grid->disablePagination();
+        $grid->disableRowSelector();
+        $grid->disableColumnSelector();
+        $grid->disableFilter();
+        $grid->disableCreateButton();
+        $grid->quickSearch('name');
         $grid->column('name', __('Nama'));
         $grid->column('image', __('Image'))->image();
 
