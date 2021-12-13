@@ -80,7 +80,7 @@ class ProcedureController extends Controller
         // DB::commit();
 
         return $this->sendSuccessResponse([
-            'procedure' => $form_procedure_input_user->load('form_procedure_detail_input')
+            'procedure' => $form_procedure_input_user
         ]);
     }
     public function update(UpdateFormProcedureInputUserRequest $request, FormProcedureInputUser $form_procedure_input_user)
