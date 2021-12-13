@@ -63,7 +63,7 @@ class ProcedureController extends Controller
     }
     public function store(CreateFormProcedrueInputUserRequest $request)
     {
-        // DB::beginTransaction();
+        DB::beginTransaction();
         $form_procedure_input_user = FormProcedureInputUser::create([
             'user_id' => $request->user()->id,
             'pond_detail_id' => $request->pond_detail_id,
@@ -74,12 +74,12 @@ class ProcedureController extends Controller
             FormProcedureDetailInput::create([
                 'form_procedure_detail_id' => $i['form_procedure_detail_id'],
                 'form_procedure_detail_formula_id' => $i['form_procedure_detail_formula_id'],
-                // 'score' => FormProcedureDetailFormula::findOrFail($i['form_procedure_detail_formula_id'])->score,
                 'score' => FormProcedureFormula::find($i['form_procedure_detail_formula_id'])->score,
                 'form_procedure_input_user_id' => $form_procedure_input_user->id,
             ]);
         };
-        // DB::commit();
+        dd(FormProcedureFormula::find($i['form_procedure_detail_formula_id'])->score);
+        DB::commit();
 
         return $this->sendSuccessResponse([
             'procedure' => $form_procedure_input_user
