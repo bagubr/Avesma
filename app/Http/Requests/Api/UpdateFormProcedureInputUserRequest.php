@@ -15,6 +15,7 @@ class UpdateFormProcedureInputUserRequest extends ApiRequest
                 'required',
                 'date',
                 Rule::unique('form_procedure_input_users', 'reported_at')
+                    ->where('form_procedure_id', $this->form_procedure_input_user->form_procedure_id)
                     ->where('pond_detail_id', $this->form_procedure_input_user->pond_detail_id)
                     ->ignore($this->form_procedure_input_user->id),
             ],
