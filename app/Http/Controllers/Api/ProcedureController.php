@@ -91,7 +91,7 @@ class ProcedureController extends Controller
             FormProcedureDetailInput::create([
                 'form_procedure_detail_id' => $i['form_procedure_detail_id'],
                 'form_procedure_detail_formula_id' => $i['form_procedure_detail_formula_id'],
-                'score' => FormProcedureDetailFormula::findOrFail($i['form_procedure_detail_formula_id'])->score,
+                'score' => FormProcedureDetailFormula::where('id', $i['form_procedure_detail_formula_id'])->first()->score,
                 'form_procedure_input_user_id' => $form_procedure_input_user->id,
             ]);
         };
