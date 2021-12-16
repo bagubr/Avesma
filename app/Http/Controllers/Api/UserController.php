@@ -46,7 +46,8 @@ class UserController extends Controller
     public function updateAvatar(Request $request)
     {
         $user = $request->user();
-        $avatar = $request->file('file')->move('storage/avatar', $request->user()->id . '-' . time() . '.' . $request->file('file')->getClientOriginalExtension());
+
+        $avatar = $request->file('file')->store('images', ['disk' => 'public']);
         $user->update([
             'avatar' => $avatar
         ]);
