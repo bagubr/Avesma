@@ -62,4 +62,5 @@ Route::group([
     $router->resource('broadcasts', BroadcastController::class);
     $router->resource('pond-harvests', PondHarvestController::class);
     $router->resource('customer-services', CustomerServiceController::class);
+    $router->resource('versions', VersionController::class);
 });
