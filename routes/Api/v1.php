@@ -103,8 +103,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('ponds/status', [PondController::class, 'statuses']);
     Route::post('ponds/update/{pond}', [PondController::class, 'update']);
     Route::post('ponds/update_status/{pond}', [PondController::class, 'update_status']);
+
+    //product
     Route::get('ponds/products', [PondDetailProductController::class, 'index']);
+    Route::get('ponds/products/{pond_detail_product}', [PondDetailProductController::class, 'show']);
     Route::post('ponds/products', [PondDetailProductController::class, 'store']);
+    Route::post('ponds/products/update/{pond_detail_product}', [PondDetailProductController::class, 'update']);
+    Route::delete('ponds/products/delete/{pond_detail_product}', [PondDetailProductController::class, 'destroy']);
 
     Route::get('pond_harvests', [PondHarvestController::class, 'index']);
     Route::get('pond_harvests/status', [PondHarvestController::class, 'statuses']);
