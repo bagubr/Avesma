@@ -33,6 +33,10 @@ class Procedure extends Model
     {
         return url('uploads/' . $this->image);
     }
+    public function articles()
+    {
+        return $this->hasMany(ArticleProcedure::class, 'procedure_id');
+    }
     public function form_procedures()
     {
         return $this->hasMany(FormProcedure::class,'procedure_id');

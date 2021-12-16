@@ -50,7 +50,7 @@ class ProcedureController extends Controller
     public function getFormProcedure($id)
     {
         $form_procedure = FormProcedure::where('id', $id)
-            ->with('form_procedure_detail.form_procedure_detail_formulas')->first();
+            ->with('form_procedure_detail.form_procedure_detail_formulas', 'procedure.articles')->first();
         $this->sendSuccessResponse([
             'form_procedure' => $form_procedure
         ]);
