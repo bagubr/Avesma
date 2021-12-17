@@ -25,6 +25,8 @@ class SliderController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Slider());
+        $grid->model()->orderBy('id', 'desc');
+
         $grid->filter(function($filter){
             $filter->disableIdFilter();
             $filter->like('title', 'Title');
