@@ -31,6 +31,8 @@ class ArticleController extends AdminController
         $grid->disableRowSelector();
         $grid->disableColumnSelector();
         $grid->quickSearch('title', 'description', 'article_category.name', 'type');
+        
+        $grid->model()->orderBy('id', 'desc');
         $grid->column('article_category.name', __('Kategori Artikel'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'))->display(function ($description) {
