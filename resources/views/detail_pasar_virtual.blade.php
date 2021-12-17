@@ -61,7 +61,7 @@
             <div class="form-group">
                 <label class="font-weight-bold">Pertanyaan <span class="text-danger">*</span></label>
                 <textarea name="question" class="form-control" id="" cols="30" rows="10"
-                    placeholder="Masukkan Petanyaan Anda" required></textarea>
+                    placeholder="Masukkan Pertanyaan Anda" required></textarea>
             </div>
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="Whatsapp">
