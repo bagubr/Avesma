@@ -25,7 +25,10 @@ class FishCategoryController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new FishCategory());
-        $grid->disableActions();
+        $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $actions->disableView();
+            $actions->disableDelete();
+        });
         $grid->disableExport();
         $grid->disablePagination();
         $grid->disableRowSelector();
@@ -70,6 +73,11 @@ class FishCategoryController extends AdminController
         $form->disableCreatingCheck();
         $form->disableEditingCheck();
         $form->disableViewCheck();
+        $form->tools(function (Form\Tools $tools) {
+            $tools->disableDelete();
+            $tools->disableView();
+            $tools->disableList();
+        });
         return $form;
     }
 }
