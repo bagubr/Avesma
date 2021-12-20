@@ -27,9 +27,12 @@ class IncomeController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Income());
-        $grid->disableFilter();
-        $grid->quickSearch('pond_spesies', 'reported_at');
+        $grid->filter(function($filter){
+            $filter->disableIdFilter();
+            $filter->ilike('pond_detail.pond.name', 'Kolam');
+            $filter->ilike('pond_detail.fish_species.name', 'Spesies Ikan');
         
+        });        
         $grid->column('pond_spesies', __('Kolam Ikan'));
         $grid->column('reported_at', __('Reported at'));
         $grid->column('total_price', __('Total Pendapatan'));

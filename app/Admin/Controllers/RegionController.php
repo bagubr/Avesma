@@ -27,11 +27,8 @@ class RegionController extends AdminController
         $grid = new Grid(new Region());
         $grid->filter(function($filter){
             $filter->disableIdFilter();
-            $filter->like('name', 'name');
-        });
-
-        $grid->quickSearch('name', 'Name');
-        
+            $filter->ilike('name', 'name');
+        });        
         $grid->column('name', __('Name'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));

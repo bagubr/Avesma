@@ -29,11 +29,10 @@ class FishSpeciesController extends AdminController
 
         $grid->filter(function($filter){
             $filter->disableIdFilter();
-            $filter->like('name', 'Name');
-            $filter->like('fish_category.name', 'Jenis Kultivan');
+            $filter->ilike('name', 'Name');
+            $filter->ilike('fish_category.name', 'Jenis Kultivan');
         });
 
-        $grid->quickSearch('name', 'fish_category.name');
 
         $grid->disableExport();
 

@@ -32,7 +32,6 @@ class OutcomeSettingController extends AdminController
         $grid->disableExport();
         $grid->disableRowSelector();
         $grid->disableColumnSelector();
-        $grid->quickSearch('name', 'outcome_category.name');
         $grid->column('outcome_category.name', __('Kategori Pengeluaran'));
         $grid->column('name', __('Name'));
         $grid->column('created_at', __('Created at'));

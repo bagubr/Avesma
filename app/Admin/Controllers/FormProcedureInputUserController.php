@@ -29,17 +29,12 @@ class FormProcedureInputUserController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new FormProcedureInputUser());
-        // $grid->disableFilter();
-        // $grid->filter(function ($filter)
-        // {
-        //     $filter->scope('BAIK')->whereHas('form_procedure_formula', function ($query) use()
-        //     {
-                
-        //         // $query;
-        //         $query->where('form_procedure_id', $this->form_procedure_id)->where('min_range', '<=', $this->total_score)->where('max_range', '>=', $this->total_score)->where('note', 'BAIK');
-        //     });
-        // });
-        $grid->quickSearch('user.name', 'fish_and_procedure', 'pond_detail.pond_spesies', 'reported_at');
+        $grid->filter(function ($filter) {
+            $filter->disableIdFilter();
+            $filter->equal('user.id', 'Pengguna')->select(
+                User::all()->pluck('name', 'id')
+            );
+        });
         $grid->column('user.name', __('User Name'));
         $grid->column('pond_detail.pond_spesies', __('Kolam'));
         $grid->column('form_procedure.fish_and_procedure', __('SOP'));

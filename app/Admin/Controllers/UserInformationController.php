@@ -29,14 +29,18 @@ class UserInformationController extends AdminController
     {
         $grid = new Grid(new UserInformation());
 
-        $grid->filter(function($filter){
+        $grid->filter(function ($filter) {
             $filter->disableIdFilter();
-            $filter->like('user.name', 'Name');
-            $filter->like('nik', 'NIK');
+            $filter->ilike('user.name', 'Name');
+            $filter->ilike('nik', 'NIK');
+            $filter->equal('status')->select([
+                'PENDING' => 'Pending',
+                'CONFIRMED' => 'Confirmed',
+                'DECLINE' => 'Decline',
+            ]);
         });
         $grid->disableExport();
 
-        $grid->quickSearch('user.name', 'nik');
         $grid->column('user.name', __('Nama Pembudidaya'));
         $grid->column('nik', __('NIK'));
         $grid->column('ktp_photo', __('Ktp photo'))->image();
@@ -70,8 +74,7 @@ class UserInformationController extends AdminController
         // $show->field('deleted_at', __('Deleted at'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->panel()->tools(function ($tools)
-        {
+        $show->panel()->tools(function ($tools) {
             $tools->disableList();
             $tools->disableEdit();
             $tools->disableDelete();
@@ -89,15 +92,15 @@ class UserInformationController extends AdminController
         $form = new Form(new UserInformation());
 
         // $form->number('user_id', __('User id'));
-        $form->select('user_id', __('Pembudidaya'))->options(User::all()->pluck('name','id'));
+        $form->select('user_id', __('Pembudidaya'))->options(User::all()->pluck('name', 'id'));
         $form->text('nik', __('NIK'));
         $form->image('ktp_photo', __('KTP photo'));
         $form->image('ktp_selfie_photo', __('KTP selfie photo'));
         $data = [
-                'PENDING' => 'Pending',
-                'CONFIRMED' => 'Confirmed',
-                'DECLINE' => 'Decline',
-            ];
+            'PENDING' => 'Pending',
+            'CONFIRMED' => 'Confirmed',
+            'DECLINE' => 'Decline',
+        ];
         $form->select('status', __('Status'))->options($data);
         $form->disableCreatingCheck();
         $form->disableEditingCheck();
