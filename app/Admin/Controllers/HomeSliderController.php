@@ -2,20 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\SliderMarket;
+use App\Models\HomeSlider;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class SliderMarketController extends AdminController
+class HomeSliderController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'SliderMarket';
+    protected $title = 'HomeSlider';
 
     /**
      * Make a grid builder.
@@ -24,15 +24,13 @@ class SliderMarketController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new SliderMarket());
+        $grid = new Grid(new HomeSlider());
         $grid->disableFilter();
         $grid->disableColumnSelector();
         $grid->disableExport();
-        $grid->disableRowSelector();
         $grid->disablePagination();
+        $grid->disableRowSelector();
         $grid->column('image', __('Image'))->image();
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }
@@ -45,10 +43,9 @@ class SliderMarketController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(SliderMarket::findOrFail($id));
-        $show->field('image', __('Image'))->image();
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $show = new Show(HomeSlider::findOrFail($id));
+
+        $show->field('image', __('Image'));
 
         return $show;
     }
@@ -60,9 +57,9 @@ class SliderMarketController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new SliderMarket());
+        $form = new Form(new HomeSlider());
 
-        $form->image('image', __('Image'))->help('Disarankan menggunakan ukuran 1440px x 500px');;
+        $form->image('image', __('Image'))->help('Disarankan menggunakan ukuran 720px x 500px');
 
         return $form;
     }
