@@ -45,7 +45,7 @@ class PondController extends AdminController
         $grid->column('status', __('Status'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
-        $grid->exporter(new PondExporter());
+        // $grid->exporter(new PondExporter());
 
         return $grid;
     }
