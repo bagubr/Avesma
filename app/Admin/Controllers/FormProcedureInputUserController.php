@@ -35,14 +35,13 @@ class FormProcedureInputUserController extends AdminController
             $filter->ilike('pond_detail.pond.name', 'Kolam');
             $filter->ilike('pond_detail.fish_species.name', 'Jenis Ikan');
             $filter->ilike('form_procedure.procedure.title', 'SOP');
+            $filter->ilike('result', 'Hasil');
         });
         $grid->column('user.name', __('User Name'));
         $grid->column('pond_detail.pond_spesies', __('Kolam'));
         $grid->column('form_procedure_name', __('SOP'));
         $grid->column('total_score', __('Score'));
-        $grid->column('form_procedure_formula_note', __('Hasil'))->filter([
-            'CUKUP' => 'CUKUP',
-        ]);;
+        $grid->column('result', __('Hasil'));
         $grid->column('reported_at', __('Reported at'));
         $grid->column('created_at', __('Created at'));
         

@@ -10,13 +10,11 @@ class FormProcedureInputUser extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'pond_detail_id', 'reported_at', 'form_procedure_id'
+        'user_id', 'pond_detail_id', 'reported_at', 'form_procedure_id', 'total_score', 'result'
     ];
 
     protected $appends = [
         'form_procedure_name',
-        'form_procedure_formula_note',
-        'total_score',
     ];
     public function user()
     {
@@ -30,11 +28,6 @@ class FormProcedureInputUser extends Model
     public function form_procedure()
     {
         return $this->belongsTo(FormProcedure::class, 'form_procedure_id');
-    }
-
-    public function form_procedure_formula()
-    {
-        return $this->hasMany(FormProcedureFormula::class, 'form_procedure_id', 'form_procedure_id');
     }
 
     public function form_procedure_detail_input()
@@ -58,12 +51,6 @@ class FormProcedureInputUser extends Model
 
     public function getFormProcedureFormulaNoteAttribute()
     {
-        return $this->form_procedure_formula()->where('min_range', '<=', $this->total_score)
-        ->where('max_range', '>=', $this->total_score)->first()->note;
-    }
-
-    public function getTotalScoreAttribute()
-    {
-        return $this->form_procedure_detail_input()?->get()?->sum('score') ?? 0;
+        return $this->result;
     }
 }

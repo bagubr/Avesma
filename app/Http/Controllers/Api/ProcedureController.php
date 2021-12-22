@@ -64,16 +64,25 @@ class ProcedureController extends Controller
             'reported_at' => $request->reported_at,
             'form_procedure_id' => $request->form_procedure_id,
         ]);
+        $total_score = 0;
         foreach ($request->data as $i) {
-            FormProcedureDetailInput::create([
+            $form_detail_input = FormProcedureDetailInput::create([
                 'form_procedure_detail_id' => $i['form_procedure_detail_id'],
                 'form_procedure_detail_formula_id' => $i['form_procedure_detail_formula_id'],
                 'form_procedure_input_user_id' => $form_procedure_input_user->id,
                 'score' => FormProcedureDetailFormula::where('id', $i['form_procedure_detail_formula_id'])->first()->score,
             ]);
+            $total_score += $form_detail_input;
         };
+        $form_procedure_input_user->update([
+            'total_score' => $total_score ?? 0,
+            'result'    => FormProcedureFormula::where('form_procedure_id', $form_procedure_input_user->form_procedure_id)
+            ->where('min_range', '<=', $total_score)
+            ->where('max_range', '>=', $total_score)->first()->note??'TIDAK-DITEMUKAN'
+        ]);
         DB::commit();
-
+        
+        $form_procedure_input_user->refresh();
         return $this->sendSuccessResponse([
             'procedure' => $form_procedure_input_user->load('form_procedure_detail_input')
         ]);
@@ -84,17 +93,27 @@ class ProcedureController extends Controller
         $form_procedure_input_user->update([
             'reported_at' => $request->reported_at,
         ]);
+        $form_procedure_input_user->refresh();
         foreach ($form_procedure_input_user->form_procedure_detail_input as $key) {
             FormProcedureDetailInput::destroy($key->id);
         }
+        $total_score = 0;
         foreach ($request->data as $i) {
-            FormProcedureDetailInput::create([
+            $form_detail_input = FormProcedureDetailInput::create([
                 'form_procedure_detail_id' => $i['form_procedure_detail_id'],
                 'form_procedure_detail_formula_id' => $i['form_procedure_detail_formula_id'],
                 'score' => FormProcedureDetailFormula::where('id', $i['form_procedure_detail_formula_id'])->first()->score,
                 'form_procedure_input_user_id' => $form_procedure_input_user->id,
             ]);
+            $total_score += $form_detail_input->score;
         };
+        $form_procedure_input_user->update([
+            'total_score' => $total_score,
+            'result'    => FormProcedureFormula::where('form_procedure_id', $form_procedure_input_user->form_procedure_id)
+            ->where('min_range', '<=', $total_score)
+            ->where('max_range', '>=', $total_score)->first()->note??'TIDAK-DITEMUKAN'
+        ]);
+        $form_procedure_input_user->refresh();
         DB::commit();
 
         return $this->sendSuccessResponse([
