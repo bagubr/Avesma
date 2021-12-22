@@ -72,7 +72,7 @@ class ProcedureController extends Controller
                 'form_procedure_input_user_id' => $form_procedure_input_user->id,
                 'score' => FormProcedureDetailFormula::where('id', $i['form_procedure_detail_formula_id'])->first()->score,
             ]);
-            $total_score += $form_detail_input;
+            $total_score =+ $form_detail_input;
         };
         $form_procedure_input_user->update([
             'total_score' => $total_score ?? 0,
@@ -105,7 +105,7 @@ class ProcedureController extends Controller
                 'score' => FormProcedureDetailFormula::where('id', $i['form_procedure_detail_formula_id'])->first()->score,
                 'form_procedure_input_user_id' => $form_procedure_input_user->id,
             ]);
-            $total_score += $form_detail_input->score;
+            $total_score =+ $form_detail_input->score;
         };
         $form_procedure_input_user->update([
             'total_score' => $total_score,
