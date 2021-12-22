@@ -9,6 +9,7 @@ use App\Models\Benefit;
 use App\Models\Buyer;
 use App\Models\CustomerService;
 use App\Models\FishCategory;
+use App\Models\HomeSlider;
 use App\Models\IncomeDetail;
 use App\Models\Pond;
 use App\Models\PondHarvest;
@@ -30,7 +31,7 @@ class IndexController extends Controller
     public function home()
     {
         $about = About::first();
-        $sliders = Slider::all();
+        $sliders = HomeSlider::all();
         $testimonials = Testimonial::all();
         $benefits = Benefit::orderBy('id', 'asc')->get();
         return view('index', compact('sliders', 'testimonials', 'about', 'benefits'));

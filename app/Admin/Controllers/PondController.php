@@ -2,9 +2,9 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Extensions\PondExporter;
 use App\Models\FishSpecies;
 use App\Models\Pond;
-use App\Models\PondDetail;
 use App\Models\User;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -35,16 +35,17 @@ class PondController extends AdminController
         $grid->column('user.name', __('User'));
         $grid->column('pond_detail.pond_spesies', __('Jenis Ikan'));
         $grid->column('pond_detail.seed_count', __('Jumlah Pakan'));
-        $grid->column('area', __('Luas Area'))->display(function ($area)
-        {
-            return $area. ' m<sup>2</sup>';
+        $grid->column('area', __('Luas Area'))->display(function ($area) {
+            return $area . ' m<sup>2</sup>';
         });
+
         $grid->column('latitude', __('Latitude'));
         $grid->column('longitude', __('Longitude'));
         $grid->column('address', __('Address'));
         $grid->column('status', __('Status'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
+        // $grid->exporter(new PondExporter());
 
         return $grid;
     }
@@ -125,7 +126,7 @@ class PondController extends AdminController
         // {
         //     $form->ignore('fish_species_id', 'seed_count');
         // });
-        
+
         return $form;
     }
 }

@@ -8,8 +8,6 @@
 
     .slider-img img {
         height: 500px;
-        object-fit: cover;
-        object-position: center;
     }
 
     @media (min-width: 768px) {

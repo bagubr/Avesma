@@ -11,12 +11,12 @@ use App\Models\FormProcedure;
 use App\Models\FormProcedureDetail;
 use App\Models\FormProcedureDetailFormula;
 use App\Models\FormProcedureDetailInput;
+use App\Models\FormProcedureFormula;
 use App\Models\FormProcedureInputUser;
 use App\Models\Procedure;
 use App\Repositories\ProcedureRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 class ProcedureController extends Controller
 {
@@ -49,13 +49,8 @@ class ProcedureController extends Controller
     }
     public function getFormProcedure($id)
     {
-        // $procedures_detail = FormProcedure::with('form_procedure_detail.form_procedure_detail_formulas')->where('fish_species_id', $request->fish_species_id)
-        //     ->when($request->procedure_id, function ($query) use ($request) {
-        //         $query->where('procedure_id', $request->procedure_id);
-        //     })->get()->first();
-
         $form_procedure = FormProcedure::where('id', $id)
-            ->with('form_procedure_detail.form_procedure_detail_formulas')->first();
+            ->with('form_procedure_detail.form_procedure_detail_formulas', 'procedure.articles')->first();
         $this->sendSuccessResponse([
             'form_procedure' => $form_procedure
         ]);
@@ -73,8 +68,8 @@ class ProcedureController extends Controller
             FormProcedureDetailInput::create([
                 'form_procedure_detail_id' => $i['form_procedure_detail_id'],
                 'form_procedure_detail_formula_id' => $i['form_procedure_detail_formula_id'],
-                'score' => FormProcedureDetailFormula::findOrFail($i['form_procedure_detail_formula_id'])->score,
                 'form_procedure_input_user_id' => $form_procedure_input_user->id,
+                'score' => FormProcedureDetailFormula::where('id', $i['form_procedure_detail_formula_id'])->first()->score,
             ]);
         };
         DB::commit();
@@ -96,7 +91,7 @@ class ProcedureController extends Controller
             FormProcedureDetailInput::create([
                 'form_procedure_detail_id' => $i['form_procedure_detail_id'],
                 'form_procedure_detail_formula_id' => $i['form_procedure_detail_formula_id'],
-                'score' => FormProcedureDetailFormula::findOrFail($i['form_procedure_detail_formula_id'])->score,
+                'score' => FormProcedureDetailFormula::where('id', $i['form_procedure_detail_formula_id'])->first()->score,
                 'form_procedure_input_user_id' => $form_procedure_input_user->id,
             ]);
         };

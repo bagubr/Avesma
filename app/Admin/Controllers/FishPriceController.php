@@ -72,7 +72,7 @@ class FishPriceController extends AdminController
         $form = new Form(new FishPrice());
 
         $form->select('fish_species_id', __('Fish species'))->options(FishSpecies::get()->pluck('name', 'id'));
-        $form->number('price', __('Price'));
+        $form->currency('price', __('Price'))->symbol('Rp');
         $form->date('reported_at', __('Reported at'));
         $form->select('region_id', __('Wilayah'))->options(Region::get()->pluck('name', 'id'));
         $form->switch('is_verified', __('Is verified'));

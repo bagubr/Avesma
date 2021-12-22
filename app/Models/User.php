@@ -58,7 +58,7 @@ class User extends Authenticatable
 
     public function getAvatarUrlAttribute()
     {
-        return asset($this->attributes['avatar']);
+        return url('uploads/' . $this->avatar);
     }
 
     public function getCreatedAtAttribute($value)

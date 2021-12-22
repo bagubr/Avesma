@@ -10,6 +10,7 @@ use App\Models\Disclaimer;
 use App\Models\FishCategory;
 use App\Models\Notification;
 use App\Models\Slider;
+use App\Models\Version;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         UserService::updateFcmToken($request->user(), $request->fcm_token);
+        $version = Version::first();
         $sliders = Slider::inRandomOrder()->get();
         $fish_categories = FishCategory::all();
         $articles = Article::inRandomOrder()->limit(10)->get();
@@ -34,9 +36,10 @@ class HomeController extends Controller
             'article_procedures' => $article_procedures,
             'disclaimer' => $disclaimer,
             'un_seen_notification' => $un_seen_notification,
+            'version' => $version,
         ]);
     }
-    public function store (Request $request)
+    public function store(Request $request)
     {
         $fcm_token = UserService::updateFcmToken($request->user(), $request->fcm_token);
         return $this->sendSuccessResponse([

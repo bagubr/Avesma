@@ -7,7 +7,7 @@ var app = new Vue({
         markets: [],
         loading: false,
         local: "http://localhost:8000/api/v1/markets",
-        live: "https://avesma.dev.can.co.id/api/v1/markets"
+        live: "https://avesma.id/api/v1/markets"
     },
     mounted() {
         this.getMarkets();

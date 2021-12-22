@@ -44,6 +44,11 @@ class Income extends Model
         return date("d-m-Y H:i:s", strtotime($value));
     }
 
+    public function getReportedAtAttribute($value)
+    {
+        return date("d-m-Y", strtotime($value));
+    }
+
     public function getUpdatedAtAttribute($value)
     {
         return date("d-m-Y H:i:s", strtotime($value));

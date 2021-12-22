@@ -26,11 +26,23 @@ class ArticleController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Article());
-        $grid->disableFilter();
+        $grid->filter(function ($filter) {
+            $filter->disableIdFilter();
+            $filter->ilike('title', 'Judul');
+            $filter->equal('type', 'Tipe Artikel')->select([
+                Article::TYPE_FILE => Article::TYPE_FILE,
+                Article::TYPE_VIDEO_EMBED => Article::TYPE_VIDEO_EMBED
+            ]);
+            $filter->equal('article_category_id', 'Kategori Artikel')->select(
+                ArticleCategory::all()->pluck('name', 'id')
+            );
+        });
         $grid->disableExport();
         $grid->disableRowSelector();
         $grid->disableColumnSelector();
         $grid->quickSearch('title', 'description', 'article_category.name', 'type');
+
+        $grid->model()->orderBy('id', 'desc');
         $grid->column('article_category.name', __('Kategori Artikel'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'))->display(function ($description) {

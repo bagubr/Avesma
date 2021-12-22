@@ -28,21 +28,6 @@ class IncomeController extends Controller
             'income_total' => $income_total,
             'incomes' => IncomeIndexResource::collection($incomes->get()),
         ]);
-        // $this->sendSuccessResponse([
-        //     'incomes' => Income::with('income_detail')->when($request->reported_at, function ($query) use ($request) {
-        //         $query->whereDate('reported_at', $request->reported_at);
-        //     })->when($request->year, function ($query) use ($request) {
-        //         $query->whereYear('reported_at', $request->year);
-        //     })->when($request->month, function ($query) use ($request) {
-        //         $query->whereMonth('reported_at', $request->month);
-        //     })
-        //         ->when($request->pond_detail_product_id, function ($q) use ($request) {
-        //             $q->whereHas('income_detail', function ($query) use ($request) {
-        //                 $query->where('pond_detail_product_id', $request->pond_detail_product_id);
-        //             });
-        //         })
-        //         ->simplePaginate(20)
-        // ]);
     }
     public function show($id)
     {

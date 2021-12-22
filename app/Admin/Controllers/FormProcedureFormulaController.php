@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\FishSpecies;
 use App\Models\FormProcedure;
 use App\Models\FormProcedureFormula;
 use App\Models\Procedure;
@@ -29,8 +30,16 @@ class FormProcedureFormulaController extends AdminController
     {
         $grid = new Grid(new FormProcedureFormula());
 
-        
-        $grid->quickSearch('fish_and_procedure', 'note', 'min_range', 'max_range');
+
+        $grid->filter(function ($filter) {
+            $filter->disableIdFilter();
+            $filter->equal('form_procedure.procedure_id', 'SOP')->select(
+                Procedure::all()->pluck('title', 'id')
+            );
+            $filter->equal('form_procedure.fish_species_id', 'Spesies Ikan')->select(
+                FishSpecies::all()->pluck('name', 'id')
+            );
+        });
         $grid->column('fish_and_procedure', __('Procedure'));
         $grid->column('note', __('Note'));
         $grid->column('min_range', __('Min range'));
@@ -38,7 +47,6 @@ class FormProcedureFormulaController extends AdminController
         $grid->disableRowSelector();
         $grid->disableColumnSelector();
         $grid->disableExport();
-        $grid->disableFilter();
 
         return $grid;
     }
@@ -60,8 +68,7 @@ class FormProcedureFormulaController extends AdminController
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
-        $show->panel()->tools(function (Show\Tools $tool)
-        {
+        $show->panel()->tools(function (Show\Tools $tool) {
             $tool->disableDelete();
             $tool->disableEdit();
         });
@@ -91,22 +98,22 @@ class FormProcedureFormulaController extends AdminController
         return $form;
 
         // return $form->saving(function (Form $form) {
-            // $max_range = FormProcedureFormula::whereFormProcedureId($form->form_procedure_id)->orderBy('id', 'desc')->first()?->max_range??0;
-            // if($max_range >= $form->min_range){
-            //     $error = new MessageBag([
-            //         'title'   => 'min_range invalid',
-            //         'message' => 'min_range must be greather before last formula',
-            //     ]);
-            //     return back()->with(compact('error'));
-            // }
-            // $score = FormProcedureFormula::whereFormProcedureId($form->form_procedure_id)->orderBy('id', 'desc')->first()?->score??0;
-            // if($score >= $form->score){
-            //     $error = new MessageBag([
-            //         'title'   => 'score invalid',
-            //         'message' => 'score must be greather before last formula',
-            //     ]);
-            //     return back()->with(compact('error'));
-            // }
+        // $max_range = FormProcedureFormula::whereFormProcedureId($form->form_procedure_id)->orderBy('id', 'desc')->first()?->max_range??0;
+        // if($max_range >= $form->min_range){
+        //     $error = new MessageBag([
+        //         'title'   => 'min_range invalid',
+        //         'message' => 'min_range must be greather before last formula',
+        //     ]);
+        //     return back()->with(compact('error'));
+        // }
+        // $score = FormProcedureFormula::whereFormProcedureId($form->form_procedure_id)->orderBy('id', 'desc')->first()?->score??0;
+        // if($score >= $form->score){
+        //     $error = new MessageBag([
+        //         'title'   => 'score invalid',
+        //         'message' => 'score must be greather before last formula',
+        //     ]);
+        //     return back()->with(compact('error'));
+        // }
         //  });
     }
 }

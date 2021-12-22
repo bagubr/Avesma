@@ -28,18 +28,25 @@ class FormProcedureController extends AdminController
      * @return Grid
      */
 
-     
+
     protected function grid()
     {
         $grid = new Grid(new FormProcedure());
-        $grid->quickSearch('procedure.title', 'fish_species.name');
+        $grid->filter(function ($filter) {
+            $filter->disableIdFilter();
+            $filter->equal('procedure.id', 'SOP')->select(
+                Procedure::all()->pluck('title', 'id')
+            );
+            $filter->equal('fish_species_id', 'Spesies Ikan')->select(
+                FishSpecies::all()->pluck('name', 'id')
+            );
+        });
         $grid->column('procedure.title', __('Procedure'));
         $grid->column('fish_species.name', __('Fish Species'));
         $grid->column('created_at', __('Created at'));
         $grid->disableRowSelector();
         $grid->disableColumnSelector();
         $grid->disableExport();
-        $grid->disableFilter();
         return $grid;
     }
 
@@ -61,8 +68,7 @@ class FormProcedureController extends AdminController
             $procedure->title();
             $procedure->image()->image();
 
-            $procedure->panel()->tools(function ($tools)
-            {
+            $procedure->panel()->tools(function ($tools) {
                 $tools->disableList();
                 $tools->disableEdit();
                 $tools->disableDelete();
@@ -76,8 +82,7 @@ class FormProcedureController extends AdminController
             $fish_species->name();
             $fish_species->image()->image();
 
-            $fish_species->panel()->tools(function ($tools)
-            {
+            $fish_species->panel()->tools(function ($tools) {
                 $tools->disableList();
                 $tools->disableEdit();
                 $tools->disableDelete();
@@ -100,9 +105,8 @@ class FormProcedureController extends AdminController
                 $actions->add(new Create());
                 $actions->add(new ListParameter());
             });
-            
         });
-        
+
         $show->form_procedure_formula('Formula SOP', function (Grid $procedure_formula) {
 
             $procedure_formula->resource('/admin/form-procedure-formulas');
@@ -118,8 +122,7 @@ class FormProcedureController extends AdminController
             $procedure_formula->disableRowSelector();
         });
 
-        $show->panel()->tools(function ($tools)
-        {
+        $show->panel()->tools(function ($tools) {
             $tools->disableList();
             $tools->disableDelete();
         });
@@ -140,7 +143,7 @@ class FormProcedureController extends AdminController
         $spesies = FishSpecies::get()->pluck('name', 'id');
         $form->select('fish_species_id', 'Spesies')->options($spesies)->rules('required');
 
-        
+
         $form->hasMany('form_procedure_detail', 'Formulir SOP', function (Form\NestedForm $form) {
             $form->text('name', __('Name'));
         });
