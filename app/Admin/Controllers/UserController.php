@@ -46,7 +46,10 @@ class UserController extends AdminController
         $grid->column('gender', __('Gender'));
         $grid->column('region.name', __('Wilayah'));
         $grid->column('birth_date', __('Birth date'));
-        $grid->column('is_verified', __('Is verified'))->bool();
+        $grid->column('is_verified', __('Is verified'))->bool()->filter([
+            0 => 'Unverified',
+            1 => 'Verified',
+        ]);
         $grid->column('created_at', __('Member Since'));
         $grid->column('updated_at', __('Updated at'));
         $grid->disableExport();
@@ -95,6 +98,29 @@ class UserController extends AdminController
                 $tools->disableEdit();
                 $tools->disableDelete();
             });
+        });
+
+        $show->user_pond('Kolam User', function ($user_pond) {
+
+            $user_pond->setResource('/admin/ponds');
+            $user_pond->name();
+            $user_pond->area();
+            $user_pond->status();
+            $user_pond->address();
+            $user_pond->latitude();
+            $user_pond->longitude();
+            $user_pond->maps()->display(function () {
+
+                return "<a href='https://maps.google.com/?q=".$this->latitude.",".$this->longitude."' style='color:blue' target='_blank'>Maps Link</a>";
+            
+            });
+            $user_pond->disableCreateButton();
+            $user_pond->disableFilter();
+            $user_pond->disableExport();
+            $user_pond->disableColumnSelector();
+            $user_pond->disableActions();
+            $user_pond->disablePagination();
+            $user_pond->disableRowSelector();
         });
         $show->panel()->tools(function ($tools)
         {

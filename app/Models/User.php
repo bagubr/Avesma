@@ -42,6 +42,11 @@ class User extends Authenticatable
         return $this->belongsTo(UserInformation::class, 'id',  'user_id');
     }
 
+    public function user_pond()
+    {
+        return $this->hasMany(Pond::class);
+    }
+
     public function region()
     {
         return $this->belongsTo(Region::class, 'region_id',  'id');
