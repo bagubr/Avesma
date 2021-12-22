@@ -29,22 +29,20 @@ class FormProcedureInputUserController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new FormProcedureInputUser());
-        // $grid->disableFilter();
-        // $grid->filter(function ($filter)
-        // {
-        //     $filter->scope('BAIK')->whereHas('form_procedure_formula', function ($query) use()
-        //     {
-                
-        //         // $query;
-        //         $query->where('form_procedure_id', $this->form_procedure_id)->where('min_range', '<=', $this->total_score)->where('max_range', '>=', $this->total_score)->where('note', 'BAIK');
-        //     });
-        // });
-        $grid->quickSearch('user.name', 'fish_and_procedure', 'pond_detail.pond_spesies', 'reported_at');
+        $grid->filter(function($filter){
+            $filter->disableIdFilter();
+            $filter->ilike('user.name', 'Name');
+            $filter->ilike('pond_detail.pond.name', 'Kolam');
+            $filter->ilike('pond_detail.fish_species.name', 'Jenis Ikan');
+            $filter->ilike('form_procedure.procedure.title', 'SOP');
+        });
         $grid->column('user.name', __('User Name'));
         $grid->column('pond_detail.pond_spesies', __('Kolam'));
-        $grid->column('form_procedure.fish_and_procedure', __('SOP'));
+        $grid->column('form_procedure_name', __('SOP'));
         $grid->column('total_score', __('Score'));
-        $grid->column('form_procedure_formula_note', __('Hasil'));
+        $grid->column('form_procedure_formula_note', __('Hasil'))->filter([
+            'CUKUP' => 'CUKUP',
+        ]);;
         $grid->column('reported_at', __('Reported at'));
         $grid->column('created_at', __('Created at'));
         

@@ -20,7 +20,7 @@ class FormProcedureInputUser extends Model
     ];
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function pond_detail()
@@ -39,8 +39,7 @@ class FormProcedureInputUser extends Model
 
     public function form_procedure_detail_input()
     {
-        return $this->hasMany(FormProcedureDetailInput::class, 'form_procedure_input_user_id', 'id')->where('min_range', '<=', $this->getTotalScoreAttribute())
-        ->where('max_range', '>=', $this->getTotalScoreAttribute());
+        return $this->hasMany(FormProcedureDetailInput::class,'form_procedure_input_user_id', 'id');
     }
 
     public function getCreatedAtAttribute($value)
@@ -59,16 +58,12 @@ class FormProcedureInputUser extends Model
 
     public function getFormProcedureFormulaNoteAttribute()
     {
-        return $this->form_procedure_formula()->first()->note;
+        return $this->form_procedure_formula()->where('min_range', '<=', $this->total_score)
+        ->where('max_range', '>=', $this->total_score)->first()->note;
     }
 
     public function getTotalScoreAttribute()
     {
-        return $this->total_score();
-    }
-
-    public function total_score()
-    {
-        return $this->form_procedure_detail_input()->get()?->sum('score') ?? 0;
+        return $this->form_procedure_detail_input()?->get()?->sum('score') ?? 0;
     }
 }

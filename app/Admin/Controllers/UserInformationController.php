@@ -49,6 +49,9 @@ class UserInformationController extends AdminController
             $actions->add(new Decline);
         });
 
+        $grid->model()->orderBy('id', 'desc');
+        $grid->model()->where('status', 'CONFIRMED');
+
         return $grid;
     }
 
