@@ -28,7 +28,6 @@ class PondController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Pond());
-
         $grid->disableFilter();
         $grid->quickSearch('name');
         $grid->column('name', __('Nama Kolam'));
