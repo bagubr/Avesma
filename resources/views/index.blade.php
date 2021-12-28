@@ -28,7 +28,8 @@
         height: 100px;
         max-width: 100%;
     }
-/* 
+
+    /* 
     .visi-misi {
         background-image: url('{{asset('asset/bg-avesma-motif-03-03.png')}}'),
         #6DB3F2;
@@ -43,11 +44,11 @@
             <div class="col-md-5 order-2 order-md-1 my-auto">
                 <h1 class="font-weight-bold">AVESMA</h1>
                 <p>
-                    AVESMA merupakan aplikasi handphone yang dibuat bagi pembudidaya
-                    ikan untuk memberikan informasi cara budidaya ikan yang baik
-                    berdasarkan aturan SNI. Aplikasi ini diwujudkan untuk membantu
-                    pernyuluh yang jumlahnya masih sangat kurang di Indonesia sehingga
-                    tidak dapat secara maksimal membantu pembudidaya di lapangan.
+                    AVESMA merupakan aplikasi handphone yang dibuat oleh para akademisi Departemen Akuakultur, Fakultas
+                    Perikanan dan Ilmu Kelautan Universitas Diponegoro, Semarang. Aplikasi ini dibuat dibuat bagi
+                    pembudidaya ikan untuk memberikan informasi cara budidaya ikan yang baik berdasarkan aturan SNI.
+                    Aplikasi ini diwujudkan untuk membantu pernyuluh yang jumlahnya masih sangat kurang di Indonesia
+                    sehingga tidak dapat secara maksimal membantu pembudidaya di lapangan.
                 </p>
                 <div class="text-center">
                     <img src="{{asset('asset/playstore.png')}}" class="img-fluid" style="height: 4em" />
@@ -75,7 +76,7 @@
                 </div>
             </div>
             <div class="col-md-6" data-aos="fade-right">
-                <h2 class="font-weight-bold">Tentang Kita</h2>
+                <h2 class="font-weight-bold">Tentang AVESMA</h2>
                 <div class="main-carousel pb-3" data-flickity='{ "prevNextButtons": false }'>
                     <div class="text-justify carousel-cell">
                         {!!$about->description_indo ?? "Belum Ada Data Dimasukkan"!!}
