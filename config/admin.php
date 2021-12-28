@@ -289,7 +289,7 @@ return [
     | "sidebar-mini".
     |
     */
-    'layout' => ['sidebar-mini', 'sidebar-collapse'],
+    'layout' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -299,7 +299,7 @@ return [
     | This value is used to set the background image of login page.
     |
     */
-    'login_background_image' => url('/asset/bg-backend-avesma-new.jpg'),
+    'login_background_image' => 'https://avesma.id//asset/bg-backend-avesma-new.jpg',
 
     /*
     |--------------------------------------------------------------------------
