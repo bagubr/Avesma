@@ -93,8 +93,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('home', [HomeController::class, 'index']);
     Route::post('fcm_token', [HomeController::class, 'store']);
     Route::get('notification', [NotificationController::class, 'index']);
-    Route::get('notification_reed', [NotificationController::class, 'is_seen']);
-    Route::get('notification_all_reed', [NotificationController::class, 'all_seen']);
+    Route::get('notification_read', [NotificationController::class, 'is_seen']);
+    Route::get('notification_all_read', [NotificationController::class, 'all_seen']);
 
     Route::get('ponds', [PondController::class, 'index']);
     Route::get('ponds/get_done', [PondController::class, 'index_done']);
