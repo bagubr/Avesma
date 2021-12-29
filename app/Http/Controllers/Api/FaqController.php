@@ -10,7 +10,7 @@ class FaqController extends Controller
 {
     public function index()
     {
-        $faqs = Faq::all();
+        $faqs = Faq::orderBy('id', 'desc')->get();
         $this->sendSuccessResponse([
             'faqs' => $faqs,
         ]);

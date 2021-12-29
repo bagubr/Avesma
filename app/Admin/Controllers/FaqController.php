@@ -25,6 +25,7 @@ class FaqController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Faq());
+        $grid->model()->orderBy('id', 'desc');
         $grid->disableFilter();
         $grid->disableColumnSelector();
         $grid->disableExport();
