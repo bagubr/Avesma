@@ -45,7 +45,7 @@
                 <h1 class="font-weight-bold">AVESMA</h1>
                 <p>
                     AVESMA merupakan aplikasi handphone yang dibuat oleh para akademisi Departemen Akuakultur, Fakultas
-                    Perikanan dan Ilmu Kelautan Universitas Diponegoro, Semarang. Aplikasi ini dibuat dibuat bagi
+                    Perikanan dan Ilmu Kelautan Universitas Diponegoro, Semarang. Aplikasi ini dibuat bagi
                     pembudidaya ikan untuk memberikan informasi cara budidaya ikan yang baik berdasarkan aturan SNI.
                     Aplikasi ini diwujudkan untuk membantu pernyuluh yang jumlahnya masih sangat kurang di Indonesia
                     sehingga tidak dapat secara maksimal membantu pembudidaya di lapangan.
