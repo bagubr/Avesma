@@ -64,7 +64,8 @@ class PondController extends Controller
     public function show($id)
     {
         $pond = Pond::find($id);
-        $procedures = FormProcedure::where('fish_species_id', $pond->pond_detail->fish_species_id)->get();
+        $procedures = FormProcedure::where('fish_species_id', $pond->pond_detail->fish_species_id)
+            ->where('procedure_id', '!=', 6)->get();
         $data = [
             'pond' => PondRepository::find($id),
             'form_procedures' => $procedures
