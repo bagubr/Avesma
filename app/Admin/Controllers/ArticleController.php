@@ -65,9 +65,11 @@ class ArticleController extends AdminController
     protected function detail($id)
     {
         $show = new Show(Article::findOrFail($id));
-        $show->field('article_category_id', __('Article category'));
+        // $show->field('article_category_id', __('Article category'));
         $show->field('title', __('Title'));
-        $show->field('description', __('Description'));
+        $show->field('description', __('Description'))->display(function ($description) {
+            return $description;
+        });
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
         $show->field('image', __('Image'));
@@ -92,8 +94,8 @@ class ArticleController extends AdminController
 
         $form->select('article_category_id', 'Kategori')->options(ArticleCategory::all()->pluck('name', 'id'))->required();
 
-        $form->text('title', __('Judul'))->required();
-        $form->summernote('description', __('Description'))->required();
+        $form->text('title', __('Judul'))->required()->help('max 255 character');
+        $form->summernote('description', __('Description'))->required()->help('max 1000 character');
         $form->image('image', __('Image'))->required();
         $form->select('type', __('Tipe'))->options([
             Article::TYPE_FILE => 'File',

@@ -34,7 +34,11 @@ class ArticleProcedure extends Model
         parent::boot();
         static::created(function ($model)
         {
-            NotificationService::sendToTopic('New article', 'New Article has been release', 'new-article', $model);
+            try {
+                NotificationService::sendToTopic('New article', 'New Article has been release', 'new-article', $model);
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         });
     }
 
