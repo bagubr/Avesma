@@ -24,7 +24,9 @@ class ArticleController extends Controller
                 'article' => new ArticleResource($article),
             ]);
         } else {
-            return $this->sendFailedResponse(null, 'Opps Data Yang Anda Cari Tidak Ada');
+            return $this->sendFailedResponse([
+                'article' => null
+            ], 'Opps Data Yang Anda Cari Tidak Ada');
         }
     }
 }
