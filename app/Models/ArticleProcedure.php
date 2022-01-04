@@ -83,7 +83,7 @@ class ArticleProcedure extends Model
 
     public function getFishSpeciesNameAttribute()
     {
-        return $this->fish_species()->name;
+        return $this->fish_species()?->name??'';
     }
 
     public function getCreatedAtAttribute($value)
