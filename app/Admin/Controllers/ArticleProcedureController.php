@@ -88,8 +88,8 @@ class ArticleProcedureController extends AdminController
 
         $form->select('procedure_id', __('Procedure'))->options(Procedure::all()->pluck('title', 'id'))->required();
         $form->select('fish_species_id', __('Species'))->options(FishSpecies::all()->pluck('name', 'id'))->required();
-        $form->text('title', __('Title'))->required();
-        $form->summernote('description', __('Description'))->required();
+        $form->text('title', __('Title'))->required()->help('max 255 character');
+        $form->summernote('description', __('Description'))->required()->help('max 1000 character');
         $form->select('type', __('Tipe'))->options([
             ArticleProcedure::TYPE_FILE => 'File',
             ArticleProcedure::TYPE_VIDEO_EMBED => 'Video Embed Youtube'

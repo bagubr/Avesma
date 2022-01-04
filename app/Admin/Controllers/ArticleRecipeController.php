@@ -80,8 +80,8 @@ class ArticleRecipeController extends AdminController
     protected function form()
     {
         $form = new Form(new ArticleRecipe());
-        $form->text('title', __('Judul'))->required();
-        $form->summernote('description', __('Description'))->required();
+        $form->text('title', __('Judul'))->required()->help('max 255 character');
+        $form->summernote('description', __('Description'))->required()->help('max 1000 character');
         $form->image('image', __('Image'))->required();
         $form->select('type', __('Tipe'))->options([
             ArticleRecipe::TYPE_FILE => 'File',
