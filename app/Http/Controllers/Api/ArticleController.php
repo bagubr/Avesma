@@ -19,8 +19,14 @@ class ArticleController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
-        return $this->sendSuccessResponse([
-            'article' => new ArticleResource($article),
-        ]);
+        if ($article) {
+            return $this->sendSuccessResponse([
+                'article' => new ArticleResource($article),
+            ]);
+        }else{
+            return $this->sendFailedResponse([
+                null, 'Data Tidak Ditemukan',
+            ]);
+        }
     }
 }
