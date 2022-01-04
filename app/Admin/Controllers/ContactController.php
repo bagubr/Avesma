@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Contact;
+use App\Models\Region;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -35,6 +36,7 @@ class ContactController extends AdminController
         $grid->column('content', __('Konten'));
         $grid->column('icon', __('Icon'))->image();
         $grid->column('type', __('Tipe'));
+        $grid->column('region.name', __('Wilayah'));
 
         return $grid;
     }
@@ -53,6 +55,7 @@ class ContactController extends AdminController
         $show->field('content', __('Konten'));
         $show->field('icon', __('Icon'));
         $show->field('type', __('Tipe'));
+        $show->field('region.name', __('Wilayah'));
         return $show;
     }
 
@@ -69,6 +72,7 @@ class ContactController extends AdminController
         $form->select('type', __('Tipe'))->options(Contact::TYPE)->required();
         $form->text('content', __('Konten'))->required();
         $form->file('icon', __('Icon'))->required();
+        $form->select('region_id', __('Wilayah'))->options(Region::all()->pluck('name', 'id'));
 
         return $form;
     }

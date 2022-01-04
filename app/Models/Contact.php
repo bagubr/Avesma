@@ -14,7 +14,7 @@ class Contact extends Model
         "EMAIL" => "EMAIL"
     ];
 
-    protected $fillable = ['name', 'content', 'icon', 'type'];
+    protected $fillable = ['name', 'content', 'icon', 'type', 'region_id'];
 
     protected $appends = [
         'icon_url'
@@ -23,5 +23,9 @@ class Contact extends Model
     public function getIconUrlAttribute()
     {
         return url('uploads/' . $this->icon);
+    }
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id');
     }
 }
