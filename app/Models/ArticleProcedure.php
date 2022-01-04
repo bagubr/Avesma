@@ -15,6 +15,7 @@ class ArticleProcedure extends Model
     protected $table = 'article_procedures';
     protected $fillable = [
         'procedure_id',
+        'fish_species_id',
         'title',
         'description',
         'image',
@@ -25,6 +26,7 @@ class ArticleProcedure extends Model
 
     protected $appends = [
         'type_name',
+        'fish_species_name',
         'file_url',
         'image_url'
     ];
@@ -69,9 +71,19 @@ class ArticleProcedure extends Model
         return $this->belongsTo(Procedure::class, 'procedure_id');
     }
 
+    public function fish_species()
+    {
+        return $this->belongsTo(FishSpecies::class, 'fish_species_id');
+    }
+
     public function getProcedureNameAttribute()
     {
         return $this->procedure()->first()->title;
+    }
+
+    public function getFishSpeciesNameAttribute()
+    {
+        return $this->fish_species()->name;
     }
 
     public function getCreatedAtAttribute($value)

@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\ArticleProcedure;
+use App\Models\FishSpecies;
 use App\Models\Procedure;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -16,7 +17,7 @@ class ArticleProcedureController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Artikel SOP';
+    protected $title = 'Prosedur SOP';
 
     /**
      * Make a grid builder.
@@ -33,6 +34,7 @@ class ArticleProcedureController extends AdminController
         $grid->disableColumnSelector();
         $grid->quickSearch('title', 'description', 'type');
         $grid->column('procedure.title', __('SOP'));
+        $grid->column('fish_species.name', __('Species'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'))->display(function ($description)
         {
@@ -54,7 +56,8 @@ class ArticleProcedureController extends AdminController
     protected function detail($id)
     {
         $show = new Show(ArticleProcedure::findOrFail($id));
-        $show->field('procedure_id', __('Procedure id'));
+        $show->field('procedure.title', __('SOP'));
+        $show->field('fish_species.name', __('Species'));
         $show->field('title', __('Title'));
         $show->field('description', __('Description'));
         $show->field('file', __('File'));
@@ -84,6 +87,7 @@ class ArticleProcedureController extends AdminController
         $form = new Form(new ArticleProcedure());
 
         $form->select('procedure_id', __('Procedure'))->options(Procedure::all()->pluck('title', 'id'))->required();
+        $form->select('fish_species_id', __('Species'))->options(FishSpecies::all()->pluck('name', 'id'))->required();
         $form->text('title', __('Title'))->required();
         $form->summernote('description', __('Description'))->required();
         $form->select('type', __('Tipe'))->options([
