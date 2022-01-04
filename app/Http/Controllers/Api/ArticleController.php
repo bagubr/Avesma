@@ -23,10 +23,8 @@ class ArticleController extends Controller
             return $this->sendSuccessResponse([
                 'article' => new ArticleResource($article),
             ]);
-        }else{
-            return $this->sendFailedResponse([
-                null, 'Data Tidak Ditemukan',
-            ]);
+        } else {
+            return $this->sendFailedResponse(null, 'Opps Data Yang Anda Cari Tidak Ada');
         }
     }
 }
