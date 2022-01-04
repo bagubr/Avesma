@@ -11,6 +11,7 @@
 </style>
 @endpush
 @section('content')
+test
 <section class="detail_pasar_virtual mt-5">
     <div class="container">
         <h2 class="font-weight-bold text-center">Artikel Umum Terbaru</h2>
