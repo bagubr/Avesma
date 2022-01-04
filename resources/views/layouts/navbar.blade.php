@@ -15,6 +15,9 @@
                 <li class="nav-item mx-3 {{Request::routeIs('pasar_virtual','detail_pasar_virtual') ? 'active' : ''}}">
                     <a class="nav-link" href="{{route('pasar_virtual')}}">Pasar Virtual</a>
                 </li>
+                <li class="nav-item mx-3 {{Request::routeIs('article') ? 'active' : ''}}">
+                    <a class="nav-link" href="{{route('article')}}">Artikel</a>
+                </li>
                 <li class="nav-item mx-3 {{Request::routeIs('kontak') ? 'active' : ''}}">
                     <a class="nav-link" href="{{route('kontak')}}">Kontak</a>
                 </li>

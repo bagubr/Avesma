@@ -74,7 +74,11 @@ class IndexController extends Controller
     {
         return view('contact');
     }
-    
+    public function article()
+    {
+        return view('article');
+    }
+
     public function contact_store(Request $request)
     {
         CustomerService::create($request->all());
