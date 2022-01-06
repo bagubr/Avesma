@@ -78,8 +78,9 @@ class IndexController extends Controller
     public function article()
     {
         $articles = Article::orderBy('id', 'desc');
+        $article_all = $articles->get()->take(4);
         $article = $articles->first();
-        return view('article', compact('article'));
+        return view('article', compact('article', 'article_all'));
     }
 
     public function contact_store(Request $request)
