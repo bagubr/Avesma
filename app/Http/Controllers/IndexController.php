@@ -78,7 +78,7 @@ class IndexController extends Controller
     public function article()
     {
         $articles = Article::orderBy('id', 'desc');
-        $article_all = $articles->get()->take(4);
+        $article_all = $articles->get()->take(5);
         $article = $articles->first();
         return view('article', compact('article', 'article_all'));
     }
