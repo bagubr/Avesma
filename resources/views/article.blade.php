@@ -7,7 +7,7 @@
 </style>
 @endpush
 @section('content')
-<section class="detail_pasar_virtual mt-5">
+<section class="detail_pasar_virtual my-5">
     <div class="container">
         <section class="article">
             <h2 class="font-weight-bold text-center">Artikel Umum Terbaru</h2>
@@ -48,7 +48,7 @@
                 </div>
                 @endforeach
                 <div class="ml-auto">
-                    <a href="" class="btn btn-primary">Lihat Lainnya</a>
+                    <a href="{{route('article.all')}}" class="btn btn-primary">Lihat Lainnya</a>
                 </div>
 
             </div>
