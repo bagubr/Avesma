@@ -84,7 +84,8 @@ class IndexController extends Controller
     }
     public function article_show(Article $article)
     {
-        return view('article_show', compact('article'));
+        $other_articles = Article::inRandomOrder()->get()->take(4);
+        return view('article_show', compact('article', 'other_articles'));
     }
 
     public function contact_store(Request $request)
