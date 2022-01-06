@@ -14,7 +14,7 @@
             <div class="row mt-5 mx-auto">
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="{{$article->image_url}}" class="img-fluid" alt="">
+                        <img src="{{$article->image_url}}" class="img-fluid h-100" alt="">
                     </div>
                     <div class="col-md-8">
                         <a href="" class="article">
@@ -30,7 +30,8 @@
             </div>
             <div class="row mt-2">
                 @foreach ($article_all as $a)
-                <div class="col-md-2 mt-1"> <img src="{{$a->image_url}}" class="h-100 img-fluid"
+                @if ($loop->first) @continue @endif
+                <div class="col-md-2 mt-1"> <img src="{{$a->image_url}}" style="height: 150px;" class="img-fluid w-100"
                         alt="">
                 </div>
                 <div class="col-md-4 mt-1">
