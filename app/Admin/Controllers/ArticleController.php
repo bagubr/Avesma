@@ -67,7 +67,8 @@ class ArticleController extends AdminController
         $show = new Show(Article::findOrFail($id));
         // $show->field('article_category_id', __('Article category'));
         $show->field('title', __('Title'));
-        $show->field('description', __('Description'))->display(function ($description) {
+        // $show->field();
+        $show->field('description', __('Description'))->unescape()->as(function ($description) {
             return $description;
         });
         $show->field('created_at', __('Created at'));

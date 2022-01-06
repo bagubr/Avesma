@@ -55,7 +55,9 @@ class ArticleRecipeController extends AdminController
         $show = new Show(ArticleRecipe::findOrFail($id));
 
         $show->field('title', __('Title'));
-        $show->field('description', __('Description'));
+        $show->field('description', __('Description'))->unescape()->as(function ($description) {
+            return $description;
+        });
         $show->field('image', __('Image'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));

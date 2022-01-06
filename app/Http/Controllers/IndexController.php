@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FormPengajuanRequest;
 use App\Http\Resources\PondResource;
 use App\Models\About;
+use App\Models\Article;
 use App\Models\Benefit;
 use App\Models\Buyer;
 use App\Models\CustomerService;
@@ -76,7 +77,10 @@ class IndexController extends Controller
     }
     public function article()
     {
-        return view('article');
+        $articles = Article::orderBy('id', 'desc');
+        $article_all = $articles->get()->take(4);
+        $article = $articles->first();
+        return view('article', compact('article', 'article_all'));
     }
 
     public function contact_store(Request $request)
