@@ -6,6 +6,7 @@ use App\Http\Requests\FormPengajuanRequest;
 use App\Http\Resources\PondResource;
 use App\Models\About;
 use App\Models\Article;
+use App\Models\ArticleCategory;
 use App\Models\ArticleProcedure;
 use App\Models\ArticleRecipe;
 use App\Models\Benefit;
@@ -90,6 +91,19 @@ class IndexController extends Controller
     {
         $other_articles = Article::inRandomOrder()->get()->take(4);
         return view('article.article_show', compact('article', 'other_articles'));
+    }
+
+    public function article_all(Request $request)
+    {
+        $title = $request->title;
+        $article_category_id = $request->article_category_id;
+        $articles = Article::when($title, function ($q) use ($title){
+            $q->where('title', 'ilike', '%' . $title . '%');
+        })->when($article_category_id, function ($q) use ($article_category_id){
+            $q->where('article_category_id', $article_category_id);
+        })->orderBy('id', 'desc')->paginate(5);
+        $article_categories = ArticleCategory::all();
+        return view('article.articles', compact('articles', 'article_categories'));
     }
 
     public function contact_store(Request $request)
