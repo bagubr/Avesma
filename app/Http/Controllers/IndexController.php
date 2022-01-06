@@ -82,6 +82,10 @@ class IndexController extends Controller
         $article = $articles->first();
         return view('article', compact('article', 'article_all'));
     }
+    public function article_show(Article $article)
+    {
+        return view('article_show', compact('article'));
+    }
 
     public function contact_store(Request $request)
     {

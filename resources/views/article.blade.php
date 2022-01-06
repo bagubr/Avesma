@@ -14,13 +14,15 @@
             <div class="row mt-5 mx-auto">
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="{{$article->image_url}}" class="img-fluid h-100" alt="">
+                        <a href="{{route('article.show', $article->id)}}">
+                            <img src="{{$article->image_url}}" class="img-fluid h-100" alt="">
+                        </a>
                     </div>
                     <div class="col-md-8">
-                        <a href="" class="article">
+                        <a href="{{route('article.show', $article->id)}}" class="article">
                             <h5 class="font-weight-bold">{{$article->title}}</h5>
                         </a>
-                        <p class="font-weight-bold bg-text-blue">{{$article->category_name}} / Dipublikasikan
+                        <p class="font-weight-bold bg-text-blue">Umum - {{$article->category_name}} / Dipublikasikan
                             {{$article->created_at}}</p>
                         <p>
                             {{strip_tags(Str::limit($article->description, 500))}}
@@ -31,12 +33,17 @@
             <div class="row mt-2">
                 @foreach ($article_all as $a)
                 @if ($loop->first) @continue @endif
-                <div class="col-md-2 mt-1"> <img src="{{$a->image_url}}" style="height: 150px;" class="img-fluid w-100"
-                        alt="">
+                <div class="col-md-2 mt-1">
+                    <a href="{{route('article.show', $a->id)}}">
+                        <img src="{{$a->image_url}}" style="height: 150px;" class="img-fluid w-100" alt="">
+                    </a>
                 </div>
                 <div class="col-md-4 mt-1">
-                    <h5 class="font-weight-bold">{{$a->title}}</h5>
-                    <p class="font-weight-bold bg-text-blue">Berita / Dipublikasikan 08-11-2021</p>
+                    <a href="{{route('article.show', $a->id)}}" class="article">
+                        <h5 class="font-weight-bold">{{$a->title}}</h5>
+                    </a>
+                    <p class="font-weight-bold bg-text-blue">Umum - {{$a->category_name}} / Dipublikasikan {{$a->created_at}}
+                    </p>
                 </div>
                 @endforeach
                 <div class="ml-auto">
@@ -47,7 +54,7 @@
         </section>
         <hr class="my-3">
         <section class="article-prosedur-resep">
-            <h2 class="font-weight-bold text-left">Artikel Prosedur</h2>
+            <h2 class="font-weight-bold text-left">Prosedur SOP</h2>
             <div class="row mt-4">
                 <div class="col-md-6">
                     <div class="row">
