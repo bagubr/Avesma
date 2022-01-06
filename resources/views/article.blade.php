@@ -2,7 +2,7 @@
 @push('css')
 <style>
     hr {
-        border: 2px solid;
+        border-top: 2px solid;
     }
 </style>
 @endpush
@@ -42,7 +42,8 @@
                     <a href="{{route('article.show', $a->id)}}" class="article">
                         <h5 class="font-weight-bold">{{$a->title}}</h5>
                     </a>
-                    <p class="font-weight-bold bg-text-blue">Umum - {{$a->category_name}} / Dipublikasikan {{$a->created_at}}
+                    <p class="font-weight-bold bg-text-blue">Umum - {{$a->category_name}} / Dipublikasikan
+                        {{$a->created_at}}
                     </p>
                 </div>
                 @endforeach
@@ -54,29 +55,60 @@
         </section>
         <hr class="my-3">
         <section class="article-prosedur-resep">
-            <h2 class="font-weight-bold text-left">Prosedur SOP</h2>
             <div class="row mt-4">
                 <div class="col-md-6">
+                    <h2 class="font-weight-bold text-left">Prosedur SOP</h2>
                     <div class="row">
-                        <div class="col-md-5">
-                            <img src="{{asset('asset/screenshot_5.png')}}" class="img-fluid" alt="">
+                        @foreach ($article_procedures as $article_procedure)
+                        <div class="col-md-12 mb-2">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <img src="{{$article_procedure->image_url}}" class="img-fluid w-100"
+                                        style="height: 150px;">
+                                </div>
+                                <div class="col-md-7">
+                                    <a href="" class="article">
+                                        <p class="font-weight-bold mb-0">{{$article_procedure->title}}</p>
+                                    </a>
+                                    <p class="font-weight-bold bg-text-blue mb-0">
+                                        {{$article_procedure->procedure->title}}</p>
+                                    <p class="font-weight-bold align-bottom">Dipublikasikan Pada
+                                        {{$article_procedure->created_at}}</p>
+                                </div>
+                            </div>
+                            <hr class="my-2">
                         </div>
-                        <div class="col-md-7">
-                            <a href="" class="article">
-                                <h4 class="font-weight-bold">Pembesaran Ikan Lele 2022</h4>
-                            </a>
-                            <p class="font-weight-bold bg-text-blue mb-0">SOP Pembesaran / Ikan Lele</p>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi dicta recusandae illo
-                                nulla
-                            </p>
+                        @endforeach
+                        <div class="ml-auto">
+                            <a href="" class="btn btn-primary">Lihat Lainnya</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum consequatur doloribus possimus quo
-                    ullam. Exercitationem, porro minus ratione officia itaque corrupti debitis nostrum placeat ex
-                    architecto perspiciatis dolores sapiente ducimus.
+                    <h2 class="font-weight-bold text-left">Artikel Resep</h2>
+                    <div class="row">
+                        @foreach ($article_recipes as $article_recipe)
+                        <div class="col-md-12 mb-2">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <img src="{{$article_recipe->image_url}}" class="img-fluid w-100"
+                                        style="height: 150px;">
+                                </div>
+                                <div class="col-md-7">
+                                    <a href="" class="article">
+                                        <p class="font-weight-bold mb-0">{{$article_recipe->title}}</p>
+                                    </a>
+                                    <p class="font-weight-bold align-bottom">Dipublikasikan Pada
+                                        {{$article_recipe->created_at}}</p>
+                                </div>
+                            </div>
+                            <hr class="my-2">
+                        </div>
+                        @endforeach
+                        <div class="ml-auto">
+                            <a href="" class="btn btn-primary">Lihat Lainnya</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
