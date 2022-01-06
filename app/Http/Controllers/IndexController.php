@@ -6,6 +6,8 @@ use App\Http\Requests\FormPengajuanRequest;
 use App\Http\Resources\PondResource;
 use App\Models\About;
 use App\Models\Article;
+use App\Models\ArticleProcedure;
+use App\Models\ArticleRecipe;
 use App\Models\Benefit;
 use App\Models\Buyer;
 use App\Models\CustomerService;
@@ -80,12 +82,14 @@ class IndexController extends Controller
         $articles = Article::orderBy('id', 'desc');
         $article_all = $articles->get()->take(5);
         $article = $articles->first();
-        return view('article', compact('article', 'article_all'));
+        $article_procedures = ArticleProcedure::orderBy('id', 'desc')->get()->take(4);
+        $article_recipes = ArticleRecipe::orderBy('id', 'desc')->get()->take(4);
+        return view('article', compact('article', 'article_all', 'article_procedures', 'article_recipes'));
     }
     public function article_show(Article $article)
     {
         $other_articles = Article::inRandomOrder()->get()->take(4);
-        return view('article_show', compact('article', 'other_articles'));
+        return view('article.article_show', compact('article', 'other_articles'));
     }
 
     public function contact_store(Request $request)
