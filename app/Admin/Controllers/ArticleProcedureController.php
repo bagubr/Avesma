@@ -59,7 +59,9 @@ class ArticleProcedureController extends AdminController
         $show->field('procedure.title', __('SOP'));
         $show->field('fish_species.name', __('Species'));
         $show->field('title', __('Title'));
-        $show->field('description', __('Description'));
+        $show->field('description', __('Description'))->unescape()->as(function ($description) {
+            return $description;
+        });
         $show->field('file', __('File'));
         $show->field('type', __('Type'));
         $show->field('created_at', __('Created at'));
