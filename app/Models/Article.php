@@ -24,6 +24,7 @@ class Article extends Model
 
     protected $appends = [
         'image_url',
+        'embed_link_website',
         'category_name'
     ];
 
@@ -54,6 +55,12 @@ class Article extends Model
     public function article_category()
     {
         return $this->belongsTo(ArticleCategory::class, 'article_category_id');
+    }
+
+    public function getEmbedLinkWebsiteAttribute()
+    {
+        $embed_link = $this->embed_link;
+        return $embed_link;
     }
 
     public function getCategoryNameAttribute()
