@@ -20,6 +20,7 @@ use App\Models\Pond;
 use App\Models\PondHarvest;
 use App\Models\Procedure;
 use App\Models\Region;
+use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\SliderMarket;
 use App\Models\SocialMedia;
@@ -36,11 +37,12 @@ class IndexController extends Controller
     }
     public function home()
     {
+        $setting = Setting::first();
         $about = About::first();
         $sliders = HomeSlider::all();
         $testimonials = Testimonial::all();
         $benefits = Benefit::orderBy('id', 'asc')->get();
-        return view('index', compact('sliders', 'testimonials', 'about', 'benefits'));
+        return view('index', compact('sliders', 'testimonials', 'about', 'benefits', 'setting'));
     }
     public function pasar_virtual()
     {
