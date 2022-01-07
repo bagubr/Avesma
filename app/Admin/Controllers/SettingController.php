@@ -39,7 +39,7 @@ class SettingController extends AdminController
         $grid->disableBatchActions();
 
         $grid->column('name', __('Name'));
-        $grid->column('image_screen', __('Image Screen Website'));
+        $grid->column('image_screen', __('Image Screen Website'))->image();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
