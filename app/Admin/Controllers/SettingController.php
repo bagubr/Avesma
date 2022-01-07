@@ -25,11 +25,20 @@ class SettingController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Setting());
+        if (Setting::all()->count() == 1) {
+            $grid->disableCreateButton();
+        }
+        $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $actions->disableView();
+            $actions->disableDelete();
+        });
+        $grid->disableExport();
+        $grid->disableFilter();
+        $grid->disablePagination();
+        $grid->disableColumnSelector();
+        $grid->disableBatchActions();
 
-        
         $grid->column('name', __('Name'));
-        $grid->column('value', __('Value'));
-        $grid->column('file', __('File'));
         $grid->column('image_screen', __('Image Screen Website'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
@@ -49,8 +58,6 @@ class SettingController extends AdminController
 
         $show->field('id', __('Id'));
         $show->field('name', __('Name'));
-        $show->field('value', __('Value'));
-        $show->field('file', __('File'));
         $show->field('image_screen', __('Image Screen Website'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
@@ -68,8 +75,6 @@ class SettingController extends AdminController
         $form = new Form(new Setting());
 
         $form->text('name', __('Name'));
-        $form->textarea('value', __('Value'));
-        $form->file('file', __('File'));
         $form->file('image_screen', __('Image Screen Website'));
 
         return $form;

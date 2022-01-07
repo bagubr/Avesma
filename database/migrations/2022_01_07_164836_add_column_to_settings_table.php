@@ -15,6 +15,8 @@ class AddColumnToSettingsTable extends Migration
     {
         Schema::table('settings', function (Blueprint $table) {
             $table->string('image_screen')->nullable();
+            $table->dropColumn('value');
+            $table->dropColumn('file');
         });
     }
 
