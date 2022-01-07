@@ -44,7 +44,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="text-center">
-                    <img src="{{$setting->image_screen_url}}" class="img-fluid">
+                    <img src="{{$setting->image_screen_url}}" class="img-fluid m-0">
                     <br>
                     <button data-dismiss="modal" class="btn btn-primary mt-3">Masuk Ke Website</button>
                 </div>
