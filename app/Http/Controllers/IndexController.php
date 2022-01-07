@@ -117,7 +117,8 @@ class IndexController extends Controller
             $q->where('article_category_id', $article_category_id);
         })->orderBy('id', 'desc')->paginate(5);
         $article_categories = ArticleCategory::all();
-        return view('article.articles', compact('articles', 'article_categories'));
+        $flash = $request->flash();
+        return view('article.articles', compact('articles', 'article_categories', 'flash'));
     }
 
     public function article_procedure_all(Request $request)
@@ -136,6 +137,16 @@ class IndexController extends Controller
         $fish_specieses = FishSpecies::all();
         $flash = $request->flash();
         return view('article_procedure.articles', compact('articles', 'procedures', 'fish_specieses', 'flash'));
+    }
+
+    public function article_recipe_all(Request $request)
+    {
+        $title = $request->title;
+        $articles = ArticleRecipe::when($title, function ($q) use ($title) {
+            $q->where('title', 'ilike', '%' . $title . '%');
+        })->orderBy('id', 'desc')->paginate(5);
+        $flash = $request->flash();
+        return view('article_recipe.articles', compact('articles', 'flash'));
     }
 
     public function contact_store(Request $request)

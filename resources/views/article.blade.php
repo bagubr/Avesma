@@ -111,7 +111,7 @@
                         </div>
                         @endforeach
                         <div class="ml-auto">
-                            <a href="" class="btn btn-primary">Lihat Lainnya</a>
+                            <a href="{{route('article.recipe.all')}}" class="btn btn-primary">Lihat Lainnya</a>
                         </div>
                     </div>
                 </div>
