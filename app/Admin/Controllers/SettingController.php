@@ -30,6 +30,7 @@ class SettingController extends AdminController
         $grid->column('name', __('Name'));
         $grid->column('value', __('Value'));
         $grid->column('file', __('File'));
+        $grid->column('image_screen', __('Image Screen Website'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -50,6 +51,7 @@ class SettingController extends AdminController
         $show->field('name', __('Name'));
         $show->field('value', __('Value'));
         $show->field('file', __('File'));
+        $show->field('image_screen', __('Image Screen Website'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -68,6 +70,7 @@ class SettingController extends AdminController
         $form->text('name', __('Name'));
         $form->textarea('value', __('Value'));
         $form->file('file', __('File'));
+        $form->file('image_screen', __('Image Screen Website'));
 
         return $form;
     }

@@ -14,6 +14,7 @@ class Setting extends Model
         'name',
         'value',
         'file',
+        'image_screen'
     ];
 
     public function getCreatedAtAttribute($value)
