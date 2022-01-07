@@ -23,7 +23,7 @@ class Outcome extends Model
 
     public function pond_detail()
     {
-        return $this->hasOne(PondDetail::class, 'pond_detail_id');
+        return $this->belongsTo(PondDetail::class, 'pond_detail_id');
     }
 
     public function outcome_category()

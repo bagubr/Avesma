@@ -5,14 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FormPengajuanRequest;
 use App\Http\Resources\PondResource;
 use App\Models\About;
+use App\Models\Article;
+use App\Models\ArticleCategory;
+use App\Models\ArticleProcedure;
+use App\Models\ArticleRecipe;
 use App\Models\Benefit;
 use App\Models\Buyer;
 use App\Models\CustomerService;
 use App\Models\FishCategory;
+use App\Models\FishSpecies;
 use App\Models\HomeSlider;
 use App\Models\IncomeDetail;
 use App\Models\Pond;
 use App\Models\PondHarvest;
+use App\Models\Procedure;
 use App\Models\Region;
 use App\Models\Slider;
 use App\Models\SliderMarket;
@@ -76,7 +82,71 @@ class IndexController extends Controller
     }
     public function article()
     {
-        return view('article');
+        $articles = Article::orderBy('id', 'desc');
+        $article_all = $articles->get()->take(5);
+        $article = $articles->first();
+        $article_procedures = ArticleProcedure::orderBy('id', 'desc')->get()->take(4);
+        $article_recipes = ArticleRecipe::orderBy('id', 'desc')->get()->take(4);
+        return view('article', compact('article', 'article_all', 'article_procedures', 'article_recipes'));
+    }
+    public function article_show(Article $article)
+    {
+        $other_articles = Article::inRandomOrder()->get()->take(4);
+        return view('article.article_show', compact('article', 'other_articles'));
+    }
+
+    public function article_procedure_show(ArticleProcedure $article_procedure)
+    {
+        $other_articles = ArticleProcedure::inRandomOrder()->get()->take(4);
+        return view('article_procedure.article_show', compact('article_procedure', 'other_articles'));
+    }
+
+    public function article_recipe_show(ArticleRecipe $article_recipe)
+    {
+        $other_articles = ArticleRecipe::inRandomOrder()->get()->take(4);
+        return view('article_recipe.article_show', compact('article_recipe', 'other_articles'));
+    }
+
+    public function article_all(Request $request)
+    {
+        $title = $request->title;
+        $article_category_id = $request->article_category_id;
+        $articles = Article::when($title, function ($q) use ($title) {
+            $q->where('title', 'ilike', '%' . $title . '%');
+        })->when($article_category_id, function ($q) use ($article_category_id) {
+            $q->where('article_category_id', $article_category_id);
+        })->orderBy('id', 'desc')->paginate(5);
+        $article_categories = ArticleCategory::all();
+        $flash = $request->flash();
+        return view('article.articles', compact('articles', 'article_categories', 'flash'));
+    }
+
+    public function article_procedure_all(Request $request)
+    {
+        $title = $request->title;
+        $procedure_id = $request->procedure_id;
+        $fish_species_id = $request->fish_species_id;
+        $articles = ArticleProcedure::when($title, function ($q) use ($title) {
+            $q->where('title', 'ilike', '%' . $title . '%');
+        })->when($procedure_id, function ($q) use ($procedure_id) {
+            $q->where('procedure_id', $procedure_id);
+        })->when($fish_species_id, function ($q) use ($fish_species_id) {
+            $q->where('fish_species_id', $fish_species_id);
+        })->orderBy('id', 'desc')->paginate(5);
+        $procedures = Procedure::all();
+        $fish_specieses = FishSpecies::all();
+        $flash = $request->flash();
+        return view('article_procedure.articles', compact('articles', 'procedures', 'fish_specieses', 'flash'));
+    }
+
+    public function article_recipe_all(Request $request)
+    {
+        $title = $request->title;
+        $articles = ArticleRecipe::when($title, function ($q) use ($title) {
+            $q->where('title', 'ilike', '%' . $title . '%');
+        })->orderBy('id', 'desc')->paginate(5);
+        $flash = $request->flash();
+        return view('article_recipe.articles', compact('articles', 'flash'));
     }
 
     public function contact_store(Request $request)
