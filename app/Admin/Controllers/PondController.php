@@ -2,7 +2,10 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Pond\Pengeluaran;
 use App\Models\FishSpecies;
+use App\Models\Income;
+use App\Models\Outcome;
 use App\Models\Pond;
 use App\Models\PondDetail;
 use App\Models\User;
@@ -10,6 +13,8 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Table;
+use Illuminate\Support\Facades\Log;
 
 class PondController extends AdminController
 {
@@ -18,7 +23,7 @@ class PondController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Pond';
+    protected $title = 'Data Kolam';
 
     /**
      * Make a grid builder.
@@ -44,6 +49,33 @@ class PondController extends AdminController
         $grid->column('status', __('Status'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
+        $grid->column('pengeluaran', __('Pengeluaran'))->expand(function ($model) {
+            $outcomes = Outcome::with('outcome_detail')->where('pond_detail_id', $model->pond_detail->id)->orderBy('id', 'desc')->get()->map(function ($outcome) {
+                $data = $outcome->outcome_detail->map(function ($outcome_detail)
+                {
+                    return $outcome_detail->only(['outcome_name', 'price']);
+                });
+                $outcome->outcome_detail = $this->convertStringOutcome(json_decode($data, 1));
+                return $outcome->only(['id', 'outcome_category_name', 'total_nominal', 'outcome_detail', 'reported_at']);
+            });
+            // dd($outcome->outcome_detail);
+            return new Table(['ID', 'Pengeluaran', 'Total Nominal', 'Detail Laporan', 'Laporan Pada'], $outcomes->toArray());
+        })->default('Pengeluaran');
+        $grid->column('pemasukan', __('Pemasukan'))->expand(function ($model) {
+            $incomes = Income::with('income_detail')->where('pond_detail_id', $model->pond_detail->id)->orderBy('id', 'desc')->get()->map(function ($income) {
+                $data = $income->income_detail->map(function ($income_detail)
+                {
+                    return $income_detail->only(['product_name', 'price', 'weight', 'total_price']);
+                });
+                $income->income_detail = $this->convertStringIncome(json_decode($data, 1));
+
+                return $income->only(['id', 'total_price', 'income_detail', 'reported_at']);
+            });
+            return new Table(['ID', 'Total Nominal', 'Detail Laporan', 'Laporan Pada'], $incomes->toArray());
+        })->default('Pemasukan');
+        $grid->actions(function ($actions){
+            $actions->add(new Pengeluaran($actions->getKey()));
+        });
 
         return $grid;
     }
@@ -127,4 +159,5 @@ class PondController extends AdminController
         
         return $form;
     }
+    
 }
