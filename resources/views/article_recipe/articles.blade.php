@@ -4,39 +4,14 @@
 <section class="detail_pasar_virtual my-5">
     <div class="container">
         <section class="article-search">
-            <h2 class="font-weight-bold text-center">Prosedur SOP</h2>
+            <h2 class="font-weight-bold text-center">Artikel Umum</h2>
             <form action="">
                 <div class="form-row mt-5">
-                    <div class="col-md-4 form-group">
+                    <div class="col-md-12 form-group">
                         <input type="text" class="form-control font-weight-bold" name="title" value="{{old('title')}}"
                             placeholder="Cari Artikel">
                     </div>
-                    <div class="col-md-4 form-group">
-                        <select class="form-control font-weight-bold" name="procedure_id">
-                            <option value="">Pilih Prosedur</option>
-                            @foreach ($procedures as $procedure)
-                            @if (old('procedure_id') == $procedure->id)
-                            <option value="{{$procedure->id}}" selected>{{$procedure->title}}</option>
-                            @else
-                            <option value="{{$procedure->id}}">{{$procedure->title}}</option>
-                            @endif
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <select class="form-control font-weight-bold" name="fish_species_id">
-                            <option value="">Pilih Spesies Ikan</option>
-                            @foreach ($fish_specieses as $fish_species)
-                            @if (old('fish_species_id') == $fish_species->id)
-                            <option value="{{$fish_species->id}}" selected>{{$fish_species->name}}</option>
-                            @else
-                            <option value="{{$fish_species->id}}">{{$fish_species->name}}</option>
-                            @endif
-                            @endforeach
-                        </select>
-                    </div>
                 </div>
-
                 <div class="text-right">
                     <button class="btn btn-primary font-weight-bold rounded-custom btn-cari" type="submit">
                         <i class="fas fa-search"></i>
@@ -57,8 +32,7 @@
                     <a href="{{route('article.show', $article->id)}}" class="article">
                         <h5 class="font-weight-bold">{{$article->title}}</h5>
                     </a>
-                    <p class="font-weight-bold bg-text-blue">{{$article->procedure->title}} -
-                        {{$article->fish_species->name ?? ""}}</p>
+                    <p class="font-weight-bold bg-text-blue">{{$article->category_name}}</p>
                     <p>
                         {{strip_tags(Str::limit($article->description, 500))}}
                     </p>
