@@ -12,8 +12,7 @@ class Setting extends Model
     protected $table = 'settings';
     protected $fillable = [
         'name',
-        'value',
-        'file',
+        'image_screen'
     ];
 
     public function getCreatedAtAttribute($value)
