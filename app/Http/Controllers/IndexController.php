@@ -93,13 +93,19 @@ class IndexController extends Controller
         return view('article.article_show', compact('article', 'other_articles'));
     }
 
+    public function article_procedure_show(ArticleProcedure $article_procedure)
+    {
+        $other_articles = ArticleProcedure::inRandomOrder()->get()->take(4);
+        return view('article_procedure.article_show', compact('article_procedure', 'other_articles'));
+    }
+
     public function article_all(Request $request)
     {
         $title = $request->title;
         $article_category_id = $request->article_category_id;
-        $articles = Article::when($title, function ($q) use ($title){
+        $articles = Article::when($title, function ($q) use ($title) {
             $q->where('title', 'ilike', '%' . $title . '%');
-        })->when($article_category_id, function ($q) use ($article_category_id){
+        })->when($article_category_id, function ($q) use ($article_category_id) {
             $q->where('article_category_id', $article_category_id);
         })->orderBy('id', 'desc')->paginate(5);
         $article_categories = ArticleCategory::all();

@@ -63,11 +63,14 @@
                         <div class="col-md-12 mb-2">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <img src="{{$article_procedure->image_url}}" class="img-fluid w-100"
-                                        style="height: 150px;">
+                                    <a href="{{route('article.procedure.show', $article_procedure->id)}}">
+                                        <img src="{{$article_procedure->image_url}}" class="img-fluid w-100"
+                                            style="height: 150px;">
+                                    </a>
                                 </div>
                                 <div class="col-md-7">
-                                    <a href="" class="article">
+                                    <a href="{{route('article.procedure.show', $article_procedure->id)}}"
+                                        class="article">
                                         <p class="font-weight-bold mb-0">{{$article_procedure->title}}</p>
                                     </a>
                                     <p class="font-weight-bold bg-text-blue mb-0">
