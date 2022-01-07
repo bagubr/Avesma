@@ -117,7 +117,8 @@ class IndexController extends Controller
             $q->where('article_category_id', $article_category_id);
         })->orderBy('id', 'desc')->paginate(5);
         $article_categories = ArticleCategory::all();
-        return view('article.articles', compact('articles', 'article_categories'));
+        $flash = $request->flash();
+        return view('article.articles', compact('articles', 'article_categories', 'flash'));
     }
 
     public function article_procedure_all(Request $request)

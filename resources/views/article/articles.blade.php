@@ -8,14 +8,18 @@
             <form action="">
                 <div class="form-row mt-5">
                     <div class="col-md-6 form-group">
-                        <input type="text" class="form-control font-weight-bold" name="title"
+                        <input type="text" class="form-control font-weight-bold" name="title" value="{{old('title')}}"
                             placeholder="Cari Artikel">
                     </div>
                     <div class="col-md-6 form-group">
                         <select class="form-control font-weight-bold" name="article_category_id">
-                            <option value="">Pilih Kategori Artikel</option>
+                            <option value="">Pilih Prosedur</option>
                             @foreach ($article_categories as $category)
+                            @if (old('article_category_id') == $category->id)
+                            <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                            @else
                             <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endif
                             @endforeach
                         </select>
                     </div>
@@ -48,7 +52,13 @@
                 </div>
             </div>
             @endforeach
-
+            @if (empty($article))
+            <div class="text-center mx-auto">
+                <img src="{{asset('asset/icon-kosong-avesma-tidak-ada-data-12.png')}}" style="height: 200px"
+                    class="img-fluid" alt="">
+                <h5 class="mt-3">Artikel Yang Anda Cari Tidak Ada</h5>
+            </div>
+            @endif
         </section>
     </div>
 </section>
