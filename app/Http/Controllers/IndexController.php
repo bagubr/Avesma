@@ -13,10 +13,12 @@ use App\Models\Benefit;
 use App\Models\Buyer;
 use App\Models\CustomerService;
 use App\Models\FishCategory;
+use App\Models\FishSpecies;
 use App\Models\HomeSlider;
 use App\Models\IncomeDetail;
 use App\Models\Pond;
 use App\Models\PondHarvest;
+use App\Models\Procedure;
 use App\Models\Region;
 use App\Models\Slider;
 use App\Models\SliderMarket;
@@ -116,6 +118,24 @@ class IndexController extends Controller
         })->orderBy('id', 'desc')->paginate(5);
         $article_categories = ArticleCategory::all();
         return view('article.articles', compact('articles', 'article_categories'));
+    }
+
+    public function article_procedure_all(Request $request)
+    {
+        $title = $request->title;
+        $procedure_id = $request->procedure_id;
+        $fish_species_id = $request->fish_species_id;
+        $articles = ArticleProcedure::when($title, function ($q) use ($title) {
+            $q->where('title', 'ilike', '%' . $title . '%');
+        })->when($procedure_id, function ($q) use ($procedure_id) {
+            $q->where('procedure_id', $procedure_id);
+        })->when($fish_species_id, function ($q) use ($fish_species_id) {
+            $q->where('fish_species_id', $fish_species_id);
+        })->orderBy('id', 'desc')->paginate(5);
+        $procedures = Procedure::all();
+        $fish_specieses = FishSpecies::all();
+        $flash = $request->flash();
+        return view('article_procedure.articles', compact('articles', 'procedures', 'fish_specieses', 'flash'));
     }
 
     public function contact_store(Request $request)

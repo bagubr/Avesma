@@ -23,6 +23,7 @@ Route::get('/article/{article}', [IndexController::class, 'article_show'])->name
 Route::get('/article_procedure/{article_procedure}', [IndexController::class, 'article_procedure_show'])->name('article.procedure.show');
 Route::get('/article_recipe/{article_recipe}', [IndexController::class, 'article_recipe_show'])->name('article.recipe.show');
 Route::get('/articles', [IndexController::class, 'article_all'])->name('article.all');
+Route::get('/articles_procedure', [IndexController::class, 'article_procedure_all'])->name('article.procedure.all');
 Route::get('/pasar_virtual/{pond_harvest}', [IndexController::class, 'detail_pasar_virtual'])->name('detail_pasar_virtual');
 Route::post('/pasar_virtual/{pond_harvest}', [IndexController::class, 'form_pengajuan'])->name('form_pengajuan');
 Route::get('/kontak', [IndexController::class, 'kontak'])->name('kontak');
