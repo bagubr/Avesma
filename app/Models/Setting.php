@@ -15,6 +15,13 @@ class Setting extends Model
         'image_screen'
     ];
 
+    protected $appends = ['image_screen_url'];
+
+    public function getImageScreenUrlAttribute()
+    {
+        return url('uploads/' . $this->image_screen);
+    }
+
     public function getCreatedAtAttribute($value)
     {
         return date("d-m-Y H:i:s", strtotime($value));
