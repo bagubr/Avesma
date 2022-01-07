@@ -54,4 +54,32 @@ class Pond extends Model
     {
         return date("d-m-Y H:i:s", strtotime($value));
     }
+
+    function convertStringOutcome(array $data)
+    {
+        $texts = '';
+        foreach($data as $each){
+            $textr = '';
+            foreach($each as $key => $value){
+                $textr .= "$value : ";
+            }
+            $textr = rtrim($textr, " : ");
+            $texts .= "$textr<br/>";
+        }
+        return $texts;
+    }
+
+    function convertStringIncome(array $data)
+    {
+        $textr = '';
+        foreach($data as $each){
+            $textr = '';
+            foreach($each as $key => $value){
+                $title = ucwords(str_replace('_', ' ', $key));
+                $textr .= "$title : $value ";
+                $textr .= "<br/>";
+            }
+        }
+        return $textr;
+    }
 }

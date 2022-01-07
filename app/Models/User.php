@@ -34,7 +34,7 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'avatar_url', 'status_verification'
+        'avatar_url', 'status_verification', 'region_name'
     ];
 
     public function user_information()
@@ -61,10 +61,16 @@ class User extends Authenticatable
         return $this->user_information?->status ?? "";
     }
 
+    public function getRegionNameAttribute()
+    {
+        return $this->region()?->first()?->name ?? "";
+    }
+
     public function getAvatarUrlAttribute()
     {
         return url('uploads/' . $this->avatar);
     }
+    
 
     public function getCreatedAtAttribute($value)
     {

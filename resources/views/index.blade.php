@@ -29,14 +29,29 @@
         max-width: 100%;
     }
 
-    /* 
-    .visi-misi {
-        background-image: url('{{asset('asset/bg-avesma-motif-03-03.png')}}'),
-        #6DB3F2;
-    } */
+    .modal-backdrop {
+        -webkit-filter: blur(1px);
+        -moz-filter: blur(1px);
+        -o-filter: blur(1px);
+        -ms-filter: blur(1px);
+        filter: blur(1px);
+    }
 </style>
 @endpush
 @section('content')
+<div id="myModal" class="modal fade bd-example-modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <img src="{{asset('asset/logo-avesma-undip-01.png')}}" class="img-fluid mt-5">
+                    <br>
+                    <button data-dismiss="modal" class="btn btn-primary my-5">Masuk Ke Website</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <section class="hero">
     <div class="container-fluid">
         <div class="row h-100">
@@ -227,3 +242,14 @@
     </div>
 </section>
 @endsection
+@push('js')
+<script>
+    $(document).ready(function () {
+        var isshow = localStorage.getItem('isshow');
+        if (isshow === null) {
+            localStorage.setItem('isshow', 1);
+        }
+        $('#myModal').modal('show');
+    });
+</script>
+@endpush

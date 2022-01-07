@@ -36,6 +36,21 @@ class IncomeDetail extends Model
         return date("d-m-Y H:i:s", strtotime($value));
     }
 
+    // public function getWeightAttribute($value)
+    // {
+    //     return $value.' Kg';
+    // }
+
+    // public function getPriceAttribute($value)
+    // {
+    //     return 'Rp. '. $value;
+    // }
+
+    // public function getTotalPriceAttribute($value)
+    // {
+    //     return 'Rp. '. $value;
+    // }
+
     public function getUpdatedAtAttribute($value)
     {
         return date("d-m-Y H:i:s", strtotime($value));
