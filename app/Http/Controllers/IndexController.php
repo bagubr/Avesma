@@ -99,6 +99,12 @@ class IndexController extends Controller
         return view('article_procedure.article_show', compact('article_procedure', 'other_articles'));
     }
 
+    public function article_recipe_show(ArticleRecipe $article_recipe)
+    {
+        $other_articles = ArticleRecipe::inRandomOrder()->get()->take(4);
+        return view('article_recipe.article_show', compact('article_recipe', 'other_articles'));
+    }
+
     public function article_all(Request $request)
     {
         $title = $request->title;

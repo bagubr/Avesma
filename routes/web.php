@@ -21,6 +21,7 @@ Route::get('/pasar_virtual', [IndexController::class, 'pasar_virtual'])->name('p
 Route::get('/article', [IndexController::class, 'article'])->name('article');
 Route::get('/article/{article}', [IndexController::class, 'article_show'])->name('article.show');
 Route::get('/article_procedure/{article_procedure}', [IndexController::class, 'article_procedure_show'])->name('article.procedure.show');
+Route::get('/article_recipe/{article_recipe}', [IndexController::class, 'article_recipe_show'])->name('article.recipe.show');
 Route::get('/articles', [IndexController::class, 'article_all'])->name('article.all');
 Route::get('/pasar_virtual/{pond_harvest}', [IndexController::class, 'detail_pasar_virtual'])->name('detail_pasar_virtual');
 Route::post('/pasar_virtual/{pond_harvest}', [IndexController::class, 'form_pengajuan'])->name('form_pengajuan');
