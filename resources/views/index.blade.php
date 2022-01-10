@@ -37,26 +37,16 @@
         filter: blur(1px);
     }
 
-    .modal-button-website {
-        position: absolute;
-        right: 0;
-        left: 0;
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
-        bottom: 0;
-        margin-bottom: 50px;
-    }
 </style>
 @endpush
 @section('content')
-<div id="myModal" class="modal fade bd-example-modal-lg">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body text-center">
                 <img src="{{$setting->image_screen_url}}" class="img-fluid m-0">
                 <br>
-                <button data-dismiss="modal" class="btn btn-primary mt-3 modal-button-website">Masuk Ke
+                <button data-dismiss="modal" class="btn btn-primary mt-3">Masuk Ke
                     Website</button>
             </div>
         </div>

@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <select class="form-control font-weight-bold" name="article_category_id">
-                            <option value="">Pilih Prosedur</option>
+                            <option value="">Pilih Kategori</option>
                             @foreach ($article_categories as $category)
                             @if (old('article_category_id') == $category->id)
                             <option value="{{$category->id}}" selected>{{$category->name}}</option>
@@ -57,6 +57,10 @@
                 <img src="{{asset('asset/icon-kosong-avesma-tidak-ada-data-12.png')}}" style="height: 200px"
                     class="img-fluid" alt="">
                 <h5 class="mt-3">Artikel Yang Anda Cari Tidak Ada</h5>
+            </div>
+            @else
+            <div class="d-flex justify-content-center">
+                {!! $articles->links() !!}
             </div>
             @endif
         </section>
