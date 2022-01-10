@@ -14,7 +14,7 @@ class FormProcedureInputUser extends Model
     ];
 
     protected $appends = [
-        'form_procedure_name',
+        'form_procedure_name', 'form_procedure_formula'
     ];
     public function user()
     {
@@ -44,6 +44,12 @@ class FormProcedureInputUser extends Model
     {
         return date("d-m-Y H:i:s", strtotime($value));
     }
+
+    public function getFormProcedureFormulaAttribute()
+    {
+        return $this->result;
+    }
+
     public function getFormProcedureNameAttribute()
     {
         return $this->form_procedure?->procedure_name ?? "";

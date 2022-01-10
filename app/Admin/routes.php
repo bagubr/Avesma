@@ -35,6 +35,7 @@ Route::group([
     $router->get('form-procedure-detail-formula/get_by_form_procedure_detail', 'FormProcedureDetailFormulaController@getByFormProcedureDetail');
     $router->resource('form-procedure-detail-inputs', FormProcedureDetailInputController::class);
     $router->resource('form-procedure-input-users', FormProcedureInputUserController::class);
+    $router->get('ponds/statistic/{id}', 'PondController@statistic');
     $router->resource('ponds', PondController::class);
     $router->get('pond-details/by_user_id', 'PondDetailController@byUserId');
     $router->resource('pond-details', PondDetailController::class);
