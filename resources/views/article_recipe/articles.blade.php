@@ -24,12 +24,12 @@
             @foreach ($articles as $article)
             <div class="row mt-3">
                 <div class="col-md-4 ">
-                    <a href="{{route('article.show', $article->id)}}">
+                    <a href="{{route('article.recipe.show', $article->id)}}">
                         <img src="{{$article->image_url}}" class="img-fluid" style="height: 250px; width: 100%" alt="">
                     </a>
                 </div>
                 <div class="col-md-8">
-                    <a href="{{route('article.show', $article->id)}}" class="article">
+                    <a href="{{route('article.recipe.show', $article->id)}}" class="article">
                         <h5 class="font-weight-bold">{{$article->title}}</h5>
                     </a>
                     <p class="font-weight-bold bg-text-blue">{{$article->category_name}}</p>
