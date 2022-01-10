@@ -1,5 +1,11 @@
 <canvas id="{{ $chartjs }}Chartjs" width="400" height="400"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
 <script>
+// const reloadUsingLocationHash = () => {
+//     window.location.href = window.location.href;
+//       window.location.hash = "reload";
+//     }
+// window.onload = reloadUsingLocationHash();
 $(function () {
     var ctx = document.getElementById("{{ $chartjs }}Chartjs").getContext('2d');
     var myChart = new Chart(ctx, {
