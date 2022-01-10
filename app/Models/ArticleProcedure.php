@@ -37,7 +37,7 @@ class ArticleProcedure extends Model
         static::created(function ($model)
         {
             try {
-                NotificationService::sendToTopic('New article', 'New Article has been release', 'new-article', $model);
+                NotificationService::sendToTopic('New article', 'New Article has been release', 'new-article', $model->only('id', 'title'));
             } catch (\Throwable $th) {
                 //throw $th;
             }
