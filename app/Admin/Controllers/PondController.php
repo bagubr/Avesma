@@ -174,7 +174,6 @@ class PondController extends AdminController
 
     public function statistic(Content $content, $id)
     {
-        Admin::js('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js');
         $form_procedures = FormProcedure::with(['form_procedure_input_users' => function ($q) use ($id){
             $q->where('pond_detail_id', $id)->orderBy('reported_at', 'desc');
         }])->get();
