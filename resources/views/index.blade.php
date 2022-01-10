@@ -41,7 +41,7 @@
         position: absolute;
         right: 0;
         left: 0;
-        text-align: center;
+        text-align: center !important;
         margin-left: auto;
         margin-right: auto;
         bottom: 0;
