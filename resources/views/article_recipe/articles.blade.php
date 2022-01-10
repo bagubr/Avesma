@@ -45,6 +45,10 @@
                     class="img-fluid" alt="">
                 <h5 class="mt-3">Artikel Yang Anda Cari Tidak Ada</h5>
             </div>
+            @else
+            <div class="d-flex justify-content-center">
+                {!! $articles->links() !!}
+            </div>
             @endif
         </section>
     </div>
