@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <select class="form-control font-weight-bold" name="article_category_id">
-                            <option value="">Pilih Prosedur</option>
+                            <option value="">Pilih Kategori</option>
                             @foreach ($article_categories as $category)
                             @if (old('article_category_id') == $category->id)
                             <option value="{{$category->id}}" selected>{{$category->name}}</option>
