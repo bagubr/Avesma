@@ -29,14 +29,21 @@
         max-width: 100%;
     }
 
-    /* 
-    .visi-misi {
-        background-image: url('{{asset('asset/bg-avesma-motif-03-03.png')}}'),
-        #6DB3F2;
-    } */
 </style>
 @endpush
 @section('content')
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="{{$setting->image_screen_url}}" class="img-fluid m-0">
+                <br>
+                <button data-dismiss="modal" class="btn btn-primary mt-3">Masuk Ke
+                    Website</button>
+            </div>
+        </div>
+    </div>
+</div>
 <section class="hero">
     <div class="container-fluid">
         <div class="row h-100">
@@ -227,3 +234,14 @@
     </div>
 </section>
 @endsection
+@push('js')
+<script>
+    $(document).ready(function () {
+        var isshow = localStorage.getItem('isshow');
+        if (isshow === null) {
+            localStorage.setItem('isshow', 1);
+        }
+        $('#myModal').modal('show');
+    });
+</script>
+@endpush

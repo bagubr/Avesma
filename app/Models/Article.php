@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Services\NotificationService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Article extends Model
 {
@@ -24,6 +25,7 @@ class Article extends Model
 
     protected $appends = [
         'image_url',
+        'embed_link_website',
         'category_name'
     ];
 
@@ -33,7 +35,7 @@ class Article extends Model
         static::created(function ($model)
         {
             try {
-                NotificationService::sendToTopic('New article', 'New Article has been release', 'new-article', $model);
+                NotificationService::sendToTopic('New article', 'New Article has been release', 'new-article', $model->only('id', 'title'));
             } catch (\Throwable $th) {
                 //throw $th;
             }
@@ -56,9 +58,15 @@ class Article extends Model
         return $this->belongsTo(ArticleCategory::class, 'article_category_id');
     }
 
+    public function getEmbedLinkWebsiteAttribute()
+    {
+        $embed_link = $this->embed_link;
+        return $embed_link;
+    }
+
     public function getCategoryNameAttribute()
     {
-        return $this->article_category()->first()->name;
+        return $this->article_category()->first()?->name ?? "";
     }
 
     public function getCreatedAtAttribute($value)

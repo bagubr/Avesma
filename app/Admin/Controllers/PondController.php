@@ -2,14 +2,31 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Pond\Statistic;
+use App\Http\Controllers\Api\FormProcedureController;
+use App\Http\Controllers\Api\IncomeController;
+use App\Http\Resources\FormProcedureStatisticResource;
 use App\Models\FishSpecies;
+use App\Models\FormProcedure;
+use App\Models\Income;
+use App\Models\Outcome;
 use App\Models\Pond;
 use App\Models\PondDetail;
 use App\Models\User;
+use Doctrine\DBAL\Schema\Index;
+use Encore\Admin\Admin;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
+use Encore\Admin\Layout\Column;
 use Encore\Admin\Grid;
+use Encore\Admin\Layout\Content;
+use Encore\Admin\Layout\Row;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\InfoBox;
+use Encore\Admin\Widgets\Table;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class PondController extends AdminController
 {
@@ -18,7 +35,7 @@ class PondController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Pond';
+    protected $title = 'Data Kolam';
 
     /**
      * Make a grid builder.
@@ -44,6 +61,33 @@ class PondController extends AdminController
         $grid->column('status', __('Status'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
+        $grid->column('total_pengeluaran', __('Pengeluaran'))->default('Pengeluaran')->expand(function ($model) {
+            $outcomes = Outcome::with('outcome_detail')->where('pond_detail_id', $model->pond_detail->id)->orderBy('id', 'desc')->get()->map(function ($outcome) {
+                $data = $outcome->outcome_detail->map(function ($outcome_detail)
+                {
+                    return $outcome_detail->only(['outcome_name', 'price']);
+                });
+                $outcome->outcome_detail = $this->convertStringOutcome(json_decode($data, 1));
+                return $outcome->only(['id', 'outcome_category_name', 'total_nominal', 'outcome_detail', 'reported_at']);
+            });
+            // dd($outcome->outcome_detail);
+            return new Table(['ID', 'Pengeluaran', 'Total Nominal', 'Detail Laporan', 'Laporan Pada'], $outcomes->toArray());
+        });
+        $grid->column('total_pemasukan', __('Pemasukan'))->default('Pemasukan')->expand(function ($model) {
+            $incomes = Income::with('income_detail')->where('pond_detail_id', $model->pond_detail->id)->orderBy('id', 'desc')->get()->map(function ($income) {
+                $data = $income->income_detail->map(function ($income_detail)
+                {
+                    return $income_detail->only(['product_name', 'price', 'weight', 'total_price']);
+                });
+                $income->income_detail = $this->convertStringIncome(json_decode($data, 1));
+
+                return $income->only(['id', 'total_price', 'income_detail', 'reported_at']);
+            });
+            return new Table(['ID', 'Total Nominal', 'Detail Laporan', 'Laporan Pada'], $incomes->toArray());
+        });
+        $grid->actions(function ($actions){
+            $actions->add(new Statistic($actions->getKey()));
+        });
 
         return $grid;
     }
@@ -127,4 +171,35 @@ class PondController extends AdminController
         
         return $form;
     }
+
+    public function statistic(Content $content, $id)
+    {
+        $form_procedures = FormProcedure::with(['form_procedure_input_users' => function ($q) use ($id){
+            $q->where('pond_detail_id', $id)->orderBy('reported_at', 'desc');
+        }])->get();
+        $form_procedures = FormProcedureStatisticResource::collection($form_procedures);
+        return $content
+        ->title('Statistic')
+        ->row('<center><h1>Avesma</h1></center>')
+        ->row(function (Row $row) use ($form_procedures){
+            foreach ($form_procedures as $key => $value) {
+                    $data = $value->form_procedure_input_users->map(function ($item)
+                    {
+                        return $item->total_score;
+                    });
+
+                    $label = $value->form_procedure_input_users->map(function ($item)
+                    {
+                        return date("d-M-Y", strtotime($item->created_at)).' '.$item->form_procedure_formula;
+                    });
+                    $chartjs = $value->procedure_name;
+                    $row->column(4, function (Column $column) use ($chartjs, $data, $label) {
+                        $label = collect($label);
+                        $collect = collect($data);
+                        $column->row(view('admin.charts.procedure', compact('label', 'collect', 'chartjs')));
+                    });
+                }
+            });
+    }
+    
 }

@@ -12,9 +12,15 @@ class Setting extends Model
     protected $table = 'settings';
     protected $fillable = [
         'name',
-        'value',
-        'file',
+        'image_screen'
     ];
+
+    protected $appends = ['image_screen_url'];
+
+    public function getImageScreenUrlAttribute()
+    {
+        return url('uploads/' . $this->image_screen);
+    }
 
     public function getCreatedAtAttribute($value)
     {
