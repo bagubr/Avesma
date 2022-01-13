@@ -29,14 +29,6 @@
         max-width: 100%;
     }
 
-    .modal-backdrop {
-        -webkit-filter: blur(1px);
-        -moz-filter: blur(1px);
-        -o-filter: blur(1px);
-        -ms-filter: blur(1px);
-        filter: blur(1px);
-    }
-
 </style>
 @endpush
 @section('content')
