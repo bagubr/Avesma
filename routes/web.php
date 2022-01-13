@@ -29,3 +29,7 @@ Route::get('/pasar_virtual/{pond_harvest}', [IndexController::class, 'detail_pas
 Route::post('/pasar_virtual/{pond_harvest}', [IndexController::class, 'form_pengajuan'])->name('form_pengajuan');
 Route::get('/kontak', [IndexController::class, 'kontak'])->name('kontak');
 Route::post('/kontak/store', [IndexController::class, 'contact_store'])->name('contact.store');
+Route::get('/privacy-policy', function ()
+{
+    return view('privacy-policy');
+});
