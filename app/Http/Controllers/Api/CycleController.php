@@ -9,6 +9,7 @@ use App\Models\Cycle;
 use App\Models\Income;
 use App\Models\IncomeDetail;
 use App\Models\Outcome;
+use App\Models\OutcomeDetail;
 use App\Models\Pond;
 use App\Models\PondDetail;
 use Carbon\Carbon;
@@ -34,9 +35,8 @@ class CycleController extends Controller
         return $temp_array;
     }
 
-    protected function weekly_list($pond_id = [], $start_date = null, $end_date = null)
+    protected function weekly_list($pond_detail_id = [], $start_date = null, $end_date = null)
     {
-        $pond_detail_id = PondDetail::whereIn('pond_id', $pond_id)->get()->pluck('id');
         $income = Income::select('id', 'reported_at')
         ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
@@ -99,23 +99,31 @@ class CycleController extends Controller
     {
         $cycles = Cycle::withCount('ponds')->findOrFail($id);
         $ponds = Pond::where('cycle_id', $id)->get();
-        $sum_income = IncomeDetail::whereHas('income', function ($q) use ($ponds) {
-            $q->whereIn('pond_detail_id', PondDetail::whereIn('pond_id', $ponds->pluck('id'))->get()->pluck('id'));
+        $pond_detail_id = PondDetail::whereIn('pond_id', $ponds->pluck('id'))->get()->pluck('id');
+        $sum_income = IncomeDetail::whereHas('income', function ($q) use ($pond_detail_id) {
+            $q->whereIn('pond_detail_id', $pond_detail_id);
         })->sum('total_price');
+        $sum_outcome = OutcomeDetail::whereHas('outcome', function ($q) use ($pond_detail_id) {
+            $q->whereIn('pond_detail_id', $pond_detail_id);
+        })->sum('price');
+        $ratio = new IncomeOutcomeController();
         return $this->sendSuccessResponse([
-            'sum_income' => $sum_income,
+            'sum_income' => (int) $sum_income,
+            'sum_outcome' => (int) $sum_outcome,
+            'ratio' => $ratio->incomeOutcome($pond_detail_id)['calculation'],
             'cycle' => $cycles,
             'ponds' => PondAndPondDetailResource::collection($ponds),
-            'weekly' => $this->unique_multidim_array($this->weekly_list($ponds->pluck('id'), $cycles['start_at']),'name'),
+            'weekly' => $this->unique_multidim_array($this->weekly_list($pond_detail_id, $cycles['start_at']),'name'),
         ]);
     }
     
     public function weekly($id, $date)
     {
         $ponds = Pond::where('cycle_id', $id)->get();
+        $pond_detail_id = PondDetail::whereIn('pond_id', $ponds->pluck('id'))->get()->pluck('id');
         $end_date = date('Y-m-d', strtotime("+7 day", strtotime($date)));
         return $this->sendSuccessResponse([
-            'weekly' => $this->weekly_list($ponds->pluck('id'), $date, $end_date),
+            'weekly' => $this->weekly_list($pond_detail_id, $date, $end_date),
         ]);
     }
 }
