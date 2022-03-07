@@ -19,6 +19,7 @@ class Outcome extends Model
     protected $appends = [
         'total_nominal',
         "outcome_category_name",
+        "category_name",
     ];
 
     public function pond_detail()
@@ -49,8 +50,14 @@ class Outcome extends Model
     {
         return $this->outcome_detail()->get()?->sum('price') ?? 0;
     }
+
     public function getOutcomeCategoryNameAttribute()
     {
-        return $this->outcome_category->name;
+        return $this->outcome_category?->name??'';
+    }
+
+    public function getCategoryNameAttribute()
+    {
+        return 'OUTCOME';
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,7 +17,11 @@ class Cycle extends Model
         'start_at'
     ];
 
-    public function pond()
+    protected $appends = [
+        'start_at_for_humman'
+    ];
+
+    public function ponds()
     {
         return $this->hasMany(Pond::class);
     }
@@ -24,6 +29,11 @@ class Cycle extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id',  'id');
+    }
+
+    public function getStartAtForHummanAttribute()
+    {
+        return Carbon::createFromFormat('Y-m-d', $this->start_at)->diffForHumans();
     }
 
 }

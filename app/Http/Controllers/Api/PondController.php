@@ -52,7 +52,7 @@ class PondController extends Controller
 
     public function store(PondCreateRequest $request)
     {
-        $pond = PondRepository::createModel($request->user()->id, $request->description, $request->name, $request->area, $request->latitude, $request->longitude, $request->address);
+        $pond = PondRepository::createModel($request->user()->id, $request->description, $request->name, $request->area, $request->latitude, $request->longitude, $request->address, $request->cycle_id);
         $pond_detail = PondDetailRepository::createModel($request->fish_species_id, $request->seed_count);
         $pond = PondService::create($pond, $pond_detail);
         $pond = $pond->query()->with('pond_detail.fish_species')->find($pond->id);

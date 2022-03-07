@@ -16,7 +16,8 @@ class Income extends Model
 
     protected $appends = [
         'pond_spesies',
-        'total_price'
+        'total_price',
+        'category_name'
     ];
     
     public function pond_detail()
@@ -52,6 +53,11 @@ class Income extends Model
     public function getUpdatedAtAttribute($value)
     {
         return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getCategoryNameAttribute()
+    {
+        return 'INCOME';
     }
 
 }
