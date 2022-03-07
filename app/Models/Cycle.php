@@ -11,10 +11,14 @@ class Cycle extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const ONGOING = 'Sedang Berlangsung';
+    const FINISH = 'Selesai';
+
     protected $fillable = [
         'user_id',
         'name',
-        'start_at'
+        'start_at',
+        'status'
     ];
 
     protected $appends = [
@@ -34,6 +38,16 @@ class Cycle extends Model
     public function getStartAtForHummanAttribute()
     {
         return Carbon::createFromFormat('Y-m-d', $this->start_at)->diffForHumans();
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return date("d-m-Y H:i:s", strtotime($value));
     }
 
 }

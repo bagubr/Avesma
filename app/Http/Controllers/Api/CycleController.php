@@ -71,6 +71,7 @@ class CycleController extends Controller
     {
         $cycles = Cycle::create(array_merge($request->all(), [
             'user_id' => $request->user()->id,
+            'status'  => Cycle::ONGOING,
         ]));
         return $this->sendSuccessResponse([
             'cycle' => $cycles,
