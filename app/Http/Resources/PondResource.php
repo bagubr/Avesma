@@ -17,6 +17,7 @@ class PondResource extends JsonResource
         return [
             'id' => $this->id,
             "user_id" =>  $this->user->id,
+            "cycle_id" =>  $this->cycle_id,
             'name' => $this->name ?? "",
             'area' => $this->area ?? "",
             'description' => $this->description ?? "",

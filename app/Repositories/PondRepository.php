@@ -40,16 +40,17 @@ class PondRepository
             });
     }
 
-    public static function createModel($user_id = null, $description = null, $name = null, $area = null, $latitude = null, $longitude = null, $address = null, $status = Pond::STATUS1): Pond
+    public static function createModel($user_id = null, $description = null, $name = null, $area = null, $latitude = null, $longitude = null, $address = null, $cycle_id = null): Pond
     {
         return new Pond([
             'user_id' => $user_id,
+            'cycle_id' => $cycle_id,
             'name' => $name,
             'area' => $area,
             'latitude' => $latitude,
             'longitude' => $longitude,
             'address' => $address,
-            'status' => $status,
+            'status' => Pond::STATUS1,
             'description' => $description
         ]);
     }

@@ -17,6 +17,7 @@ class Pond extends Model
 
     protected $fillable = [
         'user_id',
+        'cycle_id',
         'name',
         'area',
         'status',
@@ -31,6 +32,11 @@ class Pond extends Model
     public function pond_detail()
     {
         return $this->hasOne(PondDetail::class, 'pond_id', 'id');
+    }
+
+    public function cycle()
+    {
+        return $this->belongsTo(Cycle::class);
     }
 
     public function pond_harvest()
