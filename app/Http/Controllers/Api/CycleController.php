@@ -37,7 +37,8 @@ class CycleController extends Controller
             {
                 $item2['id'] = $item['id'];
                 $item2['name'] = 'Minggu '.date('W', strtotime($item['reported_at']));
-                $item2['date'] = date('Y-m-d', strtotime($item['reported_at']));
+                $item2['start_date'] = date('Y-m-d', strtotime($item['reported_at']));
+                $item2['end_date'] = date('Y-m-d', strtotime("+7 day", strtotime($item['reported_at'])));
                 $item2['category_name'] = $item['category_name'];
                 $item2['total_nominal'] = (isset($item['total_price']))?$item['total_price']:$item['total_nominal'];
                 return $item2;
@@ -46,7 +47,8 @@ class CycleController extends Controller
             $weekly = array_map(function ($item)
             {
                 $item2['name'] = 'Minggu '.date('W', strtotime($item['reported_at']));
-                $item2['date'] = date('Y-m-d', strtotime($item['reported_at']));
+                $item2['start_date'] = date('Y-m-d', strtotime($item['reported_at']));
+                $item2['end_date'] = date('Y-m-d', strtotime("+7 day", strtotime($item['reported_at'])));
                 return $item2;
             }, $week_merge);
         }

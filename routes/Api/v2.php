@@ -63,7 +63,7 @@ Route::get('share', [ShareController::class, 'index']);
 
 Route::get('markets', [MarketController::class, 'index']);
 
-// Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('article', [ArticleController::class, 'index']);
     Route::get('article/{id}', [ArticleController::class, 'show']);
@@ -159,4 +159,4 @@ Route::get('markets', [MarketController::class, 'index']);
     Route::get('cycle/{cycle_id}', [CycleController::class, 'show']);
     Route::post('cycle/{cycle_id}', [CycleController::class, 'update']);
     Route::get('cycle-weekly/{cycle_id}/{date}', [CycleController::class, 'weekly']);
-// });
+});
