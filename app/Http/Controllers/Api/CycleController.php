@@ -7,12 +7,14 @@ use App\Http\Requests\CycleRequest;
 use App\Http\Resources\PondAndPondDetailResource;
 use App\Models\Cycle;
 use App\Models\Income;
+use App\Models\IncomeDetail;
 use App\Models\Outcome;
 use App\Models\Pond;
 use App\Models\PondDetail;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CycleController extends Controller
 {
@@ -35,26 +37,17 @@ class CycleController extends Controller
     protected function weekly_list($pond_id = [], $start_date = null, $end_date = null)
     {
         $pond_detail_id = PondDetail::whereIn('pond_id', $pond_id)->get()->pluck('id');
-        
         $income = Income::select('id', 'reported_at')
-        ->when($start_date, function ($query) use ($start_date)
+        ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
-            $query->whereDate('reported_at', '>=', $start_date);  
-        })
-        ->when($end_date, function ($query) use ($end_date)
-        {
-            $query->whereDate('reported_at', '<=', $end_date);  
+            $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
         ->whereIn('pond_detail_id', $pond_detail_id)->get()->makeHidden(['pond_spesies']);
-
+        
         $outcome = Outcome::select('id', 'reported_at')
-        ->when($start_date, function ($query) use ($start_date)
+        ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
-            $query->whereDate('reported_at', '>=', $start_date);  
-        })
-        ->when($end_date, function ($query) use ($end_date)
-        {
-            $query->whereDate('reported_at', '<=', $end_date);  
+            $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
         ->whereIn('pond_detail_id', $pond_detail_id)->get()->makeHidden(['outcome_category_name', 'outcome_category']);
 
@@ -78,7 +71,7 @@ class CycleController extends Controller
     {
         $cycles = Cycle::where('user_id', $request->user()->id)->get();
         return $this->sendSuccessResponse([
-            'cycles' => $cycles,
+            'cycle' => $cycles,
         ]);
     }
 
@@ -104,9 +97,13 @@ class CycleController extends Controller
     
     public function show($id)
     {
-        $cycles = Cycle::findOrFail($id);
+        $cycles = Cycle::withCount('ponds')->findOrFail($id);
         $ponds = Pond::where('cycle_id', $id)->get();
+        $sum_income = IncomeDetail::whereHas('income', function ($q) use ($ponds) {
+            $q->whereIn('pond_detail_id', PondDetail::whereIn('pond_id', $ponds->pluck('id'))->get()->pluck('id'));
+        })->sum('total_price');
         return $this->sendSuccessResponse([
+            'sum_income' => $sum_income,
             'cycle' => $cycles,
             'ponds' => PondAndPondDetailResource::collection($ponds),
             'weekly' => $this->unique_multidim_array($this->weekly_list($ponds->pluck('id'), $cycles['start_at']),'name'),
@@ -121,5 +118,4 @@ class CycleController extends Controller
             'weekly' => $this->weekly_list($ponds->pluck('id'), $date, $end_date),
         ]);
     }
-
 }
