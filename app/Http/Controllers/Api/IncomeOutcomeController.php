@@ -6,44 +6,56 @@ use App\Http\Controllers\Controller;
 use App\Models\IncomeDetail;
 use App\Models\Outcome;
 use App\Models\OutcomeDetail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class IncomeOutcomeController extends Controller
 {
+    public function incomeOutcome($pond_detail_id)
+    {
+        $data['income_total'] = IncomeDetail::whereHas('income', function ($q) use ($pond_detail_id) {
+            $q->when(is_countable($pond_detail_id), function ($q2) use ($pond_detail_id)
+            {
+                $q2->whereIn('pond_detail_id', $pond_detail_id);
+            });
+            $q->when(!is_countable($pond_detail_id), function ($q2) use ($pond_detail_id)
+            {
+                $q2->where('pond_detail_id', $pond_detail_id);
+            });
+        })->sum('total_price');
+        $data['outcome_total'] = OutcomeDetail::whereHas('outcome', function ($q) use ($pond_detail_id) {
+            $q->when(is_countable($pond_detail_id), function ($q2) use ($pond_detail_id)
+            {
+                $q2->whereIn('pond_detail_id', $pond_detail_id);
+            });
+            $q->when(!is_countable($pond_detail_id), function ($q2) use ($pond_detail_id)
+            {
+                $q2->where('pond_detail_id', $pond_detail_id);
+            });
+        })->sum('price');
+        $data['calculation']['calculation_total'] = $data['income_total'] ?? 0 / $data['outcome_total'] ?? 0;
+
+        $data['calculation'] = $this->indexRatio($data['calculation']['calculation_total']);
+        return $data;    
+    }
+
+    public function indexRatio($total_price)
+    {
+        if ($total_price > 1) {
+            $data['calculation_message'] = "Diatas";
+            $data['calculation_status'] = 1;
+        } else if ($total_price < 1) {
+            $data['calculation_message'] = "Dibawah";
+            $data['calculation_status'] = -1;
+        } else {
+            $data['calculation_message'] = "Sama";
+            $data['calculation_status'] = 0;
+        }
+        return $data;
+    }
+
     public function index(Request $request)
     {
-        $income_total = IncomeDetail::whereHas('income', function ($q) use ($request) {
-            $q->where('pond_detail_id', $request->pond_detail_id);
-        })->sum('total_price');
-        $outcome_tetap = Outcome::where('pond_detail_id', $request->pond_detail_id)
-            ->whereHas('outcome_detail.outcome_setting', function ($sq) {
-                $sq->where('outcome_category_id', 1);
-            })->orderBy('id', 'desc');
-        $outcomes_lain = Outcome::where('pond_detail_id', $request->pond_detail_id)
-            ->orderBy('reported_at', 'desc')->whereHas('outcome_detail.outcome_setting', function ($sq) {
-                $sq->where('outcome_category_id', 2);
-            })->get();
-        $outcome_total = $outcome_tetap->first()->total_nominal ?? 0 + $outcomes_lain->sum('total_nominal') ?? 0;
-        $calculation = $income_total ?? 0 / $outcome_total ?? 0;
-
-        if ($calculation > 1) {
-            $calculation_message = "Diatas";
-            $calculation_status = 1;
-        } else if ($calculation < 1) {
-            $calculation_message = "Dibawah";
-            $calculation_status = -1;
-        } else {
-            $calculation_message = "Sama";
-            $calculation_status = 0;
-        }
-        return $this->sendSuccessResponse([
-            'income_total' => $income_total,
-            'outcome_total' => $outcome_total,
-            'calculation' => [
-                'calculation_total' => $calculation,
-                'calculation_status' => $calculation_status,
-                'calculation_message' => $calculation_message,
-            ],
-        ]);
+        return $this->sendSuccessResponse($this->incomeOutcome($request->pond_detail_id));
     }
 }

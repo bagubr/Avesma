@@ -21,8 +21,9 @@ class CycleRequest extends ApiRequest
     public function rules()
     {
         return [
-            'name'=>'required|string',
-            'start_at'=>'required|string'
+            'name'=>'sometimes|string',
+            'start_at'=>'sometimes|string',
+            'status'=>'sometimes|string'
         ];
     }
 }

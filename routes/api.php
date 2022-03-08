@@ -19,7 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Route::namespace('Api')->prefix('v1')->group(function() {
-//     require __DIR__.'/Api/v1.php';
 // });
 Route::namespace('Api')->prefix('v2')->group(function() {
     require __DIR__.'/Api/v2.php';

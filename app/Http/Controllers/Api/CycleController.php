@@ -7,12 +7,15 @@ use App\Http\Requests\CycleRequest;
 use App\Http\Resources\PondAndPondDetailResource;
 use App\Models\Cycle;
 use App\Models\Income;
+use App\Models\IncomeDetail;
 use App\Models\Outcome;
+use App\Models\OutcomeDetail;
 use App\Models\Pond;
 use App\Models\PondDetail;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CycleController extends Controller
 {
@@ -32,29 +35,19 @@ class CycleController extends Controller
         return $temp_array;
     }
 
-    protected function weekly_list($pond_id = [], $start_date = null, $end_date = null)
+    protected function weekly_list($pond_detail_id = [], $start_date = null, $end_date = null)
     {
-        $pond_detail_id = PondDetail::whereIn('pond_id', $pond_id)->get()->pluck('id');
-        
-        $income = Income::select('id', 'reported_at')
-        ->when($start_date, function ($query) use ($start_date)
+        $income = Income::select('id', 'reported_at', 'pond_detail_id')
+        ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
-            $query->whereDate('reported_at', '>=', $start_date);  
-        })
-        ->when($end_date, function ($query) use ($end_date)
-        {
-            $query->whereDate('reported_at', '<=', $end_date);  
+            $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
         ->whereIn('pond_detail_id', $pond_detail_id)->get()->makeHidden(['pond_spesies']);
-
-        $outcome = Outcome::select('id', 'reported_at')
-        ->when($start_date, function ($query) use ($start_date)
+        
+        $outcome = Outcome::select('id', 'reported_at', 'pond_detail_id')
+        ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
-            $query->whereDate('reported_at', '>=', $start_date);  
-        })
-        ->when($end_date, function ($query) use ($end_date)
-        {
-            $query->whereDate('reported_at', '<=', $end_date);  
+            $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
         ->whereIn('pond_detail_id', $pond_detail_id)->get()->makeHidden(['outcome_category_name', 'outcome_category']);
 
@@ -63,6 +56,7 @@ class CycleController extends Controller
         {
             $item2['id'] = $item['id'];
             $item2['name'] = 'Minggu '.date('W', strtotime($item['reported_at']));
+            $item2['pond_detail_id'] = $item['pond_detail_id'];
             $item2['reported_at'] = date('Y-m-d', strtotime($item['reported_at']));
             $item2['start_date'] = date('Y-m-d', strtotime($item['reported_at']));
             $item2['end_date'] = date('Y-m-d', strtotime("+7 day", strtotime($item['reported_at'])));
@@ -78,7 +72,7 @@ class CycleController extends Controller
     {
         $cycles = Cycle::where('user_id', $request->user()->id)->get();
         return $this->sendSuccessResponse([
-            'cycles' => $cycles,
+            'cycle' => $cycles,
         ]);
     }
 
@@ -104,22 +98,62 @@ class CycleController extends Controller
     
     public function show($id)
     {
-        $cycles = Cycle::findOrFail($id);
+        $cycles = Cycle::withCount('ponds')->findOrFail($id);
         $ponds = Pond::where('cycle_id', $id)->get();
+        $pond_detail_id = PondDetail::whereIn('pond_id', $ponds->pluck('id'))->get()->pluck('id');
+        $sum_income = IncomeDetail::whereHas('income', function ($q) use ($pond_detail_id) {
+            $q->whereIn('pond_detail_id', $pond_detail_id);
+        })->sum('total_price');
+        $sum_outcome = OutcomeDetail::whereHas('outcome', function ($q) use ($pond_detail_id) {
+            $q->whereIn('pond_detail_id', $pond_detail_id);
+        })->sum('price');
+        $ratio = new IncomeOutcomeController();
         return $this->sendSuccessResponse([
+            'sum_income' => (int) $sum_income,
+            'sum_outcome' => (int) $sum_outcome,
+            'ratio' => $ratio->incomeOutcome($pond_detail_id)['calculation'],
             'cycle' => $cycles,
             'ponds' => PondAndPondDetailResource::collection($ponds),
-            'weekly' => $this->unique_multidim_array($this->weekly_list($ponds->pluck('id'), $cycles['start_at']),'name'),
+            'weekly' => $this->unique_multidim_array($this->weekly_list($pond_detail_id, $cycles['start_at']),'name'),
+        ]);
+    }
+
+    public function ponds($id)
+    {
+        $ponds = Pond::where('cycle_id', $id)->get();
+        return $this->sendSuccessResponse([
+            'ponds' => PondAndPondDetailResource::collection($ponds),
         ]);
     }
     
     public function weekly($id, $date)
     {
         $ponds = Pond::where('cycle_id', $id)->get();
+        $pond_detail_id = PondDetail::whereIn('pond_id', $ponds->pluck('id'))->get()->pluck('id');
         $end_date = date('Y-m-d', strtotime("+7 day", strtotime($date)));
         return $this->sendSuccessResponse([
-            'weekly' => $this->weekly_list($ponds->pluck('id'), $date, $end_date),
+            'weekly' => $this->weekly_list($pond_detail_id, $date, $end_date),
         ]);
     }
 
+    public function ratio($id)
+    {
+        $ponds = Pond::where('cycle_id', $id)->get();
+        $pond_detail_id = PondDetail::whereIn('pond_id', $ponds->pluck('id'))->get()->pluck('id');
+        $data = $this->weekly_list($pond_detail_id);
+        usort($data, fn ($a, $b) => strtotime($b["reported_at"]) - strtotime($a["reported_at"]));
+        $ratio_history = [];
+        foreach ($data as $key => $value) {
+            $ratio = new IncomeOutcomeController();
+            $ratio_history[] = [
+                'calculation_message' => $ratio->indexRatio($value['total_nominal'])['calculation_message'],
+                'calculation_status' => $ratio->indexRatio($value['total_nominal'])['calculation_status'],
+                'reported_at' => $value['reported_at']
+            ];
+        }
+        return $this->sendSuccessResponse([
+            'ratio' => $ratio->incomeOutcome($pond_detail_id)['calculation'],
+            'ratio_detail' => $ratio_history,
+        ]);
+    }
 }

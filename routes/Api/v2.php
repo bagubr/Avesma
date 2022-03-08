@@ -159,4 +159,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('cycle/{cycle_id}', [CycleController::class, 'show']);
     Route::post('cycle/{cycle_id}', [CycleController::class, 'update']);
     Route::get('cycle-weekly/{cycle_id}/{date}', [CycleController::class, 'weekly']);
+    Route::get('cycle-ratio/{cycle_id}', [CycleController::class, 'ratio']);
+    Route::get('cycle-pond/{cycle_id}', [CycleController::class, 'ponds']);
 });
