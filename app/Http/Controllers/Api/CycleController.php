@@ -151,12 +151,29 @@ class CycleController extends Controller
         $data = $this->weekly_list($pond_detail_id);
         usort($data, fn ($a, $b) => strtotime($b["reported_at"]) - strtotime($a["reported_at"]));
         $ratio_history = [];
+        $income_total = 0;
+        $outcome_total = 0;
+        $ratio = new IncomeOutcomeController();
         foreach ($data as $key => $value) {
-            $ratio = new IncomeOutcomeController();
+            if($value['category_name'] == 'INCOME'){
+                $income_total += $value['total_nominal'];
+            }
+            if($value['category_name'] == 'OUTCOME'){
+                $outcome_total += $value['total_nominal'];
+            }
+            $total = $income_total;
+            if($outcome_total > 0){
+                $total = $income_total / $outcome_total;
+            }
             $ratio_history[] = [
-                'calculation_message' => $ratio->indexRatio($value['total_nominal'])['calculation_message'],
-                'calculation_status' => $ratio->indexRatio($value['total_nominal'])['calculation_status'],
-                'reported_at' => $value['reported_at']
+                'calculation_message' => $ratio->indexRatio($total)['calculation_message'],
+                'calculation_status' => $ratio->indexRatio($total)['calculation_status'],
+                'reported_at' => $value['reported_at'],
+                'total' => $value['total_nominal'],
+                'income' => $income_total,
+                'outcome' => $outcome_total,
+                'total_bersih' => $total,
+                'category_name' => $value['category_name'],
             ];
         }
         return $this->sendSuccessResponse([
