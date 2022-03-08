@@ -11,8 +11,8 @@ class Cycle extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const ONGOING = 'Sedang Berlangsung';
-    const FINISH = 'Selesai';
+    const ONGOING = 'ONGOING';
+    const FINISH = 'FINISH';
 
     protected $fillable = [
         'user_id',
