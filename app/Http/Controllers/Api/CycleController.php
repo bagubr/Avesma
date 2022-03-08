@@ -68,11 +68,19 @@ class CycleController extends Controller
         return $weekly;
     }
 
-    public function index(Request $request)
+    public function indexFinish(Request $request)
     {
-        $cycles = Cycle::where('user_id', $request->user()->id)->get();
+        $cycles = Cycle::where('user_id', $request->user()->id)->where('status', Cycle::FINISH)->get();
         return $this->sendSuccessResponse([
-            'cycle' => $cycles,
+            'cycles' => $cycles,
+        ]);
+    }
+
+    public function indexOngoing(Request $request)
+    {
+        $cycles = Cycle::where('user_id', $request->user()->id)->where('status', Cycle::ONGOING)->get();
+        return $this->sendSuccessResponse([
+            'cycles' => $cycles,
         ]);
     }
 

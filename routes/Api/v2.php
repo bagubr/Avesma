@@ -154,7 +154,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('term_and_condition', [TermAndConditionController::class, 'index']);
 
-    Route::get('cycle', [CycleController::class, 'index']);
+    Route::get('cycle', [CycleController::class, 'indexOngoing']);
+    Route::get('cycle-finish', [CycleController::class, 'indexFinish']);
     Route::post('cycle', [CycleController::class, 'store']);
     Route::get('cycle/{cycle_id}', [CycleController::class, 'show']);
     Route::post('cycle/{cycle_id}', [CycleController::class, 'update']);
