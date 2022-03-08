@@ -35,17 +35,23 @@ class IncomeOutcomeController extends Controller
         })->sum('price');
         $data['calculation']['calculation_total'] = $data['income_total'] ?? 0 / $data['outcome_total'] ?? 0;
 
-        if ($data['calculation']['calculation_total'] > 1) {
-            $data['calculation']['calculation_message'] = "Diatas";
-            $data['calculation']['calculation_status'] = 1;
-        } else if ($data['calculation']['calculation_total'] < 1) {
-            $data['calculation']['calculation_message'] = "Dibawah";
-            $data['calculation']['calculation_status'] = -1;
-        } else {
-            $data['calculation']['calculation_message'] = "Sama";
-            $data['calculation']['calculation_status'] = 0;
-        }
+        $data['calculation'] = $this->indexRatio($data['calculation']['calculation_total']);
         return $data;    
+    }
+
+    public function indexRatio($total_price)
+    {
+        if ($total_price > 1) {
+            $data['calculation_message'] = "Diatas";
+            $data['calculation_status'] = 1;
+        } else if ($total_price < 1) {
+            $data['calculation_message'] = "Dibawah";
+            $data['calculation_status'] = -1;
+        } else {
+            $data['calculation_message'] = "Sama";
+            $data['calculation_status'] = 0;
+        }
+        return $data;
     }
 
     public function index(Request $request)

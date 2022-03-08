@@ -37,14 +37,14 @@ class CycleController extends Controller
 
     protected function weekly_list($pond_detail_id = [], $start_date = null, $end_date = null)
     {
-        $income = Income::select('id', 'reported_at')
+        $income = Income::select('id', 'reported_at', 'pond_detail_id')
         ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
             $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
         ->whereIn('pond_detail_id', $pond_detail_id)->get()->makeHidden(['pond_spesies']);
         
-        $outcome = Outcome::select('id', 'reported_at')
+        $outcome = Outcome::select('id', 'reported_at', 'pond_detail_id')
         ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
             $query->whereBetween('reported_at', [$start_date, $end_date]);
@@ -56,6 +56,7 @@ class CycleController extends Controller
         {
             $item2['id'] = $item['id'];
             $item2['name'] = 'Minggu '.date('W', strtotime($item['reported_at']));
+            $item2['pond_detail_id'] = $item['pond_detail_id'];
             $item2['reported_at'] = date('Y-m-d', strtotime($item['reported_at']));
             $item2['start_date'] = date('Y-m-d', strtotime($item['reported_at']));
             $item2['end_date'] = date('Y-m-d', strtotime("+7 day", strtotime($item['reported_at'])));
@@ -124,6 +125,27 @@ class CycleController extends Controller
         $end_date = date('Y-m-d', strtotime("+7 day", strtotime($date)));
         return $this->sendSuccessResponse([
             'weekly' => $this->weekly_list($pond_detail_id, $date, $end_date),
+        ]);
+    }
+
+    public function ratio($id)
+    {
+        $ponds = Pond::where('cycle_id', $id)->get();
+        $pond_detail_id = PondDetail::whereIn('pond_id', $ponds->pluck('id'))->get()->pluck('id');
+        $data = $this->weekly_list($pond_detail_id);
+        usort($data, fn ($a, $b) => strtotime($b["reported_at"]) - strtotime($a["reported_at"]));
+        $ratio_history = [];
+        foreach ($data as $key => $value) {
+            $ratio = new IncomeOutcomeController();
+            $ratio_history[] = [
+                'calculation_message' => $ratio->indexRatio($value['total_nominal'])['calculation_message'],
+                'calculation_status' => $ratio->indexRatio($value['total_nominal'])['calculation_status'],
+                'reported_at' => $value['reported_at']
+            ];
+        }
+        return $this->sendSuccessResponse([
+            'ratio' => $ratio->incomeOutcome($pond_detail_id)['calculation'],
+            'ratio_detail' => $ratio_history,
         ]);
     }
 }
