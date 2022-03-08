@@ -117,6 +117,14 @@ class CycleController extends Controller
             'weekly' => $this->unique_multidim_array($this->weekly_list($pond_detail_id, $cycles['start_at']),'name'),
         ]);
     }
+
+    public function ponds($id)
+    {
+        $ponds = Pond::where('cycle_id', $id)->get();
+        return $this->sendSuccessResponse([
+            'ponds' => PondAndPondDetailResource::collection($ponds),
+        ]);
+    }
     
     public function weekly($id, $date)
     {
