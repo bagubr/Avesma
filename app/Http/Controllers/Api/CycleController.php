@@ -153,8 +153,8 @@ class CycleController extends Controller
         $ratio_history = [];
         $income_total = 0;
         $outcome_total = 0;
+        $ratio = new IncomeOutcomeController();
         foreach ($data as $key => $value) {
-            $ratio = new IncomeOutcomeController();
             if($value['category_name'] == 'INCOME'){
                 $income_total += $value['total_nominal'];
             }
