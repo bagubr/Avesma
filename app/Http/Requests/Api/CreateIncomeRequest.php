@@ -17,11 +17,11 @@ class CreateIncomeRequest extends ApiRequest
     public function rules(Request $request)
     {
         return [
-            'pond_detail_id' => 'required|numeric|exists:pond_details,id',
+            'cycle_id' => 'required|numeric|exists:cycles,id',
             'reported_at' => [
                 'required',
                 'date',
-                Rule::unique('incomes')->where('pond_detail_id', $request->pond_detail_id),
+                Rule::unique('incomes')->where('cycle_id', $request->cycle_id),
             ],
 
             'data.*.pond_detail_product_id' => 'required|numeric',

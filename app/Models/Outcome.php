@@ -11,7 +11,7 @@ class Outcome extends Model
     // ojo lali tambah pengeluaranne piro
     protected $table = 'outcomes';
     protected $fillable = [
-        'pond_detail_id',
+        'cycle_id',
         'reported_at',
         'outcome_category_id'
     ];
@@ -22,9 +22,9 @@ class Outcome extends Model
         "category_name",
     ];
 
-    public function pond_detail()
+    public function cycle()
     {
-        return $this->belongsTo(PondDetail::class, 'pond_detail_id');
+        return $this->belongsTo(Cycle::class, 'cycle_id');
     }
 
     public function outcome_category()

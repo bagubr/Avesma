@@ -17,10 +17,10 @@ class UpdateIncomeRequest extends ApiRequest
     public function rules(Request $request)
     {
         return [
-            'pond_detail_id' => 'required|numeric|exists:pond_details,id',
+            'cycle_id' => 'required|numeric|exists:cycles,id',
             'reported_at' => [
                 'required', 'date',
-                Rule::unique('incomes','reported_at')->where('pond_detail_id', $request->pond_detail_id)
+                Rule::unique('incomes','reported_at')->where('cycle_id', $request->cycle_id)
                     ->ignore($this->income->id),
             ],
 

@@ -19,11 +19,10 @@ class IncomeController extends Controller
 {
     public function index(Request $request)
     {
-        $incomes = Income::where('pond_detail_id', $request->pond_detail_id)->orderBy('reported_at', 'desc');
+        $incomes = Income::where('cycle_id', $request->cycle_id)->orderBy('reported_at', 'desc');
         $income_total = IncomeDetail::whereHas('income', function ($q) use ($request) {
-            $q->where('pond_detail_id', $request->pond_detail_id);
+            $q->where('cycle_id', $request->cycle_id);
         })->sum('total_price');
-        if (empty($request->pond_detail_id)) $this->sendFailedResponse([], 'Maaf, sepertinya anda harus login ulang');
         $this->sendSuccessResponse([
             'income_total' => $income_total,
             'incomes' => IncomeIndexResource::collection($incomes->get()),
@@ -39,7 +38,7 @@ class IncomeController extends Controller
     public function store(CreateIncomeRequest $request)
     {
         DB::beginTransaction();
-        $income = IncomeRepository::createModel($request->pond_detail_id, $request->reported_at);
+        $income = IncomeRepository::createModel($request->cycle_id, $request->reported_at);
         $income = IncomeService::create($income, $request->data);
         DB::commit();
         return $this->sendSuccessResponse([
@@ -49,7 +48,7 @@ class IncomeController extends Controller
     public function update(UpdateIncomeRequest $request, Income $income)
     {
         DB::beginTransaction();
-        $data = $request->only('pond_detail_id', 'reported_at');
+        $data = $request->only('cycle_id', 'reported_at');
         $income->update($data);
         $income->refresh();
         foreach ($income->income_detail as $key) {
@@ -71,10 +70,10 @@ class IncomeController extends Controller
     }
     public function income_statistic(Request $request)
     {
-        $incomes = Income::where('pond_detail_id', $request->pond_detail_id)
+        $incomes = Income::where('cycle_id', $request->cycle_id)
             ->orderBy('reported_at', 'asc')->get();
         $income_total = IncomeDetail::whereHas('income', function ($q) use ($request) {
-            $q->where('pond_detail_id', $request->pond_detail_id);
+            $q->where('cycle_id', $request->cycle_id);
         })->sum('total_price');
         return $this->sendSuccessResponse([
             'income_total' => $income_total,
