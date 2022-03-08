@@ -11,26 +11,26 @@ use Illuminate\Http\Request;
 
 class IncomeOutcomeController extends Controller
 {
-    public function incomeOutcome($pond_detail_id)
+    public function incomeOutcome($cycle_id)
     {
-        $data['income_total'] = IncomeDetail::whereHas('income', function ($q) use ($pond_detail_id) {
-            $q->when(is_countable($pond_detail_id), function ($q2) use ($pond_detail_id)
+        $data['income_total'] = IncomeDetail::whereHas('income', function ($q) use ($cycle_id) {
+            $q->when(is_countable($cycle_id), function ($q2) use ($cycle_id)
             {
-                $q2->whereIn('pond_detail_id', $pond_detail_id);
+                $q2->whereIn('cycle_id', $cycle_id);
             });
-            $q->when(!is_countable($pond_detail_id), function ($q2) use ($pond_detail_id)
+            $q->when(!is_countable($cycle_id), function ($q2) use ($cycle_id)
             {
-                $q2->where('pond_detail_id', $pond_detail_id);
+                $q2->where('cycle_id', $cycle_id);
             });
         })->sum('total_price');
-        $data['outcome_total'] = OutcomeDetail::whereHas('outcome', function ($q) use ($pond_detail_id) {
-            $q->when(is_countable($pond_detail_id), function ($q2) use ($pond_detail_id)
+        $data['outcome_total'] = OutcomeDetail::whereHas('outcome', function ($q) use ($cycle_id) {
+            $q->when(is_countable($cycle_id), function ($q2) use ($cycle_id)
             {
-                $q2->whereIn('pond_detail_id', $pond_detail_id);
+                $q2->whereIn('cycle_id', $cycle_id);
             });
-            $q->when(!is_countable($pond_detail_id), function ($q2) use ($pond_detail_id)
+            $q->when(!is_countable($cycle_id), function ($q2) use ($cycle_id)
             {
-                $q2->where('pond_detail_id', $pond_detail_id);
+                $q2->where('cycle_id', $cycle_id);
             });
         })->sum('price');
         $data['calculation']['calculation_total'] = $data['income_total'] ?? 0 / $data['outcome_total'] ?? 0;

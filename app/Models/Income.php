@@ -10,25 +10,25 @@ class Income extends Model
     use HasFactory;
     protected $table = 'incomes';
     protected $fillable = [
-        'pond_detail_id',
+        'cycle_id',
         'reported_at',
     ];
 
     protected $appends = [
-        'pond_spesies',
+        // 'pond_spesies',
         'total_price',
         'category_name'
     ];
     
-    public function pond_detail()
+    public function cycle()
     {
-        return $this->belongsTo(PondDetail::class, 'pond_detail_id');
+        return $this->belongsTo(Cycle::class, 'cycle_id');
     }
 
-    public function getPondSpesiesAttribute()
-    {
-        return $this->pond_detail()->first()?->pond_spesies??'';
-    }
+    // public function getPondSpesiesAttribute()
+    // {
+    //     return $this->pond_detail()->first()?->pond_spesies??'';
+    // }
 
     public function getTotalPriceAttribute()
     {

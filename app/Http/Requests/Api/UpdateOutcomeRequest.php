@@ -12,13 +12,13 @@ class UpdateOutcomeRequest extends ApiRequest
     public function rules(Request $request)
     {
         return [
-            'pond_detail_id' => 'required|exists:pond_details,id',
+            'cycle_id' => 'required|exists:cycles,id',
             'reported_at' => [
                 'required',
                 'date',
                 Rule::unique('outcomes', 'reported_at')
                     ->where('outcome_category_id', 2)
-                    ->where('pond_detail_id', $request->pond_detail_id)
+                    ->where('cycle_id', $request->cycle_id)
                     ->ignore($this->outcome->id),
             ],
             'outcome_category_id' => 'required|exists:outcome_categories,id',

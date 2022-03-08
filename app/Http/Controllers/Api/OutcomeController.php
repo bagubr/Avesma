@@ -17,11 +17,11 @@ class OutcomeController extends Controller
 {
     public function index(Request $request)
     {
-        $outcome_tetap = Outcome::where('pond_detail_id', $request->pond_detail_id)
+        $outcome_tetap = Outcome::where('cycle_id', $request->cycle_id)
             ->whereHas('outcome_detail.outcome_setting', function ($sq) {
                 $sq->where('outcome_category_id', 1);
             })->orderBy('id', 'desc');
-        $outcomes_lain = Outcome::where('pond_detail_id', $request->pond_detail_id)
+        $outcomes_lain = Outcome::where('cycle_id', $request->cycle_id)
             ->orderBy('reported_at', 'desc')->whereHas('outcome_detail.outcome_setting', function ($sq) {
                 $sq->where('outcome_category_id', 2);
             })->get();
@@ -35,11 +35,11 @@ class OutcomeController extends Controller
     }
     public function outcome_statistic(Request $request)
     {
-        $outcome_tetap = Outcome::where('pond_detail_id', $request->pond_detail_id)
+        $outcome_tetap = Outcome::where('cycle_id', $request->cycle_id)
             ->whereHas('outcome_detail.outcome_setting', function ($sq) {
                 $sq->where('outcome_category_id', 1);
             })->orderBy('id', 'desc');
-        $outcomes_lain = Outcome::where('pond_detail_id', $request->pond_detail_id)
+        $outcomes_lain = Outcome::where('cycle_id', $request->cycle_id)
             ->orderBy('reported_at', 'asc')->whereHas('outcome_detail.outcome_setting', function ($sq) {
                 $sq->where('outcome_category_id', 2);
             })->get();
@@ -54,7 +54,7 @@ class OutcomeController extends Controller
     {
         DB::beginTransaction();
         $outcome = Outcome::create([
-            'pond_detail_id' => $request->pond_detail_id,
+            'cycle_id' => $request->cycle_id,
             'reported_at' => $request->reported_at,
             'outcome_category_id' => $request->outcome_category_id
         ]);
@@ -74,7 +74,7 @@ class OutcomeController extends Controller
     public function update(UpdateOutcomeRequest $request, Outcome $outcome)
     {
         DB::beginTransaction();
-        $data_outcome = $request->only('pond_detail_id', 'reported_at', 'outcome_category_id');
+        $data_outcome = $request->only('cycle_id', 'reported_at', 'outcome_category_id');
         $outcome->update($data_outcome);
         $outcome->refresh();
         foreach ($outcome->outcome_detail as $key) {

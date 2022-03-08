@@ -19,8 +19,8 @@ class OutcomeResource extends JsonResource
             'id' => $this->id,
             "outcome_category_id" => $this->outcome_detail[0]?->outcome_setting->outcome_category_id,
             "outcome_category_name" => $this->outcome_detail[0]?->outcome_setting->outcome_category,
-            "pond_detail_id" => $this->pond_detail_id,
-            "pond_detail_name" => $this->pond_detail->pond->name,
+            "cycle_id" => $this->cycle_id,
+            "cycle_name" => $this->cycle->name,
             "total_nominal" => $this->total_nominal,
             "reported_at" => $this->reported_at,
             "outcome_detail" => OutcomeDetailResource::collection($this->outcome_detail)

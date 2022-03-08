@@ -35,28 +35,28 @@ class CycleController extends Controller
         return $temp_array;
     }
 
-    protected function weekly_list($pond_detail_id = [], $start_date = null, $end_date = null)
+    protected function weekly_list($cycle_id = [], $start_date = null, $end_date = null)
     {
-        $income = Income::select('id', 'reported_at', 'pond_detail_id')
+        $income = Income::select('id', 'reported_at', 'cycle_id')
         ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
             $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
-        ->whereIn('pond_detail_id', $pond_detail_id)->get()->makeHidden(['pond_spesies']);
+        ->where('cycle_id', $cycle_id)->get();
         
-        $outcome = Outcome::select('id', 'reported_at', 'pond_detail_id')
+        $outcome = Outcome::select('id', 'reported_at', 'cycle_id')
         ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
             $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
-        ->whereIn('pond_detail_id', $pond_detail_id)->get()->makeHidden(['outcome_category_name', 'outcome_category']);
+        ->where('cycle_id', $cycle_id)->get()->makeHidden(['outcome_category_name', 'outcome_category']);
 
         $week_merge = array_merge($income->toArray(), $outcome->toArray());
         $weekly = array_map(function ($item)
         {
             $item2['id'] = $item['id'];
             $item2['name'] = 'Minggu '.date('W', strtotime($item['reported_at']));
-            $item2['pond_detail_id'] = $item['pond_detail_id'];
+            $item2['cycle_id'] = $item['cycle_id'];
             $item2['reported_at'] = date('Y-m-d', strtotime($item['reported_at']));
             $item2['start_date'] = date('Y-m-d', strtotime($item['reported_at']));
             $item2['end_date'] = date('Y-m-d', strtotime("+7 day", strtotime($item['reported_at'])));
@@ -107,22 +107,21 @@ class CycleController extends Controller
     public function show($id)
     {
         $cycles = Cycle::withCount('ponds')->findOrFail($id);
-        $ponds = Pond::where('cycle_id', $id)->get();
-        $pond_detail_id = PondDetail::whereIn('pond_id', $ponds->pluck('id'))->get()->pluck('id');
-        $sum_income = IncomeDetail::whereHas('income', function ($q) use ($pond_detail_id) {
-            $q->whereIn('pond_detail_id', $pond_detail_id);
+        $cycle_id = $id;
+        $sum_income = IncomeDetail::whereHas('income', function ($q) use ($cycle_id) {
+            $q->where('cycle_id', $cycle_id);
         })->sum('total_price');
-        $sum_outcome = OutcomeDetail::whereHas('outcome', function ($q) use ($pond_detail_id) {
-            $q->whereIn('pond_detail_id', $pond_detail_id);
+        $sum_outcome = OutcomeDetail::whereHas('outcome', function ($q) use ($cycle_id) {
+            $q->where('cycle_id', $cycle_id);
         })->sum('price');
         $ratio = new IncomeOutcomeController();
         return $this->sendSuccessResponse([
             'sum_income' => (int) $sum_income,
             'sum_outcome' => (int) $sum_outcome,
-            'ratio' => $ratio->incomeOutcome($pond_detail_id)['calculation'],
+            'ratio' => $ratio->incomeOutcome($cycle_id)['calculation'],
             'cycle' => $cycles,
-            'ponds' => PondAndPondDetailResource::collection($ponds),
-            'weekly' => $this->unique_multidim_array($this->weekly_list($pond_detail_id, $cycles['start_at']),'name'),
+            'ponds' => PondAndPondDetailResource::collection(Pond::where('cycle_id', $id)->get()),
+            'weekly' => $this->unique_multidim_array($this->weekly_list($cycle_id, $cycles['start_at']),'name'),
         ]);
     }
 
@@ -137,10 +136,9 @@ class CycleController extends Controller
     public function weekly($id, $date)
     {
         $ponds = Pond::where('cycle_id', $id)->get();
-        $pond_detail_id = PondDetail::whereIn('pond_id', $ponds->pluck('id'))->get()->pluck('id');
         $end_date = date('Y-m-d', strtotime("+7 day", strtotime($date)));
         return $this->sendSuccessResponse([
-            'weekly' => $this->weekly_list($pond_detail_id, $date, $end_date),
+            'weekly' => $this->weekly_list($id, $date, $end_date),
         ]);
     }
 
