@@ -20,52 +20,43 @@ use Illuminate\Support\Facades\DB;
 class CycleController extends Controller
 {
 
-    protected function unique_multidim_array($array, $key) {
-        $temp_array = array();
-        $i = 0;
-        $key_array = array();
-       
-        foreach($array as $val) {
-            if (!in_array($val[$key], $key_array)) {
-                $key_array[$i] = $val[$key];
-                $temp_array[$i] = $val;
-            }
-            $i++;
+    protected function weekly_list($cycle_id = [])
+    {
+        $income = Income::select('id', 'reported_at', 'cycle_id')
+        ->where('cycle_id', $cycle_id);
+        $array = Outcome::select('id', 'reported_at', 'cycle_id')
+        ->where('cycle_id', $cycle_id)->union($income)->orderBy('reported_at')->get()->makeHidden(['outcome_category_name', 'outcome_category'])
+        ->groupBy(function($item) {
+                return Carbon::parse($item->reported_at)->format('W');
+            });
+        $weekly = 1;
+        foreach ($array as $value) {
+            $start_date = Carbon::parse($value[array_key_first($value->toArray())]['reported_at']);
+            $end_date = Carbon::parse($value[array_key_last($value->toArray())]['reported_at']);
+            $data[] = [
+                'week' =>$weekly++,
+                'start_date' => $start_date->startOfWeek()->format('Y-m-d H:i:s'),
+                'end_date' => $end_date->endOfWeek()->format('Y-m-d H:i:s'),
+            ];
         }
-        return $temp_array;
+        return $data;
     }
 
-    protected function weekly_list($cycle_id = [], $start_date = null, $end_date = null)
+    protected function weekly_detail_list($cycle_id = [], $start_date = null, $end_date = null)
     {
         $income = Income::select('id', 'reported_at', 'cycle_id')
         ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
             $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
-        ->where('cycle_id', $cycle_id)->get();
-        
-        $outcome = Outcome::select('id', 'reported_at', 'cycle_id')
+        ->where('cycle_id', $cycle_id);
+        $data = Outcome::select('id', 'reported_at', 'cycle_id')
         ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
             $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
-        ->where('cycle_id', $cycle_id)->get()->makeHidden(['outcome_category_name', 'outcome_category']);
-
-        $week_merge = array_merge($income->toArray(), $outcome->toArray());
-        $weekly = array_map(function ($item)
-        {
-            $item2['id'] = $item['id'];
-            $item2['name'] = 'Minggu '.date('W', strtotime($item['reported_at']));
-            $item2['cycle_id'] = $item['cycle_id'];
-            $item2['reported_at'] = date('Y-m-d', strtotime($item['reported_at']));
-            $item2['start_date'] = date('Y-m-d', strtotime($item['reported_at']));
-            $item2['end_date'] = date('Y-m-d', strtotime("+7 day", strtotime($item['reported_at'])));
-            $item2['category_name'] = $item['category_name'];
-            $item2['total_nominal'] = (isset($item['total_price']))?$item['total_price']:$item['total_nominal'];
-            return $item2;
-        }, $week_merge);
-
-        return $weekly;
+        ->where('cycle_id', $cycle_id)->union($income)->orderBy('reported_at')->get()->makeHidden(['outcome_category_name', 'outcome_category']);
+        return $data;
     }
 
     public function indexFinish(Request $request)
@@ -121,7 +112,7 @@ class CycleController extends Controller
             'ratio' => $ratio->incomeOutcome($cycle_id)['calculation'],
             'cycle' => $cycles,
             'ponds' => PondAndPondDetailResource::collection(Pond::where('cycle_id', $id)->get()),
-            'weekly' => $this->unique_multidim_array($this->weekly_list($cycle_id, $cycles['start_at']),'name'),
+            'weekly' => $this->weekly_list($cycle_id),
         ]);
     }
 
@@ -136,9 +127,10 @@ class CycleController extends Controller
     public function weekly($id, $date)
     {
         $ponds = Pond::where('cycle_id', $id)->get();
-        $end_date = date('Y-m-d', strtotime("+7 day", strtotime($date)));
+        $start_date = Carbon::parse($date)->startOfWeek()->format('Y-m-d H:i:s');
+        $end_date = Carbon::parse($date)->endOfWeek()->format('Y-m-d H:i:s');
         return $this->sendSuccessResponse([
-            'weekly' => $this->weekly_list($id, $date, $end_date),
+            'weekly' => $this->weekly_detail_list($id, $start_date, $end_date),
         ]);
     }
 
