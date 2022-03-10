@@ -63,7 +63,7 @@ Route::get('share', [ShareController::class, 'index']);
 
 Route::get('markets', [MarketController::class, 'index']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'apikey'])->group(function () {
 
     Route::get('article', [ArticleController::class, 'index']);
     Route::get('article/{id}', [ArticleController::class, 'show']);
