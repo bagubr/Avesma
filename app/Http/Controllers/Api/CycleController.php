@@ -30,6 +30,7 @@ class CycleController extends Controller
                 return Carbon::parse($item->reported_at)->format('W');
             });
         $weekly = 1;
+        $data = [];
         foreach ($array as $value) {
             $start_date = Carbon::parse($value[array_key_first($value->toArray())]['reported_at']);
             $end_date = Carbon::parse($value[array_key_last($value->toArray())]['reported_at']);
@@ -39,23 +40,25 @@ class CycleController extends Controller
                 'end_date' => $end_date->endOfWeek()->format('Y-m-d H:i:s'),
             ];
         }
-        return $data??[];
+        return $data;
     }
 
-    protected function weekly_detail_list($cycle_id = [], $start_date = null, $end_date = null)
+    protected function weekly_detail_list($cycle_id = null, $start_date = null, $end_date = null)
     {
         $income = Income::select('id', 'reported_at', 'cycle_id')
         ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
             $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
-        ->where('cycle_id', $cycle_id);
-        $data = Outcome::select('id', 'reported_at', 'cycle_id')
+        ->where('cycle_id', $cycle_id)->get();
+        $outcome = Outcome::select('id', 'reported_at', 'cycle_id')
         ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
             $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
-        ->where('cycle_id', $cycle_id)->union($income)->orderBy('reported_at')->get()->makeHidden(['outcome_category_name', 'outcome_category']);
+        ->where('cycle_id', $cycle_id)->orderBy('reported_at')->get()->makeHidden(['outcome_category_name', 'outcome_category']);
+        $data = array_merge($income->toArray(), $outcome->toArray());
+        usort($data, fn ($a, $b) => strtotime($b["reported_at"]) - strtotime($a["reported_at"]));
         return $data;
     }
 
@@ -139,7 +142,6 @@ class CycleController extends Controller
         $ponds = Pond::where('cycle_id', $id)->get();
         $pond_detail_id = PondDetail::whereIn('pond_id', $ponds->pluck('id'))->get()->pluck('id');
         $data = $this->weekly_list($pond_detail_id);
-        usort($data, fn ($a, $b) => strtotime($b["reported_at"]) - strtotime($a["reported_at"]));
         $ratio_history = [];
         $income_total = 0;
         $outcome_total = 0;
