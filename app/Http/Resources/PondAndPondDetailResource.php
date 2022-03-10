@@ -20,6 +20,7 @@ class PondAndPondDetailResource extends JsonResource
             'pond_spesies' => $this->pond_detail->pond_spesies,
             'pond_detail_id' => $this->pond_detail->id,
             'area' => $this->area,
+            'status' => $this->status,
             'seed_count' => $this->pond_detail->seed_count,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
