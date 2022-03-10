@@ -30,7 +30,7 @@ class PondDetailProductController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'pond_detail_id' => 'required',
+            'cycle_id' => 'required',
             'name' => 'required'
         ]);
         if ($validator->fails()) {

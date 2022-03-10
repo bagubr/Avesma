@@ -10,7 +10,7 @@ class PondDetailProduct extends Model
     use HasFactory;
 
     protected $fillable = [
-        'pond_detail_id',
+        'cycle_id',
         'name'
     ];
 
@@ -23,8 +23,8 @@ class PondDetailProduct extends Model
         return $this->name;
     }
 
-    public function pond_detail() {
-        return $this->belongsTo(PondDetail::class);
+    public function cycle() {
+        return $this->belongsTo(Cycle::class);
     }
 
     public function getCreatedAtAttribute($value)

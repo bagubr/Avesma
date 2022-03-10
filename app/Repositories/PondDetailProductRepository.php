@@ -10,8 +10,8 @@ class PondDetailProductRepository {
     }
 
     private static function queryGet(array $filter = []) {
-        return PondDetailProduct::when(@$filter['pond_detail_id'], function($query) use ($filter) {
-            $query->where('pond_detail_id', $filter['pond_detail_id']);
+        return PondDetailProduct::when(@$filter['cycle_id'], function($query) use ($filter) {
+            $query->where('cycle_id', $filter['cycle_id']);
         })
         ->when(@$filter['name'], function($query) use ($filter) {
             $query->where('name', 'ilike', '%'.$filter['name'].'%');
