@@ -45,12 +45,12 @@ class CycleController extends Controller
 
     protected function weekly_detail_list($cycle_id = null, $start_date = null, $end_date = null)
     {
-        $income = Income::select('id', 'reported_at', 'cycle_id', 'total_price as total_nominal')
+        $income = Income::select('id', 'reported_at', 'cycle_id')
         ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
             $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
-        ->where('cycle_id', $cycle_id)->get();
+        ->where('cycle_id', $cycle_id)->get()->makeHidden(['total_price']);
         $outcome = Outcome::select('id', 'reported_at', 'cycle_id')
         ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
