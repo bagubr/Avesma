@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 class CycleController extends Controller
 {
 
-    protected function weekly_list($cycle_id = [])
+    protected function weekly_list($cycle_id = null)
     {
         $income = Income::select('id', 'reported_at', 'cycle_id')
         ->where('cycle_id', $cycle_id);
@@ -141,7 +141,7 @@ class CycleController extends Controller
     {
         $ponds = Pond::where('cycle_id', $id)->get();
         $pond_detail_id = PondDetail::whereIn('pond_id', $ponds->pluck('id'))->get()->pluck('id');
-        $data = $this->weekly_list($pond_detail_id);
+        $data = $this->weekly_detail_list($id);
         $ratio_history = [];
         $income_total = 0;
         $outcome_total = 0;
