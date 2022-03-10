@@ -30,6 +30,7 @@ class CycleController extends Controller
                 return Carbon::parse($item->reported_at)->format('W');
             });
         $weekly = 1;
+        $data = [];
         foreach ($array as $value) {
             $start_date = Carbon::parse($value[array_key_first($value->toArray())]['reported_at']);
             $end_date = Carbon::parse($value[array_key_last($value->toArray())]['reported_at']);
@@ -39,7 +40,7 @@ class CycleController extends Controller
                 'end_date' => $end_date->endOfWeek()->format('Y-m-d H:i:s'),
             ];
         }
-        return $data??[];
+        return $data;
     }
 
     protected function weekly_detail_list($cycle_id = [], $start_date = null, $end_date = null)
