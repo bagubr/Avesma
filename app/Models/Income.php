@@ -17,6 +17,7 @@ class Income extends Model
     protected $appends = [
         // 'pond_spesies',
         'total_price',
+        'total_nominal',
         'category_name'
     ];
     
@@ -31,6 +32,11 @@ class Income extends Model
     // }
 
     public function getTotalPriceAttribute()
+    {
+        return $this->income_detail()->get()->sum('total_price');
+    }
+
+    public function getTotalNominalAttribute()
     {
         return $this->income_detail()->get()->sum('total_price');
     }

@@ -50,7 +50,7 @@ class CycleController extends Controller
         {
             $query->whereBetween('reported_at', [$start_date, $end_date]);
         })
-        ->where('cycle_id', $cycle_id)->get();
+        ->where('cycle_id', $cycle_id)->get()->makeHidden(['total_price']);
         $outcome = Outcome::select('id', 'reported_at', 'cycle_id')
         ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
         {
