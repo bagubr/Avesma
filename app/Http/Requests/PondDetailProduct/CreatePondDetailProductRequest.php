@@ -24,7 +24,7 @@ class CreatePondDetailProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'pond_detail_id' => 'required',
+            'cycle_id' => 'required',
             'name' => 'required'
         ];
     }
