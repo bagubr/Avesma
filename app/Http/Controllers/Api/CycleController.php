@@ -39,7 +39,7 @@ class CycleController extends Controller
                 'end_date' => $end_date->endOfWeek()->format('Y-m-d H:i:s'),
             ];
         }
-        return $data;
+        return $data??[];
     }
 
     protected function weekly_detail_list($cycle_id = [], $start_date = null, $end_date = null)
