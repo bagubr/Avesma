@@ -37,7 +37,13 @@ class Cycle extends Model
 
     public function getStartAtForHummanAttribute()
     {
-        return Carbon::createFromFormat('Y-m-d', $this->start_at)->diffForHumans();
+        setlocale(LC_TIME, 'id_ID');
+        Carbon::setLocale('id');
+        $hours = date("H", strtotime($this->created_at));
+        $minute = date("i", strtotime($this->created_at));
+        $second = date("s", strtotime($this->created_at));
+
+        return Carbon::createFromFormat('Y-m-d', $this->start_at)->setTime($hours, $minute, $second)->diffForHumans();
     }
 
     public function getCreatedAtAttribute($value)
