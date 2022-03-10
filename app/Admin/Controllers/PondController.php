@@ -49,20 +49,21 @@ class PondController extends AdminController
         $grid->quickSearch('name');
         $grid->column('name', __('Nama Kolam'));
         $grid->column('user.name', __('User'));
+        $grid->column('cycle.name', __('Siklus'))->default('Tidak Ada Siklus');
         $grid->column('pond_detail.pond_spesies', __('Jenis Ikan'));
         $grid->column('pond_detail.seed_count', __('Jumlah Pakan'));
         $grid->column('area', __('Luas Area'))->display(function ($area)
         {
             return $area. ' m<sup>2</sup>';
         });
-        $grid->column('latitude', __('Latitude'));
+        $grid->column('latitude', __('Latitude')); 
         $grid->column('longitude', __('Longitude'));
         $grid->column('address', __('Address'));
         $grid->column('status', __('Status'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
         $grid->column('total_pengeluaran', __('Pengeluaran'))->default('Pengeluaran')->expand(function ($model) {
-            $outcomes = Outcome::with('outcome_detail')->where('pond_detail_id', $model->pond_detail->id)->orderBy('id', 'desc')->get()->map(function ($outcome) {
+            $outcomes = Outcome::with('outcome_detail')->where('cycle_id', $model->cycle_id)->orderBy('id', 'desc')->get()->map(function ($outcome) {
                 $data = $outcome->outcome_detail->map(function ($outcome_detail)
                 {
                     return $outcome_detail->only(['outcome_name', 'price']);
@@ -70,11 +71,10 @@ class PondController extends AdminController
                 $outcome->outcome_detail = $this->convertStringOutcome(json_decode($data, 1));
                 return $outcome->only(['id', 'outcome_category_name', 'total_nominal', 'outcome_detail', 'reported_at']);
             });
-            // dd($outcome->outcome_detail);
             return new Table(['ID', 'Pengeluaran', 'Total Nominal', 'Detail Laporan', 'Laporan Pada'], $outcomes->toArray());
         });
         $grid->column('total_pemasukan', __('Pemasukan'))->default('Pemasukan')->expand(function ($model) {
-            $incomes = Income::with('income_detail')->where('pond_detail_id', $model->pond_detail->id)->orderBy('id', 'desc')->get()->map(function ($income) {
+            $incomes = Income::with('income_detail')->where('cycle_id', $model->cycle_id)->orderBy('id', 'desc')->get()->map(function ($income) {
                 $data = $income->income_detail->map(function ($income_detail)
                 {
                     return $income_detail->only(['product_name', 'price', 'weight', 'total_price']);
