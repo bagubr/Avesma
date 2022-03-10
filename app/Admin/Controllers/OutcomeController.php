@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Cycle;
 use App\Models\Outcome;
 use App\Models\OutcomeCategory;
 use App\Models\OutcomeDetail;
@@ -30,8 +31,14 @@ class OutcomeController extends AdminController
     {
         $grid = new Grid(new Outcome());
 
+        $grid->filter(function($filter){
+            $filter->disableIdFilter();
+            $filter->ilike('cycle.name', 'Siklus');
+        
+        });
+
         $grid->model()->orderBy('id', 'desc');
-        $grid->column('pond_detail.pond_spesies', __('Kolam Ikan'));
+        $grid->column('cycle.name', __('Nama Siklus'))->default('Tidak ada Siklus');
         $grid->column('total_nominal', __('Total nominal'));
         $grid->column('outcome_category_name', __('Kategory Pengeluaran'));
         $grid->column('created_at', __('Created at'));
@@ -49,7 +56,7 @@ class OutcomeController extends AdminController
     protected function detail($id)
     {
         $show = new Show(Outcome::findOrFail($id));
-        $show->field('pond_detail.pond_spesies', __('Kolam Ikan'));
+        $show->field('cycle.name', __('Nama Siklus'));;
         $show->field('total_nominal', __('Total nominal'));
         $show->field('outcome_category_name', __('Kategory Pengeluaran'));
         $show->field('created_at', __('Created at'));
@@ -68,7 +75,7 @@ class OutcomeController extends AdminController
         $form = new Form(new Outcome());
 
         $form->column(1/2, function ($form) {
-            $form->select('pond_detail_id', __('Kolam Ikan'))->options(PondDetail::get()->pluck('text', 'id'))->required();
+            $form->select('cycle_id', __('Siklus'))->options(Cycle::get()->pluck('name', 'id'))->required();
             $form->date('reported_at', __('Reported At'))->required()->default(date('Y-m-d H:i:s'));
             $form->select('outcome_category_id', 'Kategori Pengeluaran')->options(OutcomeCategory::get()->pluck('name', 'id'))->required()->load('outcome_setting_id','/admin/outcome-settings/get_by_outcome_category_id');
             // $form->currency('total_nominal', __('Total nominal'))->required();
