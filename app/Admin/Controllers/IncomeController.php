@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Cycle;
 use App\Models\Income;
 use App\Models\PondDetail;
 use App\Models\PondDetailProduct;
@@ -29,11 +30,10 @@ class IncomeController extends AdminController
         $grid = new Grid(new Income());
         $grid->filter(function($filter){
             $filter->disableIdFilter();
-            $filter->ilike('pond_detail.pond.name', 'Kolam');
-            $filter->ilike('pond_detail.fish_species.name', 'Spesies Ikan');
+            $filter->ilike('cycle.name', 'Siklus');
         
         });        
-        $grid->column('pond_spesies', __('Kolam Ikan'));
+        $grid->column('cycle.name', __('Nama Siklus'))->default('Tidak ada Siklus');
         $grid->column('reported_at', __('Reported at'));
         $grid->column('total_price', __('Total Pendapatan'));
         $grid->column('created_at', __('Created at'));
@@ -51,7 +51,7 @@ class IncomeController extends AdminController
     {
         $show = new Show(Income::findOrFail($id));
 
-        $show->field('pond_spesies', __('Kolam Ikan'));
+        $show->field('cycle.name', __('Nama Siklus'));
         $show->field('reported_at', __('Reported at'));
         $show->field('total_price', __('Total Pendapatan'));
         $show->field('created_at', __('Created at'));
@@ -84,7 +84,7 @@ class IncomeController extends AdminController
     {
         $form = new Form(new Income());
 
-        $form->select('pond_detail_id', __('Kolam Ikan'))->options(PondDetail::get()->pluck('pond_spesies', 'id'))->load('pond_detail_product_id', '/admin/pond-detail-product/get_by_pond_detail')->rules('required');
+        $form->select('cycle_id', __('Siklus'))->options(Cycle::get()->pluck('name', 'id'))->load('pond_detail_product_id', '/admin/pond-detail-product/get_by_pond_detail')->rules('required');
         $form->datetime('reported_at', __('Reported at'))->default(date('Y-m-d H:i:s'))->rules('required');
         
         $form->hasMany('income_detail', 'Pendapatan', function (Form\NestedForm $form) {

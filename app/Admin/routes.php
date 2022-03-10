@@ -65,4 +65,5 @@ Route::group([
     $router->resource('customer-services', CustomerServiceController::class);
     $router->resource('versions', VersionController::class);
     $router->resource('home-sliders', HomeSliderController::class);
+    $router->resource('cycles', CycleController::class);
 });
