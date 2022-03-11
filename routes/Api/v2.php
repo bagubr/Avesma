@@ -63,8 +63,7 @@ Route::get('test-notification', function () {
             $query->where('procedure_id', $value->id);
         })->get()->pluck('user_id');
         $user = User::whereNotIn('user_id', $user_id)->whereNotNull('fcm_token')->get();
-        // dd($user);
-        return NotificationService::sendSome('Test', 'Coba', $user, $value);
+        NotificationService::sendSome('Remainder ' . $value->title, 'Jangan lupa untuk melakukan pemeriksaan kolam anda', $user, $value);
     }
 });
 
