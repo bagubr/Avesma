@@ -34,7 +34,11 @@ use App\Http\Controllers\Api\ShareController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PondHarvestController;
 use App\Models\Buyer;
+use App\Models\FormProcedureInputUser;
+use App\Models\Procedure;
 use App\Models\TermAndCondition;
+use App\Models\User;
+use App\Services\NotificationService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +54,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('login', function () {
     return "Login";
+});
+Route::get('test-notification', function () {
+    $procedure = Procedure::get();
+    foreach ($procedure as $key => $value) {
+        $user_id = FormProcedureInputUser::whereHas('form_procedure', function ($query) use ($value)
+        {
+            $query->where('procedure_id', $value->id);
+        })->get()->pluck('user_id');
+        $user = User::whereNotIn('user_id', $user_id)->whereNotNull('fcm_token')->get();
+        // dd($user);
+        return NotificationService::sendSome('Test', 'Coba', $user, $value);
+    }
 });
 
 Route::post('register', [AuthController::class, 'register']);
