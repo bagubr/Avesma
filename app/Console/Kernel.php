@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('procedure:remainder')->daily();
+        // $schedule->command('procedure:longterm')->everyMinute();
         $schedule->command('procedure:longterm')->monthly();
     }
 
