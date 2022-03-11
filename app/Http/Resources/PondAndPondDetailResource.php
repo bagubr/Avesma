@@ -24,6 +24,7 @@ class PondAndPondDetailResource extends JsonResource
             'seed_count' => $this->pond_detail->seed_count,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
+            "pond_detail" => $this->pond_detail,
         ];
     }
 }
