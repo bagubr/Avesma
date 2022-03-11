@@ -15,7 +15,7 @@ class ProcedureReminder extends Command
      *
      * @var string
      */
-    protected $signature = 'procedure:reminders';
+    protected $signature = 'procedure:remainder';
 
     /**
      * The console command description.
@@ -47,7 +47,7 @@ class ProcedureReminder extends Command
             $query->where('procedure_id', $procedure->id);
         })->get()->pluck('user_id');
         $user = User::whereNotIn('user_id', $user_id)->whereNotNull('fcm_token')->get();
-        NotificationService::sendSome('Remainder ' . $procedure->title, 'Jangan lupa untuk melakukan pemeriksaan kolam anda', $user, $procedure);
+        NotificationService::sendSome('Remainder ' . $procedure->title, 'Segera Lengkapi Form '. $procedure->title.' Anda untuk Tetap Monitor dengan AVESMA', $user, $procedure);
         return $this->warn('Succesfully send notification');
     }
 }
