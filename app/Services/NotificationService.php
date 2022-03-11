@@ -26,11 +26,15 @@ class NotificationService {
             'user_id' => $user->id
         ];
         if($user->fcm_token){
-            $message = CloudMessage::withTarget('token', $user->fcm_token)
-            ->withNotification($data)
-                ->withData($data)
-            ;
-            $messaging->send($message);
+            try {
+                $message = CloudMessage::withTarget('token', $user->fcm_token)
+                ->withNotification($data)
+                    ->withData($data)
+                ;
+                $messaging->send($message);
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         }
         return Notification::create($data);
     }
@@ -52,11 +56,15 @@ class NotificationService {
                 'updated_at'=> now()->toDateTimeString(),
             ];
             $data[] = $item;
-            $message = CloudMessage::withTarget('token', $value->fcm_token)
-                ->withNotification($item)
-                    ->withData($item)
-                ;
-            $messaging->send($message);
+            try {
+                $message = CloudMessage::withTarget('token', $value->fcm_token)
+                    ->withNotification($item)
+                        ->withData($item)
+                    ;
+                $messaging->send($message);
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         }
         $chunks = array_chunk($data, 5000);
         foreach ($chunks as $value) {
@@ -87,15 +95,18 @@ class NotificationService {
         foreach ($chunks as $value) {
             Notification::insert($value);
         }
-
-        $message = CloudMessage::withTarget('topic', $topic)
-            ->withNotification([
-                'title' => $title,
-                'body'  => $body
-            ]) // optional
-            ->withData($data[0]) // optional
-        ;
-        $messaging->send($message);
+        try {
+            $message = CloudMessage::withTarget('topic', $topic)
+                ->withNotification([
+                    'title' => $title,
+                    'body'  => $body
+                ]) // optional
+                ->withData($data[0]) // optional
+            ;
+            $messaging->send($message);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }
         
