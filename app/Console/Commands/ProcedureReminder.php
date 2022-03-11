@@ -2,6 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\FormProcedureInputUser;
+use App\Models\Procedure;
+use App\Models\User;
+use App\Services\NotificationService;
 use Illuminate\Console\Command;
 
 class ProcedureReminder extends Command
@@ -37,6 +41,13 @@ class ProcedureReminder extends Command
      */
     public function handle()
     {
+        $procedure = Procedure::inRandomOrder()->first();
+        $user_id = FormProcedureInputUser::whereHas('form_procedure', function ($query) use ($procedure)
+        {
+            $query->where('procedure_id', $procedure->id);
+        })->get()->pluck('user_id');
+        $user = User::whereNotIn('user_id', $user_id)->whereNotNull('fcm_token')->get();
+        NotificationService::sendSome('Remainder ' . $procedure->title, 'Jangan lupa untuk melakukan pemeriksaan kolam anda', $user, $procedure);
         return $this->warn('Succesfully send notification');
     }
 }
