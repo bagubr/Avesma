@@ -40,7 +40,7 @@ class NotificationService {
         $messaging = app('firebase.messaging');
         $data = [];
         foreach ($user as $value) {
-            $data[] = [
+            $item = [
                 'title'     => $title,
                 'body'      => $body,
                 'user_id'   => $value->id,
@@ -51,9 +51,10 @@ class NotificationService {
                 'created_at'=> now()->toDateTimeString(),
                 'updated_at'=> now()->toDateTimeString(),
             ];
+            $data[] = $item;
             $message = CloudMessage::withTarget('token', $value->fcm_token)
-                ->withNotification($data)
-                    ->withData($data)
+                ->withNotification($item)
+                    ->withData($item)
                 ;
             $messaging->send($message);
         }
