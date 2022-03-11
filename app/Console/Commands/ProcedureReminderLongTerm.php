@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Procedure;
 use App\Services\NotificationService;
 use Illuminate\Console\Command;
 
@@ -38,7 +39,8 @@ class ProcedureReminderLongTerm extends Command
      */
     public function handle()
     {
-        NotificationService::sendToTopic('Remainder', 'Segera Update Siklus Budidaya Anda dan Evaluasi Hasil Budidaya Dengan Mudah Bersama AVESMA', 'remainder-long-term', null);
+        $procedure = Procedure::inRandomOrder()->first();
+        NotificationService::sendToTopic('Remainder', 'Segera Update Siklus Budidaya Anda dan Evaluasi Hasil Budidaya Dengan Mudah Bersama AVESMA', 'remainder-long-term', $procedure);
         return $this->warn('Succesfully send notification');
     }
 }
