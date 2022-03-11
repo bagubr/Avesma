@@ -51,7 +51,7 @@ class NotificationService {
                 'created_at'=> now()->toDateTimeString(),
                 'updated_at'=> now()->toDateTimeString(),
             ];
-            $message = CloudMessage::withTarget('token', $user->fcm_token)
+            $message = CloudMessage::withTarget('token', $value->fcm_token)
                 ->withNotification($data)
                     ->withData($data)
                 ;
