@@ -23,7 +23,7 @@ class ProcedureUserResource extends JsonResource
             "form_procedure_id" => $this->form_procedure_id,
             "form_procedure_name" => $this->form_procedure?->fish_and_procedure,
             "total_score" => $this->form_procedure_detail_input->sum('score'),
-            "parameter" => $this->getFormula($this->form_procedure_id, $this->form_procedure_detail_input->sum('score'))->note,
+            "parameter" => $this->getFormula($this->form_procedure_id, $this->form_procedure_detail_input->sum('score'))?->note??'',
             "reported_at" => $this->reported_at,
             "procedure_details" => ProcedureDetailResource::collection($this->form_procedure_detail_input)
         ];

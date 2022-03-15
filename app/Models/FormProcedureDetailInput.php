@@ -23,7 +23,7 @@ class FormProcedureDetailInput extends Model
         parent::boot();
         static::creating(function ($model)
         {
-            $model->score = FormProcedureDetailFormula::find($model->form_procedure_detail_formula_id)->score;
+            $model->score = FormProcedureDetailFormula::find($model->form_procedure_detail_formula_id)?->score??'SCORE TIDAK DITEMUKAN';
         });
     }
 
