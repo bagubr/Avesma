@@ -47,7 +47,7 @@ class FormProcedure extends Model
 
     public function getFishAndProcedureAttribute()
     {
-        return $this->procedure()->first()->title . ' - ' . $this->fish_species()->first()->name;
+        return $this->procedure()?->first()?->title??'' . ' - ' . $this->fish_species()?->first()?->name??'';
     }
 
     public function form_procedure_detail()
