@@ -42,7 +42,7 @@ class FormProcedure extends Model
 
     public function getFishSpeciesNameAttribute()
     {
-        return $this->fish_species()->first()->name;
+        return $this->fish_species()?->first()?->name??'';
     }
 
     public function getFishAndProcedureAttribute()
