@@ -45,6 +45,7 @@ class PondHarvestController extends Controller
                 'harvest_at' => $request->harvest_at,
                 'status' => PondHarvest::STATUS1,
                 'description' => $request->description,
+                'fish_per_kilogram' => $request->fish_per_kilogram,
                 'weight' => $request->weight,
                 'image' =>  $request->file('image')->store('images', ['disk' => 'public'])
             ]
