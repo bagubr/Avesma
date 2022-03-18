@@ -28,7 +28,7 @@ class FormProcedureFormula extends Model
 
     public function getProcedureTitleAttribute()
     {
-        return $this->form_procedure()->first()->procedure()->first()->title;
+        return $this->form_procedure()?->first()?->procedure()?->first()?->title??'';
     }
 
     public function getFishAndProcedureAttribute()
