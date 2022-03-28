@@ -33,7 +33,7 @@ class FormProcedureFormula extends Model
 
     public function getFishAndProcedureAttribute()
     {
-        return $this->form_procedure()->first()->fish_and_procedure;
+        return $this->form_procedure()?->first()?->fish_and_procedure??'';
     }
 
     public function getCreatedAtAttribute($value)
