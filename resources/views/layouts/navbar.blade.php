@@ -2,6 +2,7 @@
     <div class="container">
         <a class="navbar-brand" href="{{route('home')}}">
             <img src="{{asset('asset/logo-avesma-undip-01.png')}}" class="img-fluid navbar-brand" />
+            <img src="{{asset('asset/NWO logo - RGB.jpg')}}" class="img-fluid navbar-brand" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
